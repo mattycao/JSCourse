@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head lang="'en">
+    <meta charset="utf-8">
+    <title>Table</title>
+    <style type="text/css">
+        body, div {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        #tab {
+            margin: 10px auto;
+            border: 1px solid red;
+            width: 900px;
+            background-color: aqua;
+        }
+        #tab .row {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .row .col {
+            float: left;
+            width: 100px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="tab"></div>
+</body>
+<script type="text/javascript">
+    var tab1 = document.getElementById('tab');
+    var html = '';
+    for(var i = 1; i <= 9; i++) {
+        html += '<div class = "row">';
+        for(var j = 1; j <= i; j++) {
+            html += '<div class ="col">' + j + ' * ' + i + " = " + (i*j) + '</div>';
+        }
+        html += '</div>';
+    }
+    tab1.innerHTML = html;
+</script>
+</html>

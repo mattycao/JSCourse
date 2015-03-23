@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Css usage</title>
+    <link rel="stylesheet" href="index.css"/>
+    <style>
+        div {
+            cursor: pointer;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+    <!--css is running in the head of html page, because html is loaded from top to bottom. It would be better load the css first, then build the styled html page-->
+    <!--The inline style, reference style, -->
+    <script>
+        // a way to put the js in the head 1） window.onload
+        window.onload = function () {
+            // after all the elements and css and images, and text loaded, then load the js files function. And onload can only be used once, and refer the last one appears.
+            var ob = document.getElementById('div1');
+            ob.onclick = function () {
+                alert('Miao');
+            }
+        }
+        // 2) $(document).ready( function() { dom elements is ready then run, besides, can be runned in multiple time in the document
+        // short for $(function() {}, for the mobile framework, the zepto is pretty the same
+    </script>
+
+</head>
+<body>
+<div style="width: 100px; height: 100px; background-color: #f00;"></div>
+<div id="div1"></div>
+<script>
+    //    refer as embedded way, and outfile reference
+    //    the code inside the script:src is not valid and not running.
+
+
+    //Here, several ways to output the content in html page
+    //    1) alert
+    //    2) console.log
+    //    3) innerHTML
+    //    4) document.write()
+</script>
+<script src="index.js"></script>
+<!--js can be put in any position in the html page. However, js normally is used to manipulate the html elements, so it would be better put in the back of body element.-->
+
+</body>
+</html>

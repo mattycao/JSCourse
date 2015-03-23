@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Use native dom</title>
+    <style type="text/css">
+        #div1{
+            height: 100px;
+            width: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" style="background-color:red;"></div>
+<script>
+    var str = '2014-9-29 15:41:12';
+    function timer(str) {
+        var data = str.split(/[- :]/);
+        console.log(data);
+        for(var i = 0; i < data.length; i++) {
+            if(parseInt(data[i]) <10) {
+                data[i] = '0' + data[i];
+                console.log('really?');
+            }
+
+        }
+        data[0]+= '年';
+        data[1] += '月';
+        data[2] += '日 ';
+        data[3] += '点';
+        data[4] += '分';
+        data[5] += '秒';
+        console.log(data);
+        return data.join('');
+    }
+
+    console.log(timer(str));
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mutiple Table</title>
+    <style type="text/css">
+        body, div {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        #table {
+            margin: 10px auto;
+            width: 900px;
+            border: 1px solid black;
+        }
+
+        .row {
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .row .col {
+            float: left;
+            width: 100px;
+            height: 30px;
+        }
+        .c1 {
+            background-color: pink;
+        }
+
+        .c2 {
+            background-color: blue;
+        }
+
+        .c3 {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="table">
+</div>
+<script>
+    var table = document.getElementById('table');
+    var con = '';
+    var color = '';
+    for(var i = 1; i <= 9; i++) {
+        switch(i % 3){
+            case 0:
+                color = 'c3';
+                break;
+            case 1:
+                color = 'c1';
+                break;
+            default:
+                color = 'c2';
+
+        }
+        con+= "<div class = 'row " + color + "'>";
+
+        for(var j = 1; j <= i; j++) {
+            con+= "<div class = 'col'>" + j + ' * ' + i + " = " + (j * i) + "</div>";
+        }
+        con+="</div>";
+    }
+    table.innerHTML = con;
+</script>
+</body>
+</html>

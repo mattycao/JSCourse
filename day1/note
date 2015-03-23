@@ -1,0 +1,203 @@
+The JS DATA TYPE:
+1. basic variable type: number, boolean, string, null, undefined
+2. reference type: object and function
+3. in the number, there is one special called NaN,
+    NaN == NaN ( return false)
+    isNaN()
+    number + undefined = NaN
+    And the NaN may be shown when other type want transfer to number:
+    1) strong transfer: Number(other type), if not a valid, must return NaN
+    2) weak transfer: parseInt(), parseFloat(), parse from left to right, return the valid one up till now.
+The JS OBJECT AND FUNCTION
+1. {}, ways to build the object(literal way and constructor with the key word new)
+2. Every object is paired with many key and value.
+3. The parameter is not given, then an undefined value will be given.
+3. arguments: index by number, the length, callee(function itself, suggest not use it), caller(removed)
+THE JS VALUE TEST:
+1. document.getElementsByTagName return a array-like object.
+2. in the return object, we can access it by olist[index] or by olist.item(index). Only in the dom elements.
+3. dom.style, the details of style only shows the style defined inline.
+4. in switch, the value comparison is using the strict comparison.
+5. ==, do the implicit strong transfer to do the comparison
+6. === check the type and value, don't transfer
+
+THE ARRAY
+1. array is a object and have 12 methods included.
+2. 1) concat, produce new array, and join new elements or new array.
+   2) push(return the new length), pop(return the value/undefined), shift, unshift(return the new length),
+   3) slice(start, end), shallow copy(old and new array both refer to the same object), produce new object but refer to the same one
+   4) splice(n, m, elements), from n remove m elements and add the following elements, return the deleted elements in array but the original array is also changed
+   5) join, return string, separater default is  comma. toString is join(',')
+   6) sort(function(a,b){a-b} // increasing) , reverse()(reverse the original one)
+   7) arr.indexOf(searchElement[, fromIndex = 0]), from ie 9(standord browser), return index or -1 if not exists
+
+SPECIAL CASE OF ISNAN:
+isNaN(NaN);       // true
+isNaN(undefined); // true
+isNaN({});        // true
+
+isNaN(true);      // false
+isNaN(null);      // false
+isNaN(37);        // false
+
+// strings
+isNaN("37");      // false: "37" is converted to the number 37 which is not NaN
+isNaN("37.37");   // false: "37.37" is converted to the number 37.37 which is not NaN
+isNaN("");        // false: the empty string is converted to 0 which is not NaN
+isNaN(" ");       // false: a string with spaces is converted to 0 which is not NaN
+
+// dates
+isNaN(new Date());                // false
+isNaN(new Date().toString());     // true
+
+// This is a false positive and the reason why isNaN is not entirely reliable
+isNaN("blabla")   // true: "blabla" is converted to a number.
+                  // Parsing this as a number fails and returns NaN
+
+STRING:
+1. using the \ to escape some characters like "
+2. typeof '12' string
+   typeof (1+undefined) number
+   typeof [] object
+   typeof null object
+   typeof undefined undefined
+
+
+DATA TRANSFER:
+1. boolean -> number -> object -> string
+2. digital + null = digital, null is equal to 0 here
+3. NaN + 'a" = NaNa
+4. string + [] = string //string
+5. string + {} = string[object Object] //string
+6. digital + {} = digital[object Object] //string
+7. digital + [] = digital //string
+8. 1 + [1,2,3] = 11,2,3 // both transfer to string
+9. 'a' + null = anull //string
+10. 'a' + undefined = aundefined //string also
+11. {} + [] = 0
+12. {} + null = 0;
+13. {} + undefined = NaN
+14. [] + null = null //string
+
+ DATA COMPARISON
+ 1. ({} == '[object Object]' )//true object compare with string, object transfer to string
+ 2. [] == '' true'
+ 3. ([] == true) // false [] transfer to string then using the Number('') = 0
+ 4. so compare object and boolean, object transfer to string then using the Number do the strong number transfer
+ 5. object and digital, transfer the object and then do the comparison
+ 6. digital and boolean, boolean transfers to number first and do the comparison
+ 7. boolean and string, transfer to number null == undefined,
+ 8. null and undefined compare with other type of data type is false
+    null == 0 //false
+    null == ''//false
+    undefined == 0 //false
+ 9. number and string: both transfer to number and do the comparison
+ 10. self do the boolean condition:
+    1) for the number, only 0 and NaN is false
+    2) for string, the '' is null
+    3) null and undefined is false
+    for summary, 0 NaN '' null undefined, is false
+
+MATH 5
+1. Math.ceil() floor + 1, transfer inside
+2. Math.floor()
+3. Math.round()
+4. Math.abs()
+5. Math,random()
+for the random number produce, get n - m, using the following,
+    Math.round(Math.random()*(m - n) + n)
+
+String 10
+1. charAt() return '' if not exists with negative or larger index
+2. slice the index number inside can be negative
+3. substring(), like slice, not support negative
+   substr() from n, find m's element, support negative
+4. indexOf, lastIndexOf, indexOf(' ', index)
+5. toLowerCase, toUpperCase
+6. split(), by the separator into an new array, an new index is optional for limit the size of the array
+7.replace(),
+8. charCodeAt()
+
+Dom 8 method:
+1. document.getElementByID()
+    // 1) if id is replicated, choose the first one
+       2) in ie6 and ie7, id is not case senstive
+       3) in ie6 and ie7, form element think the name is id
+       4) embedded put under the body, can directly use the id as the dom.
+2. document.getElementsByTagName()
+   oDivs[index] or oDiv.item[index]
+3. document.getElementsByName()
+   // under ie, only works for form element.
+4. document.body
+   document.documentElement.clientWidth | document.body.clientWidth
+5. document.getElementsByClassName() // not work for ie6 to ie8
+6. document.querySelector() // get one
+   document.querySelectorAll() // get multiple
+   // normally used for mobile devices
+DOM 7 attribute:
+1. childNodes, return an array-like object.
+   get all of the child node under the parent.
+   li, text, comment, under ul
+
+2. children, get all the element node under the parent
+3. in node, it has element node
+4. parentNode, get the parent node
+5. previousSibling, nextSibling, get the
+6. firstChild, lastChild,
+7, firstElementChild, lastElementChild(element node) not compatible, so usually not used
+
+NODE and NODE TYPE:
+             element node    content node     comment node      document
+nodeType     1                    3                8                9
+nodeName     tagName            #text          #comment          #document
+nodeValue    null               the content     the comment      null
+
+1. in the standard browser, (except ie 678), treat the space and return as the text node.
+
+CREATE ELEMENT
+1. odiv = document.createElement('tagname');  // create an element node
+   oDiv.id = 'name';
+   oDiv.style.width = '100px';
+
+PUT IN IN THE DOM
+1. document.body.appendChild(odiv);
+2. document.body.insertBefore(newNode, oldNode(insert it before))
+3. oText = document.createTextNode('content') // the content is must under standard bowser.
+4. oText.nodeValue += 'append';
+This dynamic dom built costs a lot of resource. We better just use the div and give it the innerHTML.
+
+DELETE AND UPDATE:
+1. clone: originalNode.cloneNode(); // the clone id will be same. we better change it.
+2. cloneNode(true/false), default false, will just copy the specific element. True will clone the current and all childNodes insides
+3. odiv1.parentNode.replaceChild(odiv4(newOne), odiv(oldOne));
+4. node.parent.removeChild(node)
+
+SET ATTRIBUTE
+1. div.setAttribute('attribute name', value); // show in the html file
+   div.attributeName = value; // cannot change the html
+2. div.getAttribute('attribute name')
+3. div.removeAttribute('attribute name')
+in ie6-8, it cannot use to set the class.
+
+
+DATE:
+1. new Date()
+   getFullYear()
+   getMonth() + 1
+   getDate()
+   getDay() // week, 0 is Sunday
+   getHours()
+   getMinutes()
+   getMilliseconds()
+2. getTime(), // 1970,1,1 mili-seconds
+3. set time in string format
+   new Time('2014-12-23 12:00:00')
+   Date.parse('2014-12-23 12:00:00') get the result of 1970 1 1 miliseconds
+   // under the standard browser, we use the -, but in ie6-8, it doesn't support.
+   2014/11/12 12:00:00,  this can be figured by old ie.
+4. 判断是否没有输入参数， 用
+   typeof argu != 'undefined'
+
+setTimeOut
+   timer = setTimeOut(), timer is index from 1 to indicate the timer.
+   when delete the time,first, clearTimeOut(timer), or clearInterval(timer), then timer = null.

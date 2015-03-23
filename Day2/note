@@ -1,0 +1,56 @@
+VARIABLE CLOSURE THIS
+1. vital part in programming: the data
+   like basic type, and object type
+2. Assign the data with a variable name.
+   The type of js variable is being effective when the value is assigned.
+   So the variable type is the same with the data type.
+3. Take an position, but not assign the space.
+   Take an position and sit an space is not the same.
+4. pre parse,
+   CODE:
+   alert(m)   //alert and console difference:
+   var m = 9;
+   fn();
+   function fn() {}
+5. Before the code is run, scan the code with the keyword var, then assign a space in the stack for the variable.
+   At this time, the variable is no value, so is undefined.
+
+   This is called declare.
+
+   undefined is mark for un-exist.
+
+   After the code is running, the system will give the data a space.
+
+   Then link the variable with the data.
+
+6. However, for the function,
+   Before the code runs, scan all the function keyword, then declare the variable and assign the function value.
+   This is called hoist.
+
+SCOPE:
+1. data also has privacy. JS don't has the block scope, it only has the function scope.
+2. the pre-declare is declared in it own scope.
+3. each evoking function will has it own scope, even they are the same function.
+
+THE TOP SCOPE:
+1. the top scope in JS -> Global
+2. the proxy of top scope in the browser -> window || the proxy of top scope in the back-end in node -> process
+3. Global's attribute
+
+变量与属性的关系：
+1. 全局变量是window的属性
+2. window的属性也可以看做全局变量
+3. 一个对象的属性，也可以看成是以这个对象为作用域下的变量 - with语句(not suggest, in with, if  you define variable with a var keyword, it will be a global var)
+
+active object:
+    for the function, the definition and the evoke is totally two different thing.
+    The running of function is a life scope in the memory
+    函数里面的变量，就在这个内存里面创建， 我们可以吧这个内存当做一个对象，而这个函数的变量就是这个对象的属性。
+
+CLOSURE:
+1. When to use it:
+   Protect the variable
+   maintain the asynchronous code
+
+2. 形参： parameter 实参： argument
+
