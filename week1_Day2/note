@@ -1,0 +1,31 @@
+Object Oriented Programming
+1. all object
+   They are not alone, so they are connected.
+   literal object and new constructor method, we can have initiate an object.
+
+   CODE:
+   obj = {
+        name: 'rose',
+        height: 159
+   }
+   This is object and it is singleton design pattern.
+   We can assign all the related function and attribute in a single object, it like the static object in Java, or name space in C++
+
+   实例识别
+   面向对象的第一个任务：
+    1. 解决生产的方式
+2. Factory mode only produce the object type, we need an new way to produce the specific instance object.
+
+3. The prototype mode
+   CODE:
+      function Shirt() {
+        this.material = 'feng',
+        this.height = 170
+      }
+   This will produce the Shirt Object if we use the new keyword.
+   var shirt1 = new Shirt();
+   1. This use the keyword new
+   2. Produce an instance of the shirt object
+   3. Based on the context of the new build object, run the Shirt function.
+   4. It also initiate all of the attribute
+   5. 

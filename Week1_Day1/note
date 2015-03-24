@@ -54,3 +54,40 @@ CLOSURE:
 
 2. 形参： parameter 实参： argument
 
+SETTIMEOUT:
+  setTimeout(fn, time):
+  if time is 0, then it will be run after all the current queue is finished. Since it is asynchronous, they are in the totally different queues.
+  In a separate queue.
+  If no time, the time will like 3 or 5 mili second.
+
+闭包的性能问题：
+  Since it maintain the state of the context, so it will not realize the memory of the context.
+  (function(i) {
+      oList[i].onclick = function() {
+        console.log(i);
+      }
+  }
+  this context is a must-consuming memory. The onclick will always get the memory.
+
+PRE-DECLARE
+1. Chrome will pre-declare no matter it is true or false, but firefox will not.
+
+闭包没有自闭症：
+1. 保持个性 - 保护自己
+2. 同时还能与其他人沟通 留好借口 迎接参数
+3. 作用域在定义的事后就确定了
+
+THIS KEYWORD:
+1. this is the context, the object which happens.
+2. the context and the scope is not the same.
+3. This is the keyword, is not related to where the word has been defined. It is related to the one who call it.
+4. So when you want find this, try from the running code, not from the definition code.
+5. compared with variable, its scope is related to where it is defined.
+
+6. seaf, the Self-Executing Anonymous Functions, all of this inside the SEAF is the global, the process or window.
+
+
+
+
+
+

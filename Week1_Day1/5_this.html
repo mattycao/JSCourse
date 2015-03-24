@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var i = 9;
+    function fo() {
+        var i = 0;
+        return function(n) {
+            return n + i++; // i  = 0;
+        }
+    }
+    var f = fo();
+    var a = f(15); //15,
+    console.log(a);
+    var b = fo()(15);
+    console.log(b);
+    var c = fo()(20);
+    console.log(c);
+    var d = f(20);
+    console.log(d);//21, the scope is the same of the a
+</script>
+
+</body>
+</html>

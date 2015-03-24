@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    f = function() {return true;}
+    g = function() {return false;}
+    (function() {
+        if(g() && [] ==! []) {
+            f = function f() {return false;}
+            function g() {return true;}
+        }
+    })();
+    console.log(f());
+    console.log(g());
+    /*
+     * First of all, the single operator will do it first.
+     * Then the although the [] is true, but when it compare will false, both of the [] and false will transfer the number first, so both return 0, so [] == false, attention here
+     */
+</script>
+</body>
+</html>

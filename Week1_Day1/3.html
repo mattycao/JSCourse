@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function fn() {console.log('fx');}
+    function fn1() {return function() {console.log('inner')}}
+    setTimeout(fn, 1000); // notice here is the just fn, the function name, () is not included.
+    setTimeout(fn(9), 500);
+    setTimeout(function() {fn(9)}, 1000); // if you want pass the argument, must be nested in a function declaration
+    setTimeout(fn1(11), 2000);
+    console.log(14);
+</script>
+</body>
+</html>

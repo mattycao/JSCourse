@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //factory design pattern
+    var shirt = {
+        material: 'Tiger skin',
+        size: 'xxxl'
+
+    }
+    function shirtFactory() {
+        var obj = {};
+        obj.material = '';
+        obj.size = '';
+    }
+
+    var shirt1 = shirtFactory();
+    // produce the shirt, encapsulate the produce of find element like jquery dollar.
+    //For example, the $(), pass an argument and then return an JQuery object.
+    // But here, it will still produce an object instance, we would like to produce some specific object.
+
+
+</script>
+</body>
+</html>
