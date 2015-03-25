@@ -16,7 +16,7 @@ Object Oriented Programming
     1. 解决生产的方式
 2. Factory mode only produce the object type, we need an new way to produce the specific instance object.
 
-3. The prototype mode
+3. The constructor mode
    CODE:
       function Shirt() {
         this.material = 'feng',
@@ -28,4 +28,107 @@ Object Oriented Programming
    2. Produce an instance of the shirt object
    3. Based on the context of the new build object, run the Shirt function.
    4. It also initiate all of the attribute
-   5. 
+
+4. var shirt2 = new Shirt('');
+   the method in the constructor will be initiated twice.That is means that:
+   shirt1.method != shirt2.method
+   so we need a better way to add the method to the object.
+
+5. 方法函数的复用
+   var shirt1 = new Shirt();
+   1. 创建shirt类的实例
+   2. 把实例返回
+   3. 以此实例为上下文运行shirt函数
+   shirt.prototype 任何一个函数都有此属性，但他的只有函数当成类来用的时候才有意思
+   把所有的共享的方法和属性都保存在此属性上，此属性明显是一个对象类型
+
+   Shirt.prototype.holdWarm = function() {console.log('warm')};
+   then
+   shirt1.holdwarm = shirt2.holdwarm
+   //原型模式解决的是类上的方法共享的问题
+
+6. Shirt   <------
+  -------------   |-> here the material and height is only the definition
+ |   material  |  |    Shirt.prototype
+ |   height    |  |   --------------
+ |-------------|   -|  constructor |
+ |  prototype  | -> |              |
+  -------------     |  __proto__   | ---> Object.prototype
+                     --------------
+  constructor: refer to the Shirt
+  __proto__:
+                           ^
+                           |
+                           |
+    Shirt1(instance)       |
+    --------------         |
+  |              |         |
+  |              |         |
+  |  __proto__   |---------
+  --------------
+
+    __proto__: refer to the Shirt.prototype
+  类上的所有方法都要保存在原型上，构造函数也要类上的函数，所以天生就保存在prototype里面
+  理解原型链，是js中实现继承的基本机制。
+  Shirt.prototype.a = [1, 2, 3];
+  shirt1.a[0] = 99;
+  shirt2.a[0] // 99 changed
+  however, if
+  shirt1.a = null;
+  shirt2.a // doesn't change
+  写的过程没有查找 而读的过程却有查找的过程
+  写的话就直接写在实例的私有域上面
+
+7. So normally, we will use the constructor and prototype design pattern together to build the object.
+
+8. Inheritance
+ Object method: hasOwnProperty(), toString(), prototype
+ ({}).toString(), [object Object], the first one is the typeof return, then the second one is the constructor function.
+ document.body.toString(), [object, HTMLBodyObejct]
+ Default inheritance: the shirt.prototype.__proto__ refers to the Object.prototype
+
+9. Inheritance:
+   FE.prototype = new Person;
+   FE.prototype.writeCss = function() {}
+
+10. So the Inheritance of JS is based on the prototype chain.
+
+11. JS中，prototype的作用？
+    每一个函数上都有个prototype属性，当这个函数作为一个类在使用的时候，他负责保存所有这个类上的共享方法， 这些方法解决了每一个实例上相同方法的复用。
+
+    prototype和__proto__区别
+    prototype是函数上的，__proto__是实例上的，但是指向同一个内容地址
+
+    什么是原型链：
+    就是总结一下实例上方法运行时的查找过程。
+
+    JS中的继承是怎么实现的：
+    From the prototype chain
+
+12. Person.prototype;
+    Person.__proto__;
+    Person // instance of function
+    // so here the Person.__proto__ exists, and refers to Function.prototype
+    Person.__proto__ == Function.prototype; // true only in chrome and firefox, not the IE, since the __proto__ is protected.
+
+13. Other way to do the prototype:
+    FE.prototype.__proto__ = Person.prototype; // will not inheritance the attribute from the Person;
+    FE.prototype = Person.prototype;  // think about it
+
+14. INHERITANCE BASED ON THE CONSTRUCTOR FUNCTION
+    The constructor is not do the inheritance, it just do the basic attribute assignment.
+    call, and apply is the function in the Function.prototype
+
+
+Embedded Class Prototype method:]
+1. Array.prototype.slice
+   原型中的方法，一般都使用this来操作当前实例
+   Array.prototype.toString = function() {
+       this // refers to the 当前执行的toString方法的实例
+   }
+2. alert输出字符串
+   console.log, 输出结构
+3. 一个数组，共m项，随机取出n项，n < m
+   var m = 100;
+   var n = 20;
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function Person(name) {
+        this.name = name;
+        this.age = 0;
+        this.height = 1;
+    }
+
+    Person.prototype.eat = function() {console.log('Eating.');}
+
+    function FrontEnd(name, degree) {
+        Person.call(this, name);
+        this.degree = degree;
+    }
+
+    FrontEnd.prototype = Person.prototype;
+
+    FrontEnd.prototype.writeJS = function() {
+        console.log('Writing JS.')
+    }
+
+    var fe = new FrontEnd('Matt', 'MS');
+    console.log(fe.hasOwnProperty('name'));
+    console.log(fe.hasOwnProperty('degree'));
+    console.log(fe.hasOwnProperty('writeJS'));
+    console.log(fe);
+    console.log(fe.name);
+    console.log(fe.height);
+    fe.eat();
+    fe.writeJS();
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function Person(name) {
+        this.name = name;
+        this.weight = 7;
+        this.height = 40;
+        this.skin = 'yellow';
+        this.gender = (Math.round(Math.random()))? 'male':'female';
+        this.age = 0;
+    }
+
+    Person.prototype.eat = function() {
+        console.log('Eating too much.');
+    }
+
+    Person.prototype.cry = function() {
+        console.log('Cry.');
+    }
+
+    function FE() {
+
+    }
+    //FE.prototype = new Person; //
+    FE.prototype.__proto__ = Person.prototype;
+    FE.prototype.writeCss = function() {
+        console.log('Good at CSS.');
+    }
+
+    FE.prototype.writeJS = function() {
+        console.log('Good at JS.');
+    }
+    var tom =new FE;
+    tom.writeCss();
+    tom.writeJS();
+    console.log(tom.weight);
+    var rose = new FE;
+    rose.writeCss();
+
+
+</script>
+</body>
+</html>

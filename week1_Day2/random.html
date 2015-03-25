@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    Array.prototype.random = function(n) {
+        // random take n data
+        function rand( ) {
+            return Math.floor(Math.random() * (this.length));
+        }
+        var result = [];
+        for(var j = 0; j < n; j++) {
+            var val = this.splice(rand, 1); // this method will cost a lot, since remove one, will do n( it is an array, not a linkedlist)
+            result.push(val[0]);
+        }
+        return result;
+
+    } // performance issue
+
+    Array.prototype.random = function(n) {
+        function rand( ) {
+            return Math.floor(Math.random() * (this.length));
+        }
+        var result = [];
+        for(var j = 0; j < n; j++) {
+            var val = this[rand]; // swap
+            this[rand] = this[this.length - 1];
+            this.length = this.length - 1;
+            result.push(val);
+        }
+        return result;
+    }
+
+
+</script>
+</body>
+</html>
