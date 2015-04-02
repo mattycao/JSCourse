@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DOM</title>
+</head>
+<body>
+<ul id="list"><!--this is a comments-->
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+<pre>
+    oComment.__proto__
+    Comment {substringData: function, appendData: function, insertData: function, deleteData: function, replaceData: function…}
+    oComment.__proto__.cons
+    undefined
+    oComment.__proto__.constructor
+    function Comment() { [native code] }
+    oComment.__proto__.__proto__
+    CharacterData {substringData: function, appendData: function, insertData: function, deleteData: function, replaceData: function…}
+    oComment.__proto__.__proto__.__proto__
+    Node {insertBefore: function, replaceChild: function, removeChild: function, appendChild: function, hasChildNodes: function…}
+    oComment.__proto__.__proto__.__proto__.__proto__
+    EventTarget {addEventListener: function, removeEventListener: function, dispatchEvent: function}
+    oComment.__proto__.__proto__.__proto__.__proto__.__proto__
+    Object {}
+    oComment.__proto__.__proto__.__proto__.__proto__.__proto__.__proto__
+    null
+
+    object, eventTarget, node, (13 class).
+</pre>
+<script>
+    //find the element node and textNode and the commentNode
+    // find their prototype class
+    // get their root is the same, the object
+    var ul = document.getElementById('list');
+    var oli = ul.getElementsByTagName('li').item(0);
+    var oComment = ul.firstChild;
+    var oText = oli.firstChild;
+</script>
+</body>
+</html>
