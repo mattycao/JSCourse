@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        table, td, tr, th {
+            border-collapse: collapse;
+            border: 1px solid blue;
+        }
+
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<table width="450" border="0" align="center">
+    <thead>
+    <th>姓名</th>
+    <th>数学</th>
+    <th>语文</th>
+    <th>英语</th>
+    </thead>
+
+    <tr>
+        <td>张三</td>
+        <td>73</td>
+        <td>88</td>
+        <td>90</td>
+    </tr>
+    <tr>
+        <td>李四</td>
+        <td>67</td>
+        <td>99</td>
+        <td>77</td>
+    </tr>
+    <tr>
+        <td>王五</td>
+        <td>57</td>
+        <td>78</td>
+        <td>79</td>
+    </tr>
+    <tr>
+        <td>赵麻子</td>
+        <td>47</td>
+        <td>68</td>
+        <td>63</td>
+    </tr>
+    <tr>
+        <td>孙六</td>
+        <td>93</td>
+        <td>73</td>
+        <td>55</td>
+    </tr>
+    <tr>
+        <td>马七</td>
+        <td>87</td>
+        <td>91</td>
+        <td>26</td>
+    </tr>
+    <tr>
+        <td>刘小二</td>
+        <td>60</td>
+        <td>56</td>
+        <td>47</td>
+    </tr>
+    <tr>
+        <td>魏发财</td>
+        <td>71</td>
+        <td>76</td>
+        <td>88</td>
+    </tr>
+    <tr>
+        <td>冷不丁</td>
+        <td>69</td>
+        <td>44</td>
+        <td>64</td>
+    </tr>
+</table>
+
+</body>
+</html>
+<script>
+        function listToArray(eles){
+            if(!(typeof eles=="object"&&eles.length&&eles[eles.length-1])){
+                throw new Error("不能操作非法的类数组");
+            }
+            try{
+                var a=[].slice.call(eles,0);
+            }catch(e){
+                var a=[];
+                for(var i=0;i<eles.length;i++){
+                    a.push(eles[i]);
+                }
+            }
+            return a;
+        }
+    //    var oTable=document.getElementsByTagName("table").item(0);
+    //    var oThead=oTable.tHead;
+    //    var oTbody=oTable.tBodies.item(0);
+    //    var oRows=oTbody.rows;//HTMLCollection
+    //    var aRows=listToArray(oRows);
+    //    //rows这是行集合，cells是行对象中的列集合
+    //    //var flag=-1;
+    //    function rowSort(i,key){
+    ////	flag*=-1;
+    //        if(key.flag){
+    //            key.flag*=-1;
+    //        }else{
+    //            key.flag=1;//第一次则把flag属性初始化为1
+    //        }
+    //        aRows.sort(function(a,b){
+    //            if(!isNaN(Number(a.cells[i].innerHTML))){
+    //                return key.flag*(a.cells[i].innerHTML-b.cells[i].innerHTML);
+    //            }else{
+    //                return key.flag*(a.cells[i].innerHTML.localeCompare(b.cells[i].innerHTML));
+    //            }
+    //        });
+    //
+    //        for(var n=0;n<aRows.length;n++){
+    //            oTbody.appendChild(aRows[n]);
+    //        }
+    //
+    //    }
+    //    var oThs=oThead.getElementsByTagName("th");
+    //    for(var i=0;i<oThs.length;i++){
+    //        (function(i){
+    //            oThs[i].onclick=function(){
+    //                rowSort(i,this);
+    //            };
+    //        })(i);
+    //    }
+    var oTable = document.getElementsByTagName('table')[0];
+    var oTHead = oTable.tHead;
+    var oTbody = oTable.tBodies[0];
+    var oRows = oTbody.rows;   // also htmlCollection
+    var aRows = listToArray(oRows);
+        //rows这是行集合，cells是行对象中的列集合
+    function rowSort(i) {
+        //oRows[0].cells[i]
+        aRows.sort(function(a,b) {
+            if( Number(a.cells[i].innerHTML)) {
+                return a.cells[i].innerHTML - b.cells[i].innerHTML;
+            }else {
+                return a.cells[i].innerHTML.localeCompare(b.cells[i].innerHTML);
+            }
+
+        });
+        for(var n = 0; n < aRows.length; n++) {
+            oTbody.appendChild(aRows[n]);
+        }
+    }
+
+    var oThs = oTHead.getElementsByTagName('th');
+    for(var i = 0; i < oThs.length; i++) {
+//        oThs[i].onclick = (function(i){
+//            return function() {rowSort(i);};
+//        })(i);
+
+        (function(i) {
+            oThs[i].onclick = function() {
+                rowSort(i);
+            }
+        })(i);
+
+    }
+
+</script>

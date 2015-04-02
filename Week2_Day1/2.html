@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DOM sort</title>
+    <script>
+        var obj1 = new Object();
+        var oList1 = document.getElementsByTagName('li');
+    </script>
+</head>
+<body>
+<ul><!--This is the comment-->
+    <li>123</li>
+    <li>3</li>
+    <li>112</li>
+    <li>2</li>
+    <li>5</li>
+</ul>
+<script>
+    var obj2 = new Object();
+    var oList2 = document.getElementsByTagName('li');
+    console.log(obj1 == obj2);   // false
+    console.log(oList1 == oList2); // true
+
+</script>
+</body>
+</html>

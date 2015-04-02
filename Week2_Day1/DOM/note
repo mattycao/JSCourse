@@ -1,0 +1,12 @@
+More:
+   every node has a attribute of childNodes, it is active, alive, will reflect the
+   dom tree in any time.
+
+   appendChild, insertBefore, replaceChild, removeChild, all need the parent to do
+   the operation.
+
+   Notice:
+
+   cloneNode不会复制添加到dom节点中的js属性，例如时间处理程序，而IE却会，所以最好在之前删除事件处理程序
+
+   every node has: ownDocument attribute, will refer to the document

@@ -1,0 +1,160 @@
+DOM
+1.
+For 1.html
+    we can use the oComment.__proto__ in the console window to get the parent object.
+    also oComment.__proto__.constructor
+    check the node object, it contain all of the basic dom method like insertBefore method.
+
+For 2.html
+    Like all the doms are alive, so when we get them, just get the same object.
+    NodeList:
+    HTML元素集合的特点：
+    1. 活的，动态变化的，根据网页上dom树德变化而变化
+    2. 重复重复获得html集合是相同的，相同的dom树上的地址，这是olist1 == olist2为真的原理
+    3. 集合里的元素顺序是依赖于文档上的元素顺序，他自身是不能改变的，只能随DOM树的变化而变化
+
+    appendChild 和 insertBefore会自动先删除节点，然后移动到指定的位置。
+
+Call and apply method:
+    1. use the function and also change this refers to.
+       Function.prototype.call
+       Function.prototype.apply
+       作用是让调用它的方法执行，并且执行的时候this关键字儿指向call或apply的第一个参数
+       notice: call and apply are also functions
+
+       example:
+         fuction fn() {}
+         fn.call.call(fn);
+         fn.call;
+
+         explain:
+         fn.call == Function.prototype.call;// 取得 call的定义本身
+         fn.call.call(fn) // call在调用call方法。 执行前边的call方法，并且让前边的call方法里面的
+         this指向fn（指向第二个call的参数）
+         // 这个方法里的this是谁，就相当于谁在执行这个方法。就相当于fn.call(), 就相当于fn（）。
+         所以fn.call.call.call.call.call(fn), no matter how many call, it is pretty the same, just fn()
+
+   2. fn.call();
+      if the first one argument is omitted. Then an undefined is passed in.
+      fn.call(), fn.call(undefined),fn.call(null) // fn's this is referring to window, under the un restricted mode
+
+   3. apply, will accept an array or array-list as the arguments
+
+   4. 面试题：
+      var a = [22, 3, 44, 22, 7, 88, 99, 13, 108, 32, 71, 51];
+      get the minmum in this array.
+      Solution:
+      var min = a[0];
+      for(var i = 1; i < a.length; i++) {
+          if(min > a[i])
+              min = a[i];
+      }
+      return min;
+
+      Solution2:
+      var min = Math.min.apply(null, a)
+      //吊炸天的啊
+
+   5. 为什么slice是可以用来把arraylist 变成 array
+      什么时候某一个实例可以使用call来借用数组类上的方法：
+      这个方法里德逻辑能够操作这个实例
+      比如slice里面用到了index access和length的特性，所以对于arraylist是可以如此操作的。
+      arraylike：
+        index acess from 0, and it has the attribute length.
+      like arguments, and nodeList.
+
+      notice: slice.call is only avaliable under the standard browser, not te ie678.
+
+   6. 异常处理
+      ie678, dom操作是依靠win里的系统而实现的。dll动态库文件
+      try，catch(e)
+      finally
+
+      try {
+
+      }catch(e) {
+
+      }finally {
+
+      }
+
+      if has err, must be caught, if not, the next whole process will not process.
+      use the try catch to get the error happened in slice under ie678
+      a.fn() -> is method
+      fn() -> function
+
+   7. 逻辑运算
+      remember the 1&&2&&3, we know get it is not a boolean result, but a 3.
+      && is higher priorty than ||
+
+   8. table sort 例子
+
+   9. 比赛，评委打分，去掉最高分和最低分，然后实现平均分。
+
+      eval(), transfer the string to js code;
+
+      {}单独出现是什么？标签？脚本块，block里面
+      {name:'rose', age:22}// not valid, since it it use the comment, it should use ;, 在这里，{}
+      单独出现表示一个块状标签。但是如果
+      （{name：‘rose’， age: 22}), 这样子是可以的，认为（）里面是个值
+
+      在这里说这个东西是因为在今后的json表示的时候我们用eval的时候要用
+      eval('(' + json + ')'); -》 变成了object
+      json中的key value如果是string 的话都需要进行用“”。
+      //unexpected token 与约定的合适不匹配
+      比如多个括号或者少个括号
+
+
+Self part:
+1. focus on xml and html, Document Object Model
+
+API:
+1. 通过document获取节点
+   getElementById, getElementsByName, getElementsByTagName, getElementByClassName(standard browser)
+   querySelector, querySelectorAll, from IE8.
+
+2. Node, nodeValue(text node and comment node has their content this value)
+
+3. node attribute:
+    nodeName(in capital if it is an element node)
+    nodeType, nodeValue, childNodes, children(get from ie)
+    parentNode, previousSibling, nextSibling, firstChild, lastChild
+
+4. item      NodeType         nodeValue           nodeName
+   Element      1               null                tag in capital
+   Attribute    2               value               attribute name
+   Text         3               value               #text
+   Comment      8               value               #comment
+   Document     9                null               #document
+   Fragment     11               null               #document-fragment
+
+5. 创建结点
+   1. createElement(), return the new element
+   2. createAttribute(), dones't think it is a good method, we better use this one:
+    element.setAttribute(name, value);
+   3. createTextNode()
+   Notice: under standard browser, the return will account for a textNode
+
+   4. createFragment()
+   5. appendChild(), insertBefore(), will remove the original one and change it to
+      the new place.
+
+      notice: insertBefore(newNode, oldNode), if the old node is omitted, will act like appendBefore
+
+   6. replaceChild(), replaceChild(newNode, oldNode), return the oldNode if success, return null if fails
+
+   7. cloneNode(boolean), false: only return node, true: return the node with it child dom tree, but the
+      parent is omitted. Notice: be careful for the id.
+
+   8. removeChild(node), return the node if success, return null if fails
+
+   9. hasChildNodes(),
+
+   属性
+   1. getAttribute(), notice: ie and ff return the different thing but returns
+   2. setAttribute()
+   3. removeAttribute()
+   4. hasAttribute('attr')
+
+
+

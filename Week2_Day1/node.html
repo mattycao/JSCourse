@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="div1">
+    <!--dfasdfd-->
+    <p>
+        hello
+    </p>
+</div>
+<script>
+    var oDiv = document.getElementsByTagName('div')[0];
+    var childs = oDiv.childNodes;
+
+    for(var i = 0; i < childs.length; i++) {
+        console.log('nodeName:' + childs[i].nodeName + ', nodeType:' + childs[i].nodeType + ' ,nodeValue:' + childs[i].nodeValue);
+    }
+
+</script>
+</body>
+</html>

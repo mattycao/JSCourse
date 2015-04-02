@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DOM sort</title>
+
+</head>
+<body>
+<ul><!--This is the comment-->
+    <li>123</li>
+    <li>3</li>
+    <li>112</li>
+    <li>2</li>
+    <li>5</li>
+</ul>
+<script>
+    var obj1 = new Object();
+    var oList1 = document.getElementsByTagName('li');
+    var a = [];
+//    for(var i = 0; i < oList1.length; i++) {
+//        a.push(oList1[i]);
+//    }
+    var a = [].slice.call(oList1, 0);
+    var a = Array.prototype.slice.call(oList1, 0);
+    // oList1.slice(0);
+
+    a.sort(function(a, b) {
+        return a.innerHTML - b.innerHTML;
+    });
+    //    console.log(a);
+    //
+    //    var a2 = [
+    //        {name:'a', age:22},
+    //        {name:'b', age:2},
+    //        {name:'c', age:221},
+    //        {name:'e', age:54},
+    //        {name:'d', age:8},
+    //        {name:'s', age:1},
+    //        {name:'t', age:33}
+    //    ];
+    //
+    //    a2.sort(function(a, b) {
+    //        return a.age - b.age;
+    //    });
+    //    console.log(a2);
+    for(var i = 0; i < a.length; i++) {
+        a[i].parentNode.appendChild(a[i]); // append to the bottom
+    }
+</script>
+</body>
+</html>
