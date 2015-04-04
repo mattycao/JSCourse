@@ -1,0 +1,89 @@
+正则：
+\d 正则中出现的特殊含义的字符叫做元字符
++
+\w  a-zA-Z0-9_
+\b
+. except the \n
+? *
+^ $
+[0-9] based on the ascii table
+
+定义的方式：
+1. 直接量  //
+2. 构造函数方式
+    new RegExp()
+3. /ab/i, i 模式修正符号， i-> case insenstive, g/ global search
+4. new Reg('ab', 'i')
+5. 字符串中间的转义
+    比如\,要本身在里面有意义，所以需要\\转义
+    但是构造函数方法可以接受参数， 因为传入参数是string
+
+6. 关于边界
+   除了正常的边界，\b, one-two -也是边界
+   /\b[q-z]+\b/
+
+7. 为空测试
+   reg=/^\s*$/
+   an exception,
+
+8. 反向引用失效当不记录表达式
+
+9. 正则 贪婪且懒惰
+
+String and reg expression 方法：
+1. if add g, then the reg object will have lastIndex attribute
+   so if you using the reg test method, never add the g into the reg object.
+    var reg = /\d+/g;
+    var str1='abcd1234';
+    var str2 = '1234avasdsf';
+    reg.test(str1);
+    //then lastIndex == 8, next match will begin at index 8 in str2, so return false
+
+2. although test don't has match, but still the reg object have do that:
+   for example,
+   var reg = /(\d)(\d)(\d)/;
+   var str = 'abc123sdf';
+   console.log(reg.rest(str)); // return true
+   // even, in the object
+   RegExp.$1, RegExp.$2, RegExp.$3, store the 分组
+   // will update for that time
+
+3. str: search, indexOf
+   search不可以做到连续查询，所以加g没有影响。
+   indexOf里面的参数不可以有reg object，必须输入string对象，所以要escape 然后加入进去，但是只会依照string进行匹配，和reg无关
+
+4.
+   RegExp:
+   test(str)  ->
+   exec(str)
+
+5. exec
+   捕获内容并返回一个数组
+   {
+      0：捕获的东西
+      index： 捕获的index
+      input： Str
+      length：
+   }
+
+   exec天生懒惰，只有/g出现之后才会进行多重捕获，通过reg的lastIndex来处理
+   如果最后没了，就是返回null，然后lastIndex就会重新refresh为0
+
+   var reg = /(\w)(\w)/;\g;
+   reg.global => will indicate the g
+   var str = 'asdfdgasdhtewr';
+   var a = [];
+   var result = null;
+   while(result = reg.exec(str)) {
+        a.push(result);
+   }
+   console.log(a);
+
+6. str:match, doesn't care about the sub group, only find the match, with the g, will find them all.
+   if no g, then exec is the same with match
+
+7. replace
+   str function
+
+
+
