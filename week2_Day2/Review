@@ -1,0 +1,43 @@
+1. JSON, javascript object notation, will use the JSON.stringify method
+to transfer the json string, and use the eval() to get the javascript object.
+or use the JSON.parse()
+
+2. Array Object的区别
+   数组本身就是对象，但是是一种高效的对象
+   Object的类上的方法很少
+   数组是一个有序的集合
+
+function的运行的几种方式：
+
+toString(),
+   在标准浏览器中，写一个判断一个对象是否是网页元素的方法。
+   【object HTMLxxxElement]
+   function isElement(ele) {
+      var reg = /\[ojbect\ HTML[A-Za-z]\w*Elment\]/;
+      return reg.test(Object.prototype.toString.call(ele));
+   }
+
+   For Array, the toString has already been revised. So
+   must use the Object.prototype.toString.call(arr);
+   get the result: [object Array]
+
+3. function fn1(){alert(1)};
+   function fn2() {alert(2)};
+   fn3 = fn2.call;
+   fn2.call(fn1);
+   fn3.call(fn1);
+   1. fn1, fn2都是function的实例，并且call和apply方法是Function类的方法
+   2. 当call 运行时，call里this是指谁
+   3. call本身而是function的实例，就是说call可以去执行call方法。
+   4. 面向对象的变成中，类方法的this是谁，就相当于谁在执行这个方法。
+
+   fn3.call(fn1) => Function.prototype.call.call(fn1); //让fn3执行并且让fn3里的this指向fn1
+
+   =>fn1.fn3()=> fn1.call()
+
+   Function.prototype.call.call.call.call
+   上面会经历一系列的寻址过程，但总是找到自己，找到原型上的call
+   我们不可以理解为：
+   Function.prototype.call 中call中的this是Function.prototype
+   这个只是一个寻找call 的过程，所以在这之前call中的this 为 undefined，
+

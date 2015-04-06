@@ -52,10 +52,64 @@ String and reg expression 方法：
    search不可以做到连续查询，所以加g没有影响。
    indexOf里面的参数不可以有reg object，必须输入string对象，所以要escape 然后加入进去，但是只会依照string进行匹配，和reg无关
 
-4.
-   RegExp:
-   test(str)  ->
-   exec(str)
+4. The method using the RegExp
+   RegExp method:   Method Name        |         Parameters               |               Return
+
+                    test(str)  ->                 str                                      boolean
+                    exec(str)  ->                 str                                      If the match succeeds, the exec() method returns an array and updates properties of the regular expression object. The returned array has the matched text as the first item, and then one item for each capturing parenthesis that matched containing the text that was captured.
+   Notice Here: 1. the return array is not an array, although it has several attributes added.
+                   return object:
+                                   [0],     the full string of characters matched
+                                   [1] ..., the parethesized substring matches
+                                   index    the 0-based index of the match in the string
+                                   input    the original string
+
+                2. the regular object, like re = /a/, the re object:
+                                   lastIndex, the index at which to start the next match. when 'g' is abstent, this will remain 0.
+                                   ignoreCase, boolean to indicate the i flag
+                                   global,     boolean to indicate the g flag
+                                   multiline,  boolean to indicate the m flag
+                                   source,     the text of the pattern
+
+   String Method:
+                    str.match(regexp)   |          regexp                 |             An Array containing the matched results or null if there were no matches.
+                                            If a non-RegExp object obj is
+                                            passed, it is implicitly
+                                            converted to a RegExp by using
+                                             new RegExp(obj).
+                    Notice:
+                        1. if no g in the regexp, then it is the same with exec, However, with the g, will change the behavior of result
+                             the method returns an Array containing all matches. If there were no matches, the method returns null.
+
+                    str.search(regexp)  |           regexp                |            If successful, search() returns the index of the first match of the regular expression inside the string. Otherwise, it returns -1.
+
+                    str.replace(regexp|substr, newSubStr|function[, flags])
+                                        |                                 |            return the new built string
+                    Notice:
+                          1. about the second parameter, the newSubStr and function:
+                             $$	Inserts a "$".
+                             $&	Inserts the matched substring.
+                             $`	Inserts the portion of the string that precedes the matched substring.
+                             $'	Inserts the portion of the string that follows the matched substring.
+                             $n or $nn	Where n or nn are decimal digits, inserts the nth parenthesized submatch string, provided the first argument was a RegExp object.
+                          2. the function:
+                             if no parethesized group, then
+                                  function(match, index, string)
+                             if has parethesized group, then
+                                  function(match, $1, $2, $3 ...., index, string)
+
+                    str.split([separator[, limit]])   string|regexp, limit: int |       return the result array
+                    Notice:
+                           If separator contains capturing parentheses, matched results are returned in the array.
+                           var myString = 'Hello 1 word. Sentence number 2.';
+                           var splits = myString.split(/(\d)/);
+
+                           console.log(splits);
+                           This script displays the following:
+
+                           Hello ,1, word. Sentence number ,2,.
+
+
 
 5. exec
    捕获内容并返回一个数组
@@ -86,4 +140,4 @@ String and reg expression 方法：
    str function
 
 
-
+    [.\n] not allowed, (.|\n) ok

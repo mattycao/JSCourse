@@ -1,0 +1,17 @@
+.tabbedPanel {
+    width: 450px;
+    height: 300px;
+    overflow:hidden;
+}
+
+ul.tabGroup {
+    list-style:none;
+    margin:0;
+    padding: 0
+}
+
+.tabbedPanel li.tab {
+    padding: 0;
+    margin: 0;
+    hieght: 1.8em;
+}

@@ -1,0 +1,8 @@
+盒子模型：
+
+clientHeight -》
+offsetHeight -》
+var oStyle = window.getComputedStyle(oDiv, null) // the collections of style // the return object is read only.
+oStyle.height => css中的height，而且带单位
+oDiv.style.height //行样式， if no, return '', return string
+
