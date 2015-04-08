@@ -6,3 +6,15 @@
 
 1. 数组的方法：功能，返回值，参数类型。是否对原实例有修改
 2. 总结
+
+Tab:
+1. set the height and line-height together at the same ele,
+   it will make the content in center in the vertical line.
+
+2. if the element, the tagName is equals to nodeName
+
+3. tagName is only existing in the element node, none-element node's tagName is undefined
+    //nodeName属性所有的节点都有。
+    //元素节点输出它的标签名（大字）。
+    //其它类型的节点输出"#+节点类型"
+    //但是tagName这个属性只有元素节点才有

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>通过类名获取元素-测试页面</title>
+</head>
+
+<body>
+<ul class="tabbedGroup">
+    	<li class="selectedTab tab aa bbb ccc " >选项一selectedTab</li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三</li>
+        <li class="tab">选项四</li>
+        <li class="tab">选项五</li>
+        <li  id="center" >center</li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三</li>
+        <li class="tab">选项四</li>
+        <li class="tab">选项五</li>
+        <li class="selectedTab tab bbb aa" >选项一selectedTab</li>
+        <li class="tab">选项二</li>
+        <li class="tab selectedTab b ccc">选项selectedTab三</li>
+        <li class="tab">选项四</li>
+        <li class="tab">选项五</li>
+    </ul>
+</body>
+</html>
+<script src="DOM.js"></script>
+<script>
+//通过类名获取元素
+
+function byClass(strClass,eles){
+	//var eles=document.getElementsByTagName("*");
+	var reg=new RegExp("(?:^| )"+strClass+"(?: |$)");
+	var a=[];
+	for(var i=0;i<eles.length;i++){
+		var ele=eles[i];
+		if(reg.test(ele.className)){
+			a.push(ele);	
+		}
+	}
+	return a;
+}
+var strClass="  selectedTab  ccc aa";
+
+var strClass=strClass.replace(/^ +| +$/g,"");//去首尾空格
+var aClass=strClass.split(/ +/);//根据空格分解字符串
+console.log(aClass);
+var eles=document.getElementsByTagName("*");
+//var a=byClass(aClass[0],eles);
+//a=byClass(aClass[1],a);
+//a=byClass(aClass[2],a);
+//a=byClass(aClass[3],a);
+for(var i=0;i<aClass.length;i++){
+	eles=byClass(aClass[i],eles)
+}
+var a=eles;
+for(var i=0;i<a.length;i++){
+	a[i].style.backgroundColor="red";
+}
+</script>

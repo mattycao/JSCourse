@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1 *{ margin:10px;}
+</style>
+</head>
+
+<body>
+<!--我是注释 --><div id="div1" >
+	<p>p1</p>
+	<ul>
+
+         <li class="tab">选项二</li>
+         <li class="tab">选项三</li>
+         <li class="tab">选项四</li>
+         <li class="tab">选项五</li>
+     </ul>
+     <h1>珠峰培训JS课程</h1>
+     <p>p2</p>
+     <p>p3</p>
+     <h3>abcd</h3>
+</div>abcd
+</body>
+</html>
+<script src="DOM.js"></script>
+<script>
+var ele=document.getElementById('div1');
+var eles=DOM.children2(ele,"h1");
+for(var i=0;i<eles.length;i++){
+	eles[i].style.backgroundColor="red";
+}
+
+console.log(ele.previousSibling.nodeName);
+console.log(ele.nextSibling.nodeName);
+//nodeName属性所有的节点都有。
+//元素节点输出它的标签名（大字）。
+//其它类型的节点输出"#+节点类型"
+//但是tagName这个属性只有元素节点才有
+
+</script>

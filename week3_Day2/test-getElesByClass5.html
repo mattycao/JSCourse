@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>通过类名获取元素-测试页面</title>
+</head>
+
+<body>
+<ul class="tabbedGroup">
+    	<li class="selectedTab tab " >选项一selectedTab</li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三</li>
+        <li class="tab">选项四</li>
+        <li class="tab">选项五</li>
+        <li  id="center" >center</li>
+        <li class="tab">选项二</li>
+        <li class="tab">选项三</li>
+        <li class="tab">选项四</li>
+        <li class="tab">选项五</li>
+        <li class="selectedTab tab b " >选项一selectedTab</li>
+        <li class="tab">选项二</li>
+        <li class="tab selectedTab b ccc">选项selectedTab三</li>
+        <li class="tab">选项四</li>
+        <li class="tab">选项五</li>
+    </ul>
+</body>
+</html>
+<script src="DOM.js"></script>
+<script>
+//通过类名获取元素
+/*
+var strClass="selectedTab";
+var eles=document.getElementsByTagName("*");
+var a=[];
+var reg=/(^| )selectedTab( |$)/;
+var reg=new RegExp("(?:^| )"+strClass+"(?: |$)");
+
+for(var i=0;i<eles.length;i++){
+	var ele=eles[i];
+	if(reg.test(ele.className)){
+		a.push(ele);
+	}
+}
+for(var i=0;i<a.length;i++){
+	a[i].style.backgroundColor="red";
+}
+*/
+function byClass(strClass){
+	var eles=document.getElementsByTagName("*");
+	var reg=new RegExp("(?:^| )"+strClass+"(?: |$)");
+	var a=[];
+	for(var i=0;i<eles.length;i++){
+		var ele=eles[i];
+		if(reg.test(ele.className)){
+			a.push(ele);	
+		}
+	}
+	return a;
+}
+
+var strClass="selectedTab aa bbb ccc"
+var a=byClass("selectedTab")
+for(var i=0;i<a.length;i++){
+	a[i].style.backgroundColor="red";
+}
+var str="aabb#bbcc-afsdd&ddkkd%dkkdkf dif_kdk";
+var a=str.split(/\b/);
+alert(a);
+</script>
