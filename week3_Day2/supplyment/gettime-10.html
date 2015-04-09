@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script type="text/javascript">
+var t=new Date();
+t.getTime();
+
+function fn(){
+var t2=new Date;
+
+var cha=t2.getTime()-t.getTime();
+var 时= parseInt (cha / (60*60*1000));
+var feng=cha%(60*60*1000);
+var 分=(parseInt(feng/(60*1000)))
+var miao=feng%(60*1000)
+var 秒=(parseInt(miao/1000))
+var 毫秒=miao%1000
+document.getElementById('div1').innerHTML=时+'时'+分+'分'+秒+'秒'+毫秒+'毫秒';
+window.setTimeout(arguments.callee,10);
+}
+fn();
+//alert(t2.getTime()-t.getTime())
+//12405599
+
+//时 分   秒 毫秒
+//alert(parseInt(12405599/(60*60*1000)))
+var feng=12405599%(60*60*1000)
+//alert(parseInt(feng/(60*1000)))
+var miao=feng%(60*1000)
+//alert(parseInt(miao/1000))
+//一小时=60*60*1000
+//一分钟=60*1000；
+</script>

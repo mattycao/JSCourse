@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function createEle(){
+	var oDiv=document.createElement('div');//创建div元素
+	
+	if(document.getElementsByTagName('div').length===0){
+		document.body.appendChild(oDiv);
+	}else{
+		var oFC=document.body.firstChild;
+		document.body.insertBefore(oDiv,oFC);
+	}
+	oDiv.onclick=function(e){
+		//document.body.removeChild(this);
+		var e=e||window.event;//事件对象
+		this.parentNode.removeChild(this);//删除对象本身
+		
+		if(e.stopPropagation)//标准 浏览器中阻止事件传播
+			e.stopPropagation();
+		else
+			e.cancelBubble=true;//IE9以下浏览器中阻止事件冒泡
+	}
+	//把div元素追加到body
+	var oText=document.createTextNode('');//创建文本节点
+	oText.nodeValue=document.getElementsByTagName('div').length;//让文本节点的值等于文档中（既网页中）div的个数
+	oDiv.appendChild(oText);//把文本节点追加给div元素节点
+	
+}
+document.onclick=createEle ;
+</script>
+<title>无标题文档</title>
+<style type="text/css">
+div{width:100px; height:100px; background:green; float:left; margin:10px;}
+</style>
+</head>
+
+<body >
+</body>
+</html>

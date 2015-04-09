@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1">
+	<span >asdasfasf</span>
+    <a href="#">asdd</a>
+
+</div>
+</body>
+</html>
+<script type="text/javascript">
+var ot=document.createElement('table');
+var otr=document.createElement('tr');
+var otd=document.createElement('td');
+ot.appendChild(otr);
+otr.appendChild(otd);
+document.body.appendChild(ot);
+var otext=document.createTextNode('adsdsfasfsafs');
+otd.appendChild(otext);
+
+var oDiv=document.getElementById('div1');
+alert(oDiv.children.length);
+								 
+</script>

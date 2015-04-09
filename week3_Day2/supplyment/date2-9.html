@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+#div1{ width:500px; font-weight:bold; font-size:24px; margin:0 auto; height:2em; background:#99C}
+</style>
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1"></div>
+
+</body>
+</html>
+<script type="text/javascript">
+
+var timer=null;
+function clock(){
+var t=new Date();
+var 年=t.getFullYear();
+var 月=t.getMonth()+1;
+var 日=t.getDate();
+var 时=t.getHours();
+var 分=t.getMinutes();
+var 秒=t.getSeconds()
+var 毫秒=t.getMilliseconds();
+
+var 星期=t.getDay();
+
+switch(星期){
+	case 0:
+		星期='日';
+		break;
+	case 1:
+		星期='一';
+		break;
+	case 2:
+		星期='二';
+		break;
+	case 3:
+		星期='三';
+		break;
+	case 4:
+		星期='四';
+		break;
+	case 5:
+		星期='五';
+		break;
+	case 6:
+		星期='六';
+		break;	
+}
+var sCurrentTime=年+'年'+月+"月"+日+'日'+时+"时"+分+'分'+秒+'秒'+毫秒+'毫秒'+'星期'+星期;
+
+var oDiv=document.getElementById('div1');
+oDiv.innerHTML=sCurrentTime;
+timer=window.setTimeout(clock,1000);
+oDiv.innerHTML+=';timer:'+timer;
+//window.setInterval(clock,1000);
+}
+
+//clock();
+//window.setInterval(clock,1000);//指定的时间内，把第一个参数运行n次
+function stopClock(){
+	window.clearTimeout(timer);
+	
+}
+function toggleClock(){
+	if(timer){//如果timer这个变量有一个大于0的数，则表示
+		
+		stopClock();
+		timer=null;
+	}else{
+		clock();
+		
+	}
+	
+}
+var oDiv=document.getElementById('div1');
+oDiv.onclick=toggleClock;
+</script>

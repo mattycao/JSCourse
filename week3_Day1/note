@@ -47,7 +47,7 @@ scrollTop,scrollLeft,scrollHeight：实际内容的高，包括溢出的内容,s
                                    此值和clientHeight相同，如果内容有溢出，则只包括上padding不包括下padding。
    Notice: the css overflow will have influence on the scrollHeight,
             1. it looks like if the overflow is hidden, then the up and down padding will be added with extra 1 pixel.
-               if the overflow is not hidden, the downside of the padding will not be added.
+               if the overflow is not hidden, just visible, by default, the downside of the padding will not be added.
 
    js中没有盒子实际内容的宽高，width，height，的属性
    也没有得到margin值的属性
@@ -155,7 +155,7 @@ scrollTop,scrollLeft,scrollHeight：实际内容的高，包括溢出的内容,s
 
     see the image of scrollHeight
 
-7. so the maximum of scrollTop is: scrollHeight - clientHeight - clientBottom(测试了下好像不是，干！) (但是发现没有这个属性！！)
+7. so the maximum of scrollTop is: scrollHeight - clientHeight
 
 8. 浏览器所以的外链的资源都是缓存
 
