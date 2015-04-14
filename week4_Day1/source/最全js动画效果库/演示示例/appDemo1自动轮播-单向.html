@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style  type="text/css">
+#outer{ width:500px; height:350px; margin:50px auto; position:relative; overflow:hidden;}
+#inner{ position:absolute; top:0; left:0; width:2500px; height:335px;  }
+#inner div{ float:left; width:500px; height:335px; color:red; font-size:14px; ; overflow:hidden; font-weight:bold; text-align:right;}
+#btn{ margin:0; padding:0; list-style:none; width:450px; margin:0 auto; clear:both;  }
+#btn li{ border-radius:5px; border:2px solid #F60; width:60px; text-align:center; margin:10px; line-height:1.8em; font-weight:bold; font-size:14px; float:left;box-shadow:2px 2px 4px #000 ;  }
+</style>
+</head>
+
+<body>
+<div style="width:450px; height:30px; margin:10px auto; text-align:center; line-height:30px; font-size:14px; font-weight:bold;"><a href="http://www.zhufengpeixun.cn">珠峰培训Tween运动框架应用示例</a>-自动轮播和点击结合</div>
+<div id="outer">
+	<div id="inner">
+    	<div style="background-image:url(images/image1.jpg);">珠峰培训:
+第壹壹壹壹壹张1</div>
+        <div style="background-image:url(images/image2.jpg);">珠峰培训:
+第贰贰贰贰贰贰张2222</div>
+        <div style="background-image:url(images/image3.jpg);">珠峰培训:
+第叁叁叁叁张3</div>
+        <div style="background-image:url(images/image4.jpg);">珠峰培训:
+第肆肆肆肆肆张4</div>
+        <div style="background-image:url(images/image5.jpg);">珠峰培训:
+第伍伍伍伍伍张5</div>
+    
+    </div>
+</div>
+<ul id="btn"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>
+</body>
+</html>
+<script type="text/ecmascript" src="zhufengEffect.js"></script>
+<script type="text/ecmascript" >
+var oLis=document.getElementById('btn').getElementsByTagName('li');
+var oInner=document.getElementById('inner');
+
+
+//初始化一下。把第一个DIV复制，追加到oInner里。再让oInner变宽。
+var oFirstDiv=oInner.getElementsByTagName('div').item(0);
+var duplic=oFirstDiv.cloneNode(true);//复本
+oInner.appendChild(duplic);
+//让oInner的宽度增加，使之能够多容下一个盒子
+oInner.style.width=oInner.offsetWidth+duplic.offsetWidth+'px';
+
+function myCallback(){//自定义的回调方法
+			for(var n=0; n<oLis.length;n++){
+			oLis.item(n).style.backgroundColor='';
+		}
+			oLi.style.backgroundColor='#FFCC66';
+}
+	
+var clickTimer=null;//控制点击的时候的启动autoMove的那个定时器
+for(var i=0; i<oLis.length;i++){
+	oLis.item(i).myIndex=i;
+	oLis.item(i).onclick=function(){
+		oLi=oLis.item(this.myIndex);		
+		animate(oInner,{left:this.myIndex*-500},800,3,myCallback);
+		step=this.myIndex;//让下一次自动运行在本张图片后
+		window.clearTimeout(autoTimer);//清除autoMove的运行
+		window.clearTimeout(clickTimer);//防止第63行定时器积累
+		clickTimer=window.setTimeout(autoMove,5000);
+		}
+}
+
+var step=0;
+var autoTimer=null;//控制自动轮播
+function autoMove(){
+	step++;
+	if(step==6){
+		oInner.style.left=0;//在最后一张和第一张之间进行切换
+		step=1;
+		
+		//当点按钮的时候，则停5秒钟后再继续自动轮播，见第63行代码
+	}
+	animate(oInner,{left:step*-500},600,2);
+	autoTimer=window.setTimeout(autoMove,3000);
+	
+}
+autoMove();
+</script>

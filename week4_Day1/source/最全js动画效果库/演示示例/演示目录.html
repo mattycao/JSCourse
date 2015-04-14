@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#demo{ width:400px; border:1px #FF3300 solid; font-size:12px; line-height:1.8em; padding:10px; height:300px; overflow:hidden;top:-160px;left:-210px;position:absolute; text-indent:2em; }
+#demo *{ text-indent:0em;} 
+#outerDemo{ width:0;height:0;position:absolute; top:0; left:0; overflow:hidden; background:#fff; z-index:100   }
+#closed{ width:20px; height:20px; position:absolute; top:0; right:0; background:url(figure_layer_close.png); z-index:100}
+</style>
+</head>
+
+<body>
+<div id="outerDemo">
+<div id="demo">
+<div id="closed"></div>
+珠峰培训自己开发的这套动画框架是使用Tween算法，目前包括了31种效果。和jQuery中的动画相比，它的体积小，效率高，资源占用少，效果非常丰富。使用上和jquery的animate方法一样。 2012年10月
+	<h3>常用效果演示示例</h3> 
+    <ol>
+    	<li><a href="appDemo1焦点图.html" target="_blank">焦点图</a></li>
+        <li><a href="单方向向左向右.html" target="_blank">图片自动轮播</a></li>
+        <li><a href="appDemo1自动轮播-单向.html" target="_blank">自动轮播和点击结合的焦点图</a></li>
+        <li><a href="appDemo2(淡入淡出).html" target="_blank">淡入淡出效果</a></li>
+        <li><a href="appDemo3.html" target="_blank">中间展开效果</a></li>
+        <li><a href="slide-deme2.html" target="_blank">图片滑动综合效果</a></li>
+       </ol>
+       所有示例都在“演示示例”文件夹中。使用时请先将zhufengEffect.js导入。
+        
+    
+
+</div>
+</div>
+</body>
+</html>
+<script type="text/ecmascript" src="zhufengEffect.js"></script>
+<script type="text/ecmascript">
+function argumentTip(innerId,outerId,w,h){
+	var ar=document.getElementById(innerId);
+
+	var outerAr=document.getElementById(outerId);
+	var wh=document.documentElement.clientHeight||document.body.clientHeight;
+	var ww=document.documentElement.clientWidth||document.body.clientWidth;
+	outerAr.style.left=ww/2+'px';
+	outerAr.style.top=wh/2+'px';
+	console.log(outerAr.offsetWidth);
+	var outerLeft=(ww-w)/2;//最终的左坐标
+	var outerTop=(wh-h)/2;
+
+
+
+	function fn(){
+		animate(outerAr,{left:outerLeft,top:outerTop,height:322,width:422},1200,2);
+		animate(ar,{left:0,top:0},1200,2);
+		}
+
+//////////////////////
+	var oMask=document.createElement('div');
+	oMask.style.height=wh+'px';
+	oMask.style.width=ww+'px';
+	oMask.style.opacity=0;
+	oMask.style.backgroundColor='black';
+	oMask.style.filter='alpha(opacity=0)';
+	oMask.style.position='absolute';
+	oMask.style.top=0;
+	oMask.style.left=0;
+	document.body.appendChild(oMask);
+	//oMask.appendChild(outerAr);
+	animate(oMask,{opacity:0.4},1200,2,fn);
+	
+	var closed=document.getElementById('closed');
+	closed.onclick=function(){
+		
+		animate(outerAr,{left:ww/2,top:wh/2,height:0,width:0},1200,2,function(){animate(oMask,{opacity:0},600,2,function(){this.parentNode.removeChild(this)});});
+		//top:-210px;left:-260px;
+		animate(ar,{left:-w/2,top:-h/2},1200,2);
+		
+	}
+
+}
+argumentTip('demo','outerDemo',420,320);
+</script>

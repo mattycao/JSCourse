@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ position:absolute; top:0; left:150px; width:100px; height:100px; background:red;filter:alpha(opacity=50)}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+
+function getCss(ele,attr){
+	try{
+		return parseFloat(window.getComputedStyle(ele,null)[attr]);
+	}catch(e){
+		if(attr=="opacity"){
+					var reg=/^alpha\(opacity=(\d+)\)$/;//用来匹配IE滤镜样式中不透明度的值
+			if(reg.test(ele.currentStyle.filter)){				 
+				return RegExp.$1/100;//为了让返回值和标准浏览器的值相同（为了保持相同的规范）
+			}else{
+				return 1;
+			}
+		}else{
+			return parseFloat(ele.currentStyle[attr]);
+		}
+	}
+}
+var ele=document.getElementById("div1");
+function animate(ele,attr,target,duration){
+	var begin=getCss(ele,attr);
+	var change=target-begin;
+	
+	interval=15;
+	times=0;
+	
+	function step(){
+		
+		times+=interval;
+		if(times>=duration){
+			if(attr=="opacity"){
+				ele.style.opacity=target;
+				ele.style.filter="alpha(opacity="+target*100+")";
+			}else{
+				ele.style[attr]=target+"px";
+			}			
+		}else{
+			var val=times/duration*change+begin;
+			if(attr=="opacity"){
+				ele.style.opacity=val;
+				ele.style.filter="alpha(opacity="+val*100+")";
+			}else{
+				ele.style[attr]=val+"px";				
+			}
+		}
+	}
+	var timer=window.setInterval(step,interval);
+}
+ele.onclick=function(){
+	animate(this,"width",444,1500);
+	
+}
+
+</script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>珠峰培训中间拉开效果 动画库应用</title>
+<style  type="text/css">
+#outer{ width:500px; height:350px; margin:50px auto; position:relative; overflow:hidden;}
+#inner{ position:absolute; top:0; left:0; width:2500px; height:335px;  }
+#inner div{ position:absolute; top:0; left:0; width:500px; height:335px; color:red; font-size:14px; ; overflow:hidden; font-weight:bold; text-align:right;
+/*  试试加上下面这一句
+	background-position:center; 
+*/
+background-position:center; 
+ }
+#btn{ margin:0; padding:0; list-style:none; width:450px; margin:0 auto; clear:both;  }
+#btn li{ border-radius:5px; border:2px solid #F60; width:60px; text-align:center; margin:10px; line-height:1.8em; font-weight:bold; font-size:14px; float:left;box-shadow:2px 2px 4px #000 ;  }
+</style>
+</head>
+
+<body>
+珠峰培训 2012年10月7日 【点击图片下方按钮观看效果】
+<div style="width:450px; height:80px; margin:10px auto; text-align:center; line-height:80px; font-size:14px; font-weight:bold;"><a href="http://www.zhufengpeixun.cn">珠峰培训Tween运动框架应用示例</a>- 中间拉开效果</div>
+<div id="outer">
+	<div id="inner">
+    	<div style="background-image:url(images/image1.jpg);">珠峰培训:
+第壹壹壹壹壹张1</div>    
+    </div>
+</div>
+<ul id="btn"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>
+</body>
+</html>
+<script type="text/ecmascript" src="zhufengEffect.js"></script>
+<script type="text/ecmascript" >
+var oLis=document.getElementById('btn').getElementsByTagName('li');
+var oInner=document.getElementById('inner');
+var oDivs=oInner.getElementsByTagName('div');
+var zIndex=0;
+function createEle(nIndex){
+	var oDiv=document.createElement('div');
+	oDiv.style.backgroundImage="url(images/image"+nIndex+".jpg)";
+	oDiv.style.left='250px';
+	oDiv.style.width=0;
+	oDiv.style.zIndex=++zIndex;
+	oDiv.innerHTML='珠峰培训';
+	oInner.appendChild(oDiv);
+	return oDiv;
+	
+}
+
+for(var i=0; i<oLis.length;i++){
+	oLis.item(i).myIndex=i;
+	oLis.item(i).onclick=function(){
+		var ele=createEle(this.myIndex+1);		
+		//animate(ele,{width:500,left:0},0);
+		animate(ele,{width:500,left:0},1500,4);				
+	}
+}
+
+</script>

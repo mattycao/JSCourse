@@ -1,0 +1,4 @@
+http://online.zhufengpeixun.cn/viewCourseDetail.do?courseId=201892
+先要注册一个用户名，此视频目前不收费。
+一共是6个视频，从“tween运动框架1”这个开始看。每一个视频文件上都有顺序号.
+如果想使用这些动画效果，请先导入此目录下的“zhufengEffect.js”这个文件。这个文件里也有使用说明。

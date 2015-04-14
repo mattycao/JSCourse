@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ position:absolute; top:0; left:150px; width:100px; height:100px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+/*
+不断的去计算当前的位置=change*(times/duration)+begin;
+
+*/
+function getCss(ele,attr){
+	try{
+		return parseFloat(window.getComputedStyle(ele,null)[attr]);
+	}catch(e){
+		return parseFloat(ele.currentStyle[attr]);
+	}
+}
+var ele=document.getElementById("div1");
+
+function animate(ele,attr,target,duration){
+	//ele表示运动的元素,attr运动的方向，target运动的终点，duration表示完成运动的总时间
+	var begin=getCss(ele,attr);
+	var change=target-begin;
+	
+	var interval=15;
+	var times=0;
+	function step(){
+		times+=interval;
+		if(times>=duration){
+			ele.style[attr]=target+"px";
+			clearInterval(timer);
+		}else{
+			ele.style[attr]=times/duration*change+begin+"px";
+		}		
+	}
+	var timer=window.setInterval(step,interval);	
+}
+ele.onclick=function(){
+	animate(this,"left",977,500);
+}
+
+</script>

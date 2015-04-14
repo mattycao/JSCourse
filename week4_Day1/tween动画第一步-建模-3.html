@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{width:100px; height:100px; position:absolute; top:0;left:200px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+//600ms,从200px--到600px，
+//600ms时间周期走 600-200 距离
+//单步时间，10，15，20ms
+//当前消耗的时间是怎么算出来的:比如说走一步是15ms
+//300ms是走了20步
+var ele=document.getElementById('div1');
+var duration=600;//规定的总时间，单位ms毫秒
+var target=600;//终点
+var begin=ele.offsetLeft;//起始位置
+var change=target-begin;//需要运动的总距离
+var interval=9;//每走一步的间隔时间
+var times=0;//当前消耗的总时间，一开始为0
+
+function step(){
+	times+=interval;
+	if(times>=duration){
+		ele.style.left=target+"px"
+		clearInterval(timer);
+			
+	}else{
+		ele.style.left=times/duration*change+begin+"px";
+	}
+}
+
+var timer=window.setInterval(step,interval);
+</script>

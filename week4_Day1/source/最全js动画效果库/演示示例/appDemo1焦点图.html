@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>珠峰培训  动画框架应用之焦点</title>
+<style  type="text/css">
+#outer{ width:500px; height:350px; margin:0px auto; position:relative; overflow:hidden; background:#CCCC99}
+#inner{ position:absolute; top:0; left:0; width:2500px; height:335px;  }
+#inner div{ float:left; width:500px; height:335px; color:red; font-size:14px; ; overflow:hidden; font-weight:bold; text-align:right;}
+#btn{ margin:0; padding:0; list-style:none; width:450px; margin:0 auto; clear:both;  }
+#btn li{ border-radius:5px; border:2px solid #F60; width:60px; text-align:center; margin:10px; line-height:1.8em; font-weight:bold; font-size:14px; float:left;box-shadow:2px 2px 4px #000 ;  }
+</style>
+</head>
+
+<body>
+珠峰培训  动画框架应用之焦点图
+<div id="outer">
+	<div id="inner">
+    	<div style="background-image:url(images/image1.jpg);">珠峰培训:
+第壹壹壹壹壹张1</div>
+        <div style="background-image:url(images/image2.jpg);">珠峰培训:
+第贰贰贰贰贰贰张2222</div>
+        <div style="background-image:url(images/image3.jpg);">珠峰培训:
+第叁叁叁叁张3</div>
+        <div style="background-image:url(images/image4.jpg);">珠峰培训:
+第肆肆肆肆肆张4</div>
+        <div style="background-image:url(images/image5.jpg);">珠峰培训:
+第伍伍伍伍伍张5</div>
+    
+    </div>
+</div>
+<ul id="btn"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>
+<div id="play" style="background:#CC9; clear:both; font-size:12px; width:780px; margin:0 auto; padding:10px; ">
+  <p><strong> 选择动画类型：</strong> <br />
+    <label>
+      <input name="vTween" type="radio" value="zfLinear" checked="checked" />
+      无缓动效果(直线) </label>
+    <label>
+      <input name="vTween" type="radio" value="Quad" />
+      Quadratic </label>
+    <label>
+      <input name="vTween" type="radio" value="Cubic" />
+      Cubic </label>
+    <label>
+      <input name="vTween" type="radio" value="Quart" />
+      Quartic </label>
+    <label>
+      <input name="vTween" type="radio" value="Quint" />
+      Quintic </label>
+    <label>
+      <input name="vTween" type="radio" value="Sine" />
+      Sinusoidal </label>
+    <br />
+    <label>
+      <input name="vTween" type="radio" value="Expo" />
+      Exponential </label>
+    <label>
+      <input name="vTween" type="radio" value="Circ" />
+      Circular </label>
+    <label>
+      <input name="vTween" type="radio" value="Elastic" />
+      Elastic </label>
+    <label>
+      <input name="vTween" type="radio" value="Back" />
+      Back </label>
+    <label>
+      <input name="vTween" type="radio" value="zfBounce" />
+      Bounce </label>
+  </p>
+  <p> ease类型： <br />
+    <label>
+      <input name="vEase" type="radio" value="easeIn" checked="checked" />
+      easeIn 缓进</label>
+    <label>
+      <input name="vEase" type="radio" value="easeOut" />
+      easeOut缓出 </label>
+    <label>
+      <input name="vEase" type="radio" value="easeInOut" />
+      easeInOut缓进再缓出 </label>
+  </p>
+  <input id="idSpeed" type="button" value="减慢速度" />
+  
+  <div id="runCode" style="height:100px; width:550px;">	animate(ele,{left:500},1500,['Quart','easeIn'],callback)</div>
+</div>
+</body>
+</html>
+<script type="text/ecmascript" src="zhufengEffect.js"></script>
+<script type="text/ecmascript" >
+
+
+var aEffect=['Quart','easeIn'];
+var nDuration=600;
+
+var oPlay=document.getElementById('play');
+var oRunCode=document.getElementById('runCode');
+function callback(){}
+oPlay.onclick=function(e){
+	var e=e||event;
+	var t=e.target||e.srcElement;
+	//name="vTween" type="radio"
+	if(t.type=='radio'){
+		if(t.name=='vTween'){
+			aEffect[0]=t.value;
+			oRunCode.innerHTML="animate(ele,{left:500},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+		}else if(t.name=='vEase'){
+			aEffect[1]=t.value;
+			oRunCode.innerHTML="animate(ele,{left:500},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+		}
+		
+	}else if(t.value=='Run'){
+		
+	}else if(t.value=='减慢速度'){
+		t.value='加快速度';
+		nDuration=1500;
+		
+		oRunCode.innerHTML="animate(ele,{left:500},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+		
+	}else if(t.value=='加快速度'){
+		t.value='减慢速度';
+		nDuration=600;
+		oRunCode.innerHTML="animate(ele,{left:500},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+		
+	}
+	
+}
+///////////以上是帮助文档的代码
+
+var oLis=document.getElementById('btn').getElementsByTagName('li');
+var oInner=document.getElementById('inner');
+for(var i=0;i<oLis.length;i++){
+	oLis.item(i).myIndex=i;
+	oLis.item(i).onclick=function(){	animate(oInner,{left:this.myIndex*-500},nDuration,aEffect,callback);}
+}
+
+</script>

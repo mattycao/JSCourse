@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#outer{ width:450px; height:240px; margin:100px auto; position:relative; -overflow:hidden; background:black;}
+
+#inner{ width:2700px; height:240px; position:absolute; top:20px; left:0;}
+#inner div{ width:450px; height:240px; background:orange; float:left; font-size:36px; text-align:center; line-height:240px; }
+#btn{ width:210px; height:30px; margin:0; padding:0; position:absolute; bottom:50px; right:50px;}
+#btn li{ list-style:none; padding:0; margin:0; width:30px; height:30px; line-height:30px; margin-right:5px; float:left; border-radius:50%; background:#00C; color:orange; text-align:center; font-size:18px; font-weight:bold; cursor:pointer; -webkit-user-select:none;}
+</style>
+</head>
+
+<body>
+<div id="outer">
+	<div id="inner">
+    	<div >金金金金金金金</div>
+        <div style="background:red;" >木木木木木</div>
+        <div style=" background:pink;" >水</div>
+        <div style="background:gray">火</div>
+        <div style="background:purple;">土</div>
+        <div >金金金金金金金1</div>
+    </div>
+    <ul id="btn"><li>金</li><li>木</li><li>水</li><li>火</li><li>土</li></ul>
+</div>
+</body>
+</html>
+<script src="tween-5.js"></script>
+<script>
+var oLis=document.getElementById("btn").getElementsByTagName("li");
+var oInner=document.getElementById("inner");
+for(var i=0;i<oLis.length;i++){
+	oLis.item(i).i=i;
+	oLis.item(i).onclick=function(){
+		animate(oInner,{left:-450*this.i},600,2);
+		}
+}
+
+var step=0;
+function autoMove(){
+	step++;
+	if(step==6){//一共就六张，当索引等于6的时候，就是向第七张上走，其实是从第一张往第二张上走。
+	//这会则把oInner的坐标彻换到第一张上来（就是0）,然后从第一张往第二张上走。
+	
+		oInner.style.left=0;
+		step=1;//索引为1，表示走到第二张
+			
+	}
+	animate(oInner,{left:-450*step},600);
+	//window.setTimeout(autoMove,2000);
+	
+}
+window.setInterval(autoMove,2000);
+</script>

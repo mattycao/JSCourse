@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#ele1{ width:100px; height:100px; background:black; position:absolute; top:0; left:0;}
+</style>
+</head>
+
+<body>
+<p id="ele1">
+知我说法，如筏喻者，法应尚舍，何况非法？
+</p>
+
+</body>
+</html>
+<script type="text/ecmascript">
+function css(ele,attr,val){
+	if(typeof val=="number"){//写CSS值的
+		if(attr=="opacity"){
+			ele.style.opacity=val;
+			ele.style.filter="alpha(opacity="+val*100+")";	
+		}else{
+			ele.style[attr]=val+"px";			
+		}
+	}else{//读CSS值的
+		if(attr=="opacity"){//如果是读不透明度的值
+			if(typeof getComputedStyle=="function"){//标准浏览器
+				var val=getComputedStyle(ele,null)[attr];
+				return parseFloat(val);
+			}else{//IE中				
+				var val=ele.currentStyle.opacity;
+				val=parseFloat(val);//如果没有设置opacity的值，则val的值是undefined
+				if(isNaN(val)){//undefined转换为数字会失败，为NaN,
+				//判断一个数是否为NaN用isNaN方法，不能用NaN==NaN
+					ele.style.opacity=1;
+					ele.style.filter="alpha(opacity=100)";
+					return 1;
+				}else{
+					return parseFloat(val);					
+				}
+			}			
+		}else{//获得非opacity属性的css样式			
+			var val=window.getComputedStyle?window.getComputedStyle(ele,null)[attr]:ele.currentStyle[attr];
+			return parseFloat(val);			
+		}		
+	}
+}
+
+//alert(css(ele1,"opacity"));
+function linear(t,b,c,d){		return t/d*c+b;	}
+
+function animate(ele,direc,target,duration){
+	var begin=css(ele,direc);
+	var change=target-begin;
+	var interval=15;
+	var times=0;
+	_move();
+	function _move(){
+		times+=interval;
+		if(times>=duration){
+			css(ele,direc,target);
+		}else{
+			var val=linear(times,begin,change,duration)
+			css(ele,direc,val);
+			window.setTimeout(_move,interval);
+		}		
+	}	
+}
+ele1.onclick=function(){animate(this,"opacity",0.1,1000);}
+</script>

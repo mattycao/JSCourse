@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        #div1 {
+            position: absolute;
+            top: 0;
+            left: 150px;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+    /*
+     不断的去计算当前的位置=change*(times/duration)+begin;
+
+     */
+    // used for get height width with the px stuff
+    function getCss(ele, attr) {
+        // or use the if(typeof getComputedStyle) since 变量是否存在用typeof
+        try {
+            return parseFloat(window.getComputedStyle(ele, null)[attr]);
+        } catch (e) {
+            return parseFloat(ele.currentStyle[attr]);
+        }
+    }
+    var ele = document.getElementById("div1");
+    //    var target=800;
+    //    var begin=getCss(ele,"left");
+    //    var change=target-begin;
+    //
+    //
+    //    var duration=1000;//完成总的运动路的时间是1000ms
+    //    var interval=15;//规定走单步时间是10ms
+    //    var times=0;//未走之前的总时间是0
+    //
+    //    function step(){
+    //    	times+=interval;
+    //    	if(times>=duration){
+    //    		clearInterval(timer);
+    //    		ele.style.left=target+"px";
+    //    	}else{
+    //    		ele.style.left=change*times/duration+begin+"px";
+    //    	}
+    //    }
+    //    var timer=window.setInterval(step,interval);
+    function move(ele, target) {
+        console.log(cur);
+        var cur = getCss(ele, 'left');
+        if (getCss(ele, 'left') < target) {
+            ele.style.left = getCss(ele, 'left') + 5 + 'px';
+        }
+        window.setTimeout(function() {
+            move(ele, target)
+        }, 60);
+    }
+
+    ele.onclick = function () {
+        //window.setInterval(function () {
+            move(ele, 600)
+        //}, 60);
+    }
+</script>

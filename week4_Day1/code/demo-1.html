@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ position:absolute; top:0; left:150px; width:100px; height:100px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+/*在1000ms时间内,从当前的位置，移动到800px的位置
+100/1000,200/1000 按时间比决定当前的位置
+总距离=800-150（整个动画需要移动的距离）
+当前消耗时间/总时间=当前走了的距离/总距离
+100/1000=当前走了的距离/650
+动画是不断的在计算位移（距离）
+当前走了的距离=当前消耗的时间/总时间*总距离
+当前的位置=当前的走了的距离+起点
+
+需要规定每走一步（单步长的时间）：10ms
+总时间：duration
+当前消耗的时间：times
+当前消耗的时间=是n个单步时间之和：单步时间叫:interval
+起点：begin
+终点：target
+运动的总距离：change = target-begin
+不断的去计算当前的位置=change*(times/duration)+begin;
+
+*/
+</script>

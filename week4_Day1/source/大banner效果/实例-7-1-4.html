@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+body{ margin:0; background:#09C; overflow-x:hidden;}
+#banner{ margin:150px auto 0; position:relative; width:980px; height:318px;}
+#banner img{ border:none;  display:block; position:absolute; top:0; left:0;}
+ #mask{ width:980px; height:318px; position:absolute; top:0px; left:0px; z-index:999; ;}
+#banner .btn{width:24px; height:24px; background:orange; color:darkBlue; position:absolute; right:210px; top:280px; font-size:20px; text-align:center; font-weight:bold; line-height:24px; cursor:pointer; -webkit-user-select:none; z-index:9999;}
+#banner div.selectedBtn{ background:#903; color:green;}
+</style>
+</head>
+
+<body>
+<div id="banner">
+<img src="img/slider1.jpg">
+<img src="img/slider2.jpg">
+<img src="img/slider3.jpg">
+<img src="img/slider4.jpg">
+<img src="img/slider5.jpg">
+</div>
+
+
+</body>
+</html>
+<script src="tween.js"></script>
+<script>
+
+var oMask=document.createElement('div');
+
+oMask.id="mask";
+var banner=document.getElementById('banner');
+var oImgs=banner.getElementsByTagName('img');
+banner.appendChild(oMask);
+	var oGroup=document.createElement('div');
+	oGroup.id="group";
+	banner.appendChild(oGroup);
+for(var i=0;i<oImgs.length;i++){
+	var oBtn=document.createElement('div');
+	oBtn.className="btn";
+	//banner.appendChild(oGroup);
+	oBtn.innerHTML=i+1;
+	oBtn.style.right=(oImgs.length-i)*30+150+"px";
+	oGroup.appendChild(oBtn);
+	
+	
+}
+var eles=[];
+for(var i=0;i<30;i++){
+	var oDiv=document.createElement('div');	
+	oDiv.style.width=98+"px";
+	oDiv.style.height=106+"px";
+	oDiv.style.backgroundImage="url(img/slider2.jpg)";
+	oDiv.style.position="absolute";
+	 oDiv.style.left=-300+"px";
+	 if(Math.floor(i/10)==0){
+		 oDiv.style.top=-200+'px';
+	 }else if(Math.floor(i/10)==1){
+		 oDiv.style.top=Math.floor(i/10)*106+'px';
+	 }else if(Math.floor(i/10)==2){
+		 oDiv.style.top=3*106+'px';
+	 }
+	oDiv.l=i%10*98;
+	oDiv.t=Math.floor(i/10)*106;
+	oDiv.style.backgroundPosition="-"+i%10*98+"px  -"+Math.floor(i/10)*106+'px';
+	oMask.appendChild(oDiv);
+	eles.push(oDiv);
+	
+}
+
+function fnEffect1(nImage){
+	 nEffect=4;
+		for(var k=0,l=eles.length;k<l;k++){
+			var oDiv=eles[k];
+			oDiv.style.backgroundImage="url(img/slider"+(nImage+1)+".jpg)";
+			with(oDiv.style){
+				left=oDiv.l+'px';
+				top=oDiv.t+"px";
+				width=0;
+				height=0;
+				opacity=0;				
+			}			
+		}	
+}
+
+
+function fnEffect4(nImage){
+	 nEffect=1;
+		for(var k=0,l=eles.length;k<l;k++){
+			var oDiv=eles[k];
+			oDiv.style.backgroundImage="url(img/slider"+(nImage+1)+".jpg)";
+			with(oDiv.style){
+				left=oDiv.l+'px';
+				top=oDiv.t+"px";
+				width=98+'px';
+				height=0;
+				opacity=1;				
+			}			
+		}	
+}
+
+function fnEffect5(nImage){
+	 nEffect=4;
+		for(var k=0,l=eles.length;k<l;k++){
+			var oDiv=eles[k];
+			oDiv.style.backgroundImage="url(img/slider"+(nImage+1)+".jpg)";
+			if(k%2){
+				with(oDiv.style){
+					left=oDiv.l+'px';
+					top=-318+"px";
+					width=98+'px';
+					height="106px";
+					opacity=0;				
+				}	
+			}else{
+				with(oDiv.style){
+					left=oDiv.l+'px';
+					top=318+"px";
+					width=98+'px';
+					height="106px";
+					opacity=0;				
+				}	
+				
+			}
+		}	
+}
+function fnEffect2(nImage){
+	nEffect=2;
+	for(var i=0;i<30;i++){//从左向右
+		var oDiv=eles[i];
+		oDiv.style.left=-300+"px";
+		oDiv.style.width="98px";
+		oDiv.style.height="106px";
+		 if(Math.floor(i/10)==0){
+			 oDiv.style.top=-200+'px';
+		 }else if(Math.floor(i/10)==1){
+			 oDiv.style.top=Math.floor(i/10)*106+'px';
+		 }else if(Math.floor(i/10)==2){
+			 oDiv.style.top=3*106+'px';
+		 }
+		 oDiv.style.opacity=0;
+		 //注意还要给小DIV们换背景
+		 oDiv.style.backgroundImage="url(img/slider"+(nImage+1)+".jpg)";		 
+	}
+	
+}
+
+function fnEffect3(nImage){
+	nEffect=2;
+	for(var k=0;k<30;k++){
+			var oDiv=eles[k];
+			oDiv.style.backgroundImage="url(img/slider"+(nImage+1)+".jpg)";
+			oDiv.style.opacity=0;
+			if(Math.floor(k/10)==0){
+			oDiv.style.top=-200+'px';
+			oDiv.style.left=980+198+'px';
+		}else if(Math.floor(k/10)==1){
+			oDiv.style.top=oDiv.t+'px';
+			oDiv.style.left=980+198+'px';			
+		}else if(Math.floor(k/10)==2){
+			oDiv.style.top=3*106+'px';
+			oDiv.style.left=980+198+'px';			
+		}
+	}
+	
+}
+
+
+
+var objEffect={fn1:fnEffect1,fn2:fnEffect2,fn3:fnEffect3,fn4:fnEffect4,fn5:fnEffect5}
+var nEffect=2;
+var current=0;//当前显示的img，
+var zIndex=1;//保证图片在最上边的，用来改变图片的zIndex值的变量。初始的
+function init(nImage){//在执行新的动画之前，做的初始化。就是把30个小div藏起来。
+	zIndex+=9
+	oImgs.item(current).style.zIndex=zIndex;	
+	if(nImage>current) objEffect.fn2(nImage);else	objEffect.fn3(nImage);	
+	current=nImage;	
+}
+var oImgs=document.getElementsByTagName('img');
+oImgs.item(current).style.zIndex=++zIndex;
+
+var group=document.getElementById('group').getElementsByTagName('div');
+var flying=true;
+
+for(var i=0;i<group.length;i++){
+	group.item(i).nIndex=i;
+	group.item(i).onclick=function(){
+		if(this.nIndex==current) return;
+		if(!flying)return;
+		
+		group.item(current).className="btn";
+		this.className="btn selectedBtn";	
+		clearTimeout(autoTimer);
+		init(this.nIndex);
+		flying=false;
+		for(var i=0;i<30;i++){
+			(function(i){//这个闭包必须有，没有ele变量会被覆盖
+				var ele=eles[i];
+				
+				function fn() {animate(ele,{left:ele.l,top:ele.t,opacity:1,width:98,height:106},600,nEffect,function(){if(this==oDiv&&(!this.timer))flying=true;});}
+				if(nEffect==4){window.setTimeout(fn);
+					
+				}else{
+					window.setTimeout(fn,i%10*100+100);
+				}
+			})(i);
+		
+		}	
+	}
+}
+
+var nIndex=0;
+var autoTimer=null;
+group.item(current).className="btn selectedBtn";
+(function(){		
+		autoTimer=window.setTimeout(arguments.callee,5000);
+		nIndex++;
+		if(nIndex>=5){
+			nIndex=0;	
+		}
+		var nImage=nIndex;
+		zIndex+=9
+	oImgs.item(current).style.zIndex=zIndex;
+		group.item(current).className="btn";
+		group.item(nIndex).className="btn selectedBtn selectedBtn";	
+	objEffect["fn"+Math.ceil(Math.random()*5)](nImage);
+	current=nImage;	
+		flying=false;
+		for(var i=0;i<30;i++){
+			(function(i){
+				var ele=eles[i];				
+				function fn() {animate(ele,{left:ele.l,top:ele.t,opacity:1,width:98,height:106},600,nEffect,function(){if(this==oDiv&&(!this.timer))flying=true;});}
+				if(nEffect==4){window.setTimeout(fn);					
+				}else{
+					window.setTimeout(fn,i%10*100+100);
+				}
+			})(i);		
+		}	
+	})();
+</script>

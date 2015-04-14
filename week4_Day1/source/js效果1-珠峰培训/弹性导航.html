@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="IE=7" http-equiv="X-UA-Compatible"/>
+<title>无标题文档</title>
+<style type="text/css">
+#nav{
+	 position:relative;
+	 width:405px;
+	 height:30px;
+	 margin:30px auto;
+	 }
+ul{
+	width:405px;
+	list-style:none;
+	height:30px;
+	margin:0;
+	padding:0;
+	line-height:30px;
+	}
+ul li{
+	float:left;
+	width:100px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size:14px;
+	font-weight:700;
+    background:#ccc;
+	}
+#div1{
+	width:100px;
+	height:30px;
+	position:absolute;
+	background:#F63;
+	overflow:hidden;
+	left:0;
+	top:0;
+	color:#fff;
+	}
+#ul2{
+	position:absolute;
+	top:0;
+	left:0;
+	}
+#div1 ul li{
+	background:#F63;
+	}
+</style>
+<script type="text/javascript">
+
+window.onload=function(){
+	
+	var nSpeed=0;
+	function move(nTarget){
+		var oDiv=document.getElementById('div1');	
+		window.clearTimeout(oDiv.timer);
+		var oUl=document.getElementById('ul2');
+		nSpeed+=(nTarget-oDiv.offsetLeft)/8;
+		nSpeed*=0.9;
+		
+		oUl.style.left=oUl.offsetLeft-nSpeed+'px';
+		oDiv.style.left=oDiv.offsetLeft+nSpeed+'px';
+		
+		if(Math.abs(nSpeed)<1&&Math.abs(nTarget-oDiv.offsetLeft)<1){
+			}else{
+				oDiv.timer=window.setTimeout(function(){move(nTarget)},30)
+				}
+	}
+
+	var oLi=document.getElementById('myul').getElementsByTagName('li');
+	oLi.item(0).onmouseover=function(){move(0);};
+	oLi.item(1).onmouseover=function(){move(100);};
+	oLi.item(2).onmouseover=function(){move(200);};
+	oLi.item(3).onmouseover=function(){move(300);};
+	}
+</script>
+</head>
+
+<body>
+<div id="nav">
+ <ul id="myul">
+    <li>首页</li>
+    <li>珠峰培训</li>
+    <li>珠峰在线</li>
+    <li>联系我们</li>
+ </ul>
+ <div id="div1">
+  <ul id="ul2">
+    <li>首页</li>
+    <li>珠峰培训</li>
+    <li>珠峰在线</li>
+    <li>联系我们</li>
+  </ul>
+ </div>
+</div>
+<div id="t1">
+</div>
+<div id="t2"></div>
+</body>
+</html>

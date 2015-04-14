@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+#div1 {position:relative;}
+#div1 span {width:100px; height:100px; background:yellow; position:absolute; left:0px; top:0px; filter:alpha(opacity:30); opacity:0.3; border:1px solid black; display:none;}
+.shadow {width:100%; height:100%; background:red; position:absolute; top:0px; left:0px; z-index:10; filter:alpha(opacity:0); opacity:0;}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+/*
+珠峰培训课堂示例
+2011年12月
+*/
+window.onload=function ()
+{
+	var oDiv=document.getElementById('div1');
+	var oShadow=oDiv
+	var oSpan=oDiv.getElementsByTagName('span').item(0);//取得跟随鼠标移动的那个半透明的遮罩
+	var oImg=document.getElementById('img1');//随鼠标划动在右则出现的那个图
+	
+	oShadow.onmouseover=function ()
+	{
+		oSpan.style.display='block';
+		oImg.parentNode.style.display='block';//
+	};
+	
+	oShadow.onmouseout=function ()
+	{
+		oSpan.style.display='none';
+		oImg.parentNode.style.display='none';
+	};
+	
+	oShadow.onmousemove=function (ev)
+	{
+		var oEvent=ev||event;
+		
+		var x=oEvent.clientX-oDiv.offsetLeft-oSpan.offsetWidth/2;//取出正常情况下那个半透明的遮罩的左边
+		var y=oEvent.clientY-oDiv.offsetTop-oSpan.offsetHeight/2; //取出正常情况下那个半透明的遮罩的上边
+		
+		if(x<0)//如果左边越界
+		{
+			x=0;
+		}
+		else if(x>oShadow.offsetWidth-oSpan.offsetWidth)//如果右边越界
+		{
+			x=oShadow.offsetWidth-oSpan.offsetWidth;
+		}
+		
+		if(y<0)
+		{
+			y=0;
+		}
+		else if(y>oShadow.offsetHeight-oSpan.offsetHeight)
+		{
+			y=oShadow.offsetHeight-oSpan.offsetHeight;
+		}
+		
+		oSpan.style.left=x+'px';
+		oSpan.style.top=y+'px';
+		
+		var percentY=y/(oShadow.offsetHeight-oSpan.offsetHeight);//求出百分比
+		var percentX=x/(oShadow.offsetWidth-oSpan.offsetWidth);//求出百分比
+		var oImgParent=oImg.parentNode;
+		
+		oImg.style.top=-percentY*(oImg.offsetHeight-oImgParent.offsetHeight)+'px';
+		oImg.style.left=-percentX*(oImg.offsetWidth-oImgParent.offsetWidth)+'px';
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="div1" style="width:190px; height:220px; float:left;">
+	<img src="2.jpg" />
+	<span></span>
+	
+<div style="width:190px; height:220px; position:absolute; display:none; overflow:hidden; top:0; left:200px; border:1px dashed blue; ">
+	<img id="img1" src="1.jpg" style="position:absolute;" />
+</div>
+</div>
+</body>
+</html>

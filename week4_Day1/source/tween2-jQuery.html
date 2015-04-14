@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:100px; height:100px; position:absolute; top:0; left:0; background:black;  }
+
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="jquery-1.9.1.js"></script>
+<script type="text/ecmascript">
+$("#div1").click(function(){
+	
+	$(this).animate({left:500},1500,"easeOutElastic",function(){
+		this.style.backgroundColor="red";
+		});	
+	})
+
+</script>

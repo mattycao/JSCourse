@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style  type="text/css">
+#ar{ width:500px; border:1px #FF3300 solid; font-size:12px; line-height:1.8em; padding:10px; height:400px; overflow:hidden;top:-210px;left:-260px;position:absolute; }
+#outerAr{ width:0;height:0;position:absolute; top:0; left:0; overflow:hidden; background:#CC9    }
+</style>
+</head>
+
+<body style="margin:0; ;">
+<div id="outerAr">
+<div id="ar">
+
+    <strong>动画函数：</strong>animate(ele,obj,nDuration,[effectType],[fnCallback]);<br />
+      <strong>参数说明：</strong>
+      <ul>
+      	<li>参数1、ele:表示做动画效果的那个元素</li>
+      	<li>参数2、obj：是一个JSON对象，表示在ele元素在那几个方向运动。格式如下<br />
+      
+      obj={height:600,width:600,top:433,left:399,opacity:0.1}<br />
+      </li>
+      
+     <li> <strong>参数3：</strong>nDuration，表示完成动画所需要的总时间。<br />
+     </li>
+      
+      <li><strong>参数4:</strong>effectType:可选参数，表示四种运动效果中的一个，分别为:<br />
+      <ul>
+      
+      
+      <li><strong>第一种情况，传一个数字</strong>
+         <ul>          
+          <li>：1表示匀速运动</li>          
+          <li>：2表示缓冲运动</li>          
+          <li>：3是弹性运动</li>          
+          <li>: 4表示反弹运动</li>
+      	 </ul>
+      </li>	
+      <li>
+          <strong>第二种情况：</strong><br />      
+          可以传一个函数，表示是回调方法  
+      </li>
+       <li>
+      <strong>第三种情况：</strong><br />      
+      什么也不传，则以匀速方式做运动 。
+      </li>
+      <li>
+      第四种情况，传一个数组，类似['Back','easeIn']，表示某种定义好的算法</li>
+      </ul>
+      </li>
+      
+  <li><strong>参数4、</strong>fnCallback:可选参数。表示是回调方法</li>
+  </ul> 
+</div>
+</div>
+</body>
+</html>
+<script type="text/ecmascript" src="zhufengEffect.js"></script>
+<script type="text/ecmascript">
+function argumentTip(){
+var ar=document.getElementById('ar');
+
+var outerAr=document.getElementById('outerAr');
+var wh=document.documentElement.clientHeight||document.body.clientHeight;
+var ww=document.documentElement.clientWidth||document.body.clientWidth;
+outerAr.style.left=ww/2+'px';
+outerAr.style.top=wh/2+'px';
+var outerLeft=(ww-520)/2;//最终的左坐标
+var outerTop=(wh-420)/2;
+
+
+
+function fn(){
+	animate(outerAr,{left:outerLeft,top:outerTop,height:422,width:522},1200,2);
+	animate(ar,{left:0,top:0},1200,2);
+	}
+
+//////////////////////
+var oMask=document.createElement('div');
+oMask.style.height=wh+'px';
+oMask.style.width=ww+'px';
+oMask.style.opacity=0;
+oMask.style.backgroundColor='black';
+oMask.style.filter='alpha(opacity=0)';
+oMask.style.position='absolute';
+oMask.style.top=0;
+oMask.style.left=0;
+document.body.appendChild(oMask);
+oMask.appendChild(outerAr);
+animate(oMask,{opacity:0.4},1800,2,fn);
+}
+</script>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ position:absolute; top:0; left:150px; width:100px; height:100px; background:red;filter:alpha(opacity=50)}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+/*
+不断的去计算当前的位置=change*(times/duration)+begin;
+
+*/
+var reg=/^alpha\(opacity=(\d+)\)$/;//用来匹配IE滤镜样式中不透明度的值
+var str="alpha(opacity=50)";
+//alert(reg.test(str));
+ 
+function getCss(ele,attr){
+	try{
+		return parseFloat(window.getComputedStyle(ele,null)[attr]);
+	}catch(e){
+		if(attr=="opacity"){
+			//filter:alpha(opacity=90);
+			var reg=/^alpha\(opacity=(\d+)\)$/;//用来匹配IE滤镜样式中不透明度的值
+			//alert((ele.style.filter));
+			if(reg.test(ele.currentStyle.filter)){
+				 
+				return RegExp.$1/100;//为了让返回值和标准浏览器的值相同（为了保持相同的规范）
+			}else{
+				return 1;
+			}
+		}else{
+			return parseFloat(ele.currentStyle[attr]);
+		}
+	}
+}
+var ele=document.getElementById("div1");
+//alert(ele.currentStyle.filter);
+function fade(ele,target/* 介于0和1之间*/,duration){
+	var begin=getCss(ele,"opacity");
+	alert(begin);
+	var change=target-begin;
+	
+	var times=0;
+	var interval=15;
+	function step(){
+		times+=interval;
+		if(times>=duration){
+			clearInterval(timer);
+			ele.style.opacity=target;
+			ele.style.filter="alpha(opacity="+target*100+")";
+		}else{
+			var val=times/duration*change+begin;
+			ele.style.opacity=val;
+			ele.style.filter="alpha(opacity="+val*100+")";
+			//console.log(times/duration*change+begin);
+		}
+	}
+	var timer=window.setInterval(step,interval);
+}
+
+ele.onclick=function(){
+	fade(this,0.01,1500);
+}
+
+</script>

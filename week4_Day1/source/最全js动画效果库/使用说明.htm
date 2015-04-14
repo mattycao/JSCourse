@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tween</title>
+</head>
+<style type="text/css">
+body{ width:700px; margin:0 auto; margin-top:10px;}
+.runLine{ width:3px; height:3px; overflow:hidden; position:absolute;top:0;left:0; background:red;}
+#play{background:#CC9; padding:10px; margin:30px 0 0 0; width:630px;}
+#ar{ width:500px; border:1px #FF3300 solid; font-size:12px; line-height:1.8em; padding:10px; height:400px; overflow:hidden;top:-210px;left:-260px;position:absolute; }
+#outerAr{ width:0;height:0;position:absolute; top:0; left:0; overflow:hidden; background:#fff; z-index:10;    }
+#closed,.closed{ display:block; width:20px; height:20px; position:absolute; top:0; right:0; background:url(figure_layer_close.png); z-index:100}
+#demo{ width:400px; border:1px #FF3300 solid; font-size:12px; line-height:1.8em; padding:10px; height:300px; overflow:hidden;top:-160px;left:-210px;position:absolute; text-indent:2em; }
+#demo *{ text-indent:0em;} 
+#outerDemo{ width:0;height:0;position:absolute; top:0; left:0; overflow:hidden; background:#fff; z-index:9   }
+#idRun{ color:red; font-weight:bold;}
+#video{ float:right;}
+</style>
+<body>
+
+<div >
+	<strong><a href="http://www.zhufengpeixun.cn" target="_blank">珠峰培训</a>Tween算法运动框架演示</strong><input  type="button" value='用法说明' onclick="argumentTip('ar','outerAr',520,420)" />
+    <input  type="button" value='演示示例' onclick="argumentTip('demo','outerDemo',420,320)" />
+  <div style="position:relative; border:1px solid #000000; width:650px; height:50px;">
+    <div id="idMove" style="width:50px; height:50px; background:#930; position:absolute;"></div>
+  </div>
+  <strong style=" margin-top:10px; display:block;">对应的函数曲线</strong>
+  <div style="position:relative;width:650px;height:200px;">
+    <div id="idChart" style="border:1px solid #000;height:200px;"> </div>
+    <div id="idLine" style="position:absolute;top:0;left:0;height:200px;width:1px;background:#000;"></div>
+  </div>
+</div>
+<div id="play">
+  <p> <strong>选择动画类型：</strong> <br />
+    <label>
+      <input name="vTween" type="radio" value="zfLinear" checked="checked" />
+      匀速(直线) </label>
+    <label>
+      <input name="vTween" type="radio" value="Quad" />
+      Quadratic </label>
+    <label>
+      <input name="vTween" type="radio" value="Cubic" />
+      Cubic </label>
+    <label>
+      <input name="vTween" type="radio" value="Quart" />
+      Quartic </label>
+    <label>
+      <input name="vTween" type="radio" value="Quint" />
+      Quintic </label>
+    <label>
+      <input name="vTween" type="radio" value="Sine" />
+      Sinusoidal </label>
+    <br />
+    <label>
+      <input name="vTween" type="radio" value="Expo" />
+      Exponential </label>
+    <label>
+      <input name="vTween" type="radio" value="Circ" />
+      Circular </label>
+    <label>
+      <input name="vTween" type="radio" value="Elastic" />
+      Elastic </label>
+    <label>
+      <input name="vTween" type="radio" value="Back" />
+      Back </label>
+    <label>
+      <input name="vTween" type="radio" value="zfBounce" />
+      Bounce </label>
+  </p>
+  <p> ease类型： <br />
+    <label>
+      <input name="vEase" type="radio" value="easeIn" checked="checked" />
+      easeIn 缓进</label>
+    <label>
+      <input name="vEase" type="radio" value="easeOut" />
+      easeOut缓出 </label>
+    <label>
+      <input name="vEase" type="radio" value="easeInOut" />
+      easeInOut缓进再缓出 </label>
+  </p>
+  <input id="idSpeed" type="button" value="减慢速度" />
+  <input id="idRun" type="button" value='Run' />
+</div>
+<div  style="height:60px; padding:10px; width:630px; background:#0099CC; margin-top:30px;">
+<strong>生成对应的代码</strong>
+
+<input id="runCode" type="text" value="animate(ele,{left:850},1500,['zfLinear','easeIn'],callback)" style="width:80%; margin-top:10px; margin-left:2em;" /> <input id="argu" type="button" value='参数说明' onclick="argumentTip('ar','outerAr',520,420)" />
+
+</div>
+<a id="video" target="_blank" href="http://online.zhufengpeixun.cn/viewCourseDetail.do?courseId=201892">完整视频讲解</a>
+<div id="outerAr">
+<div id="ar">
+<span class="closed"></span>
+    <strong>珠峰培训动画效果函数说明：</strong>animate(ele,obj,nDuration,[effectType],[fnCallback]);<br />
+      <strong>参数说明：</strong>
+      <ul>
+      	<li>参数1、ele:表示做动画效果的那个元素</li>
+      	<li>参数2、obj：是一个JSON对象，表示在ele元素在那几个方向运动。格式如下<br />
+      
+      obj={height:600,width:600,top:433,left:399,opacity:0.1}<br />
+      </li>
+      
+     <li> <strong>参数3：</strong>nDuration，表示完成动画所需要的总时间。<br />
+     </li>
+      
+      <li><strong>参数4:</strong>effectType:可选参数，表示四种运动效果中的一个，分别为:<br />
+      <ul>
+      
+      
+      <li><strong>第一种情况，传一个数字</strong>
+         <ul>          
+          <li>：1表示匀速运动</li>          
+          <li>：2表示缓冲运动</li>          
+          <li>：3是弹性运动</li>          
+          <li>: 4表示反弹运动</li>
+      	 </ul>
+      </li>	
+      <li>
+          <strong>第二种情况：</strong><br />      
+          可以传一个函数，表示是回调方法  
+      </li>
+       <li>
+      <strong>第三种情况：</strong><br />      
+      什么也不传，则以匀速方式做运动 。
+      </li>
+      <li>
+      第四种情况，传一个数组，类似['Back','easeIn']，表示某种定义好的算法</li>
+      </ul>
+      </li>
+      
+  <li><strong>参数4、</strong>fnCallback:可选参数。表示是回调方法</li>
+  </ul> 
+</div>
+</div>
+
+
+<div id="outerDemo">
+<div id="demo">
+<span class="closed"></span>
+珠峰培训自己开发的这套动画框架是使用Tween算法，目前包括了31种效果。和jQuery中的动画相比，它的体积小，效率高，资源占用少，效果非常丰富。使用上和jquery的animate方法一样。 2012年10月
+	<h3>常用效果演示示例</h3> 
+    <ol>
+    	<li><a href="演示示例/appDemo1焦点图.html" target="_blank">焦点图</a></li>
+        <li><a href="演示示例/单方向向左向右.html" target="_blank">图片自动轮播</a></li>
+        <li><a href="演示示例/appDemo1自动轮播-单向.html" target="_blank">自动轮播和点击结合的焦点图</a></li>
+        <li><a href="演示示例/appDemo2(淡入淡出).html" target="_blank">淡入淡出效果</a></li>
+        <li><a href="演示示例/appDemo3.html" target="_blank">中间展开效果</a></li>
+        <li><a href="演示示例/slide-deme2.html" target="_blank">图片滑动综合效果</a></li>
+       </ol>
+       所有示例都在“演示示例”文件夹中。使用时请先将zhufengEffect.js导入。
+        
+    
+
+</div>
+</div>
+<script type="text/ecmascript" src="演示示例/zhufengEffect.js"></script>
+<script>
+
+//////////////////////////////////////////////////////////
+var aEffect=['zfLinear','easeIn'];
+var nDuration=1500;
+var ele=document.getElementById('idMove');
+var oPlay=document.getElementById('play');
+var oRunCode=document.getElementById('runCode');
+function callback(){this.style.backgroundColor='green';}
+oPlay.onclick=function(e){//事件委托
+	var e=e||event;
+	var t=e.target||e.srcElement;
+	//name="vTween" type="radio"
+	if(t.type=='radio'){
+		if(t.name=='vTween'){
+			aEffect[0]=t.value;
+			oRunCode.value="animate(ele,{left:600},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+			drawLine(aEffect);//画函数曲线
+		}else if(t.name=='vEase'){
+			aEffect[1]=t.value;
+			oRunCode.value="animate(ele,{left:600},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+			drawLine(aEffect);//画函数曲线
+		}
+		
+	}else if(t.value=='Run'){
+		ele.style.left=0;
+		ele.style.backgroundColor='#930';
+		animate(ele,{left:600},nDuration,aEffect,callback);
+	}else if(t.value=='减慢速度'){
+		t.value='加快速度';
+		nDuration=1500;
+		
+		oRunCode.value="animate(ele,{left:600},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+		
+	}else if(t.value=='加快速度'){
+		t.value='减慢速度';
+		nDuration=600;
+		oRunCode.value="animate(ele,{left:600},"+nDuration+",['"+aEffect[0]+"','"+aEffect[1]+"'],callback)";
+		
+	}
+	
+}
+
+
+function drawLine(arr){//画函数曲线
+	if(arr[0]=='zfLinear'){
+		var fn=zhufengEffect[arr[0]]
+	}else{
+		var fn=zhufengEffect[arr[0]][arr[1]];
+	}
+	
+	var strHTML='';
+	var oChart=document.getElementById('idChart');
+	oChart.innerHTML=''
+	for(var i=0;i<648;i++ ){
+	var y=fn(i,0,200,648);
+	//i是x轴，即为时间轴 长度是648（其实应该是650）
+	//y是运动的距离 长度是200px
+	//可以理解为在648个时间单位内，走完200个距离单位
+
+	strHTML+="<div class='runLine' style='top:"+(200-y)+"px;left:"+i+"px;'></div>"
+
+}
+oChart.innerHTML+=strHTML;
+}
+drawLine(aEffect);//画函数曲线
+///////////////////以下是弹出框动画形式的说明。写的有点乱，没有整理
+function argumentTip(innerId,outerId,w,h){
+	var ar=document.getElementById(innerId);
+
+	var outerAr=document.getElementById(outerId);
+	var wh=document.documentElement.clientHeight||document.body.clientHeight;
+	var ww=document.documentElement.clientWidth||document.body.clientWidth;
+	outerAr.style.left=ww/2+'px';
+	outerAr.style.top=wh/2+'px';
+	//console.log(outerAr.offsetWidth);
+	var outerLeft=(ww-w)/2;//最终的左坐标
+	var outerTop=(wh-h)/2;
+
+
+
+	function fn(){//出现
+		animate(outerAr,{left:outerLeft,top:outerTop,height:h,width:w},1200,2);
+		animate(ar,{left:0,top:0},1200,2);
+		}
+
+//////////////////////
+	var oMask=document.createElement('div');//创建中间遮罩
+	oMask.style.height=wh+'px';
+	oMask.style.width=ww+'px';
+	oMask.style.opacity=0;
+	oMask.style.backgroundColor='black';
+	oMask.style.filter='alpha(opacity=0)';
+	oMask.style.position='absolute';
+	oMask.style.top=0;
+	oMask.style.left=0;
+	document.body.appendChild(oMask);
+	//oMask.appendChild(outerAr);
+	animate(oMask,{opacity:0.4},1200,2,fn);
+	
+	var closed=ar.getElementsByTagName('span').item(0);
+	closed.onclick=function(){//消失
+		
+		animate(outerAr,{left:ww/2,top:wh/2,height:0,width:0},1200,2,function(){animate(oMask,{opacity:0},600,2,function(){this.parentNode.removeChild(this)});});
+		//top:-210px;left:-260px;
+		//animate(ar,{left:-outerAr.offsetWidth,top:-outerAr.offsetHeight},1200,2);
+		animate(ar,{left:-w/2,top:-h/2},1200,2);
+		
+	}
+
+}
+</script>
+</body>
+</html>

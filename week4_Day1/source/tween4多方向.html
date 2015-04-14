@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#ele1{ width:100px; height:100px; background:black; position:absolute; top:0; left:0; opacity:0.1; _filter:alpha(opacity=10); color:#fff;}
+</style>
+</head>
+
+<body>
+<p id="ele1">
+知我说法，如筏喻者，法应尚舍，何况非法？
+</p>
+
+</body>
+</html>
+<script type="text/ecmascript" src="tween.js"></script>
+<script type="text/ecmascript">
+
+var obj={width:350,height:277,top:190,left:378,opacity:1};
+function animate(ele,obj,duration){
+	var oBegin={};//把起始始的位置保存在oBegin这个对象里
+	var oChange={};//把运动的总距离保存在oChange这个对象里
+	for(var direc in obj){
+		var begin=css(ele,direc);
+		var change=obj[direc]-begin;
+		if(change){//如果change是0则不需要再保存此方向的begin和change了
+					//因为起点和终点相同
+			oBegin[direc]=begin;
+			oChange[direc]=change;
+		}		
+	}
+	var interval=15;
+	var times=0;
+	_move();
+	function _move(){
+		times+=interval;
+		if(times>=duration){
+			for(var direc in obj){//把每个方向目的地分解出来
+				var target=obj[direc];
+				css(ele,direc,target);			
+			}
+		}else{
+			for(var direc in oChange){//把起始位置和变化的总距离分解出来
+				var begin=oBegin[direc];
+				var change=oChange[direc];
+				var val=linear(times,begin,change,duration);
+				css(ele,direc,val);
+			}
+			window.setTimeout(_move,interval);
+		}		
+	}	
+}
+ele1.onclick=function(){animate(this,obj,1000);}
+</script>

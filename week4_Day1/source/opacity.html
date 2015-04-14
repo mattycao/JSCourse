@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#div1{width:200px; height:200px; position:absolute; top:200px; left:200px; background:black;opacity:1; aabbb:99px;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script type="text/ecmascript">
+
+var oDiv=document.getElementById('div1');
+/*var oStyle=getComputedStyle(oDiv,null);
+alert(oStyle.opacity)*/
+//alert(oDiv.currentStyle.aabbb);
+function initOpacity(ele){
+	if(typeof getComputedStyle=="function"){
+		var begin=parseFloat(getComputedStyle(ele,null).opacity)
+	}else{
+		var opacity=ele.currentStyle.opacity
+		//parseFloat(opacity)==NaN
+		if(isNaN(parseFloat(opacity))){//表示转换失败，既浏览器不支持opacity这个CSS属性
+			
+			ele.style.opacity=1;//操作的依据
+			ele.style.filter="alpha(opacity=100)";//起作用的
+			var begin=1;
+		}else{
+			var begin=parseFloat(opacity);	}
+	}
+	return begin;
+
+}
+//本身就不支持这个opacity
+
+</script>

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图片滑动效果-珠峰培训</title>
+<style type="text/css">
+* { padding: 0; margin: 0; }
+li { list-style: none; }
+body { background: url(images/bg.gif); }
+
+h2 { font-size: 16px; width: 450px; height: 334px; position: absolute; top: 50%; left: 50%; margin: -195px 0 0 -225px; text-align:center; }
+h3 a { font-family: arial; font-size: 14px; text-decoration: none; color:#033; border-bottom: 1px dotted #333; font-weight: normal;  width: 450px; height: 20px; position: absolute; top: 50%; left: 50%; margin: 180px 0 0 -225px; text-align:center; }
+h3 a:hover { border-bottom: 1px solid #033; }
+
+#images_slide { width: 450px; height: 334px; position: absolute; top: 50%; left: 50%; margin: -167px 0 0 -225px; overflow:hidden; }
+#images_slide img { position: absolute; top: 0; left: 0; alpha(opacity:100); opacity:1; }
+.mask {display:block; width:450px; height:334px; position:absolute; top:0px; left:0px; background:red; filter: alpha(opacity:0); opacity:0; z-index:10;}
+</style>
+<script type="text/javascript" src="slide.js"></script>
+<script type="text/javascript">
+window.onload=function ()
+{
+	var oDiv=document.getElementById('images_slide');
+	var aImg=oDiv.getElementsByTagName('img');
+	var oA=oDiv.getElementsByTagName('a')[0];//其实这个a是个遮罩，把 mouseover的事件加到这个上面，而不能直接加给图片，这是个关键技巧
+	
+	var 方向=//用一个二维数组来定义八个方向，表示图片向这八个方向飞出
+	[
+		[-450, 0],
+		[450, 0],
+		[0, -334],
+		[0, 334],
+		[-450, -334],
+		[450, -334],
+		[-450, 334],
+		[450, 334]
+	];
+	
+	var i=0;
+	
+	var 当前要移动哪张图片=aImg.length-1;//从最后一张图片飞出，就是先让这张图片做动画
+	
+	for(i=0;i<aImg.length;i++)//初始化这几张图片的层级关系
+	{
+		aImg[i].style.zIndex=i+1;
+	}
+	
+	oA.onclick=oA.onmouseover=function ()//让点击事件和鼠标事件效果相同
+	{
+		for(i=0;i<aImg.length;i++)
+		{
+			aImg[i].style.zIndex=parseInt(aImg[i].style.zIndex)+1;//这个技巧也很有意思
+			//就是在运行动画之前，让每张图片的zIndex加1,也就是如果原来的这几张图的zIndex是3，2，1。那现在就变成了432，而飞走的那张图片的zIndex会变成1（看下面的回调方法）
+		}
+		var rnd=Math.floor(Math.random()*8);
+		
+		走(方向[rnd][0], 方向[rnd][1]);
+		
+		
+	};
+	
+	function 走(iLeft, iTop)
+	{
+		startMove(aImg[当前要移动哪张图片], {left: iLeft, top: iTop, opacity: 0}, 300,function (){//这个回调方法的作用是最终还要让飞出的这张图片归位，为下一轮飞出做准备
+			this.style.left='0px';
+			this.style.top='0px';
+			this.style.filter='alpha(opacity:100)';//让图片显示,IE的
+			this.style.opacity=1;//让图片显示，FF的。就是让图片的不透明度是1
+			this.style.zIndex=1;//让图片的层级关系在最下，这样虽然它又回到了原来位置，但被压在了最下面，所以还是显示不出来
+		});
+		当前要移动哪张图片--;
+		if(当前要移动哪张图片==-1)
+		{
+			当前要移动哪张图片=aImg.length-1;
+		}
+	}
+};
+</script>
+</head>
+
+<body>
+
+<h2 id="miaov_title1">图片滑动展示效果</h2>
+<h3 id="miaov_title2"><a href="http://www.zhufengpeixun.cn" title="珠峰培训--http://www.zhufengpeixun.cn">珠峰培训</a></h3>
+
+<div id="images_slide">
+	<a href="javascript:;" class="mask" style="z-index:20;"></a>
+    <img src="images/1.jpg" alt="珠峰培训--http://www.zhufengpeixun.cn" />
+    <img src="images/2.jpg" alt="珠峰培训--http://www.zhufengpeixun.cn" />
+    <img src="images/3.jpg" alt="珠峰培训--http://www.zhufengpeixun.cn" />
+</div>
+
+</body>
+</html>

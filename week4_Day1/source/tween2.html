@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:100px; height:100px; position:absolute; top:0; left:0; background:black; color:#fff;  }
+
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script type="text/ecmascript">
+function initOpacity(ele){
+	if(typeof getComputedStyle=="function"){
+		var begin=parseFloat(getComputedStyle(ele,null).opacity)
+	}else{
+		var opacity=ele.currentStyle.opacity
+		//parseFloat(opacity)==NaN
+		if(isNaN(parseFloat(opacity))){//表示转换失败，既浏览器不支持opacity这个CSS属性
+			
+			ele.style.opacity=1;//操作的依据
+			ele.style.filter="alpha(opacity=100)";//起作用的
+			var begin=1;
+		}else{
+			var begin=parseFloat(opacity);	}
+	}
+	return begin;
+
+}
+function linear(t,b,c,d){
+	//当前位置=times/duration*change+begin	
+	return t/d*c+b;	
+}
+
+function animate(ele,direc,target,duration){	
+	if(direc=="opacity"){
+		var begin=initOpacity(ele);		
+	}else{
+		var strOffset="offset"+direc.charAt(0).toUpperCase()+direc.substring(1).toLowerCase();
+		var begin=ele[strOffset];
+	}
+var change=target-begin;
+var interval=15;
+var times=0;//总的消耗的时间
+	var beginT=new Date;
+_move();
+
+function _move(){
+	times+=interval;	
+	if(times>=duration){
+		if(direc=="opacity"){
+			ele.style.opacity=target;
+			ele.style.filter="alpha(opacity="+target*100+")";
+		}else{
+			ele.style[direc]=target+'px';
+		}
+		var endT=new Date;
+		ele.innerHTML=endT.getTime()-beginT.getTime();
+		//完成
+	}else if(times<duration){
+		if(direc=="opacity"){
+			var val=linear(times,begin,change,duration);
+			ele.style.opacity=val;
+			ele.style.filter="alpha(opacity="+val*100+")";
+			//console.log(linear(times,begin,change,duration));
+		}else{
+			ele.style[direc]=linear(times,begin,change,duration)+'px';
+		}
+		window.setTimeout(_move,interval);
+	}
+}	
+	
+}
+var oDiv=document.getElementById('div1');
+oDiv.onclick=function(){ animate(this,"opacity",0.1,1600);}
+
+</script>

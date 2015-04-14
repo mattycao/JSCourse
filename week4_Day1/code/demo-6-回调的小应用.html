@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1,#div2,#div3{ position:absolute; top:0; left:150px; width:100px; height:100px; background:red;filter:alpha(opacity=50)}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2" style="top:100px; left:0; background:green;">向左</div>
+<div id="div3" style="top:100px; left:150px; background:yellow;">向右</div>
+</body>
+</html>
+<script>
+
+function css(ele,attr,val){//方法重载：一个方法名，由于参数不同而功能不同
+	if(arguments.length==2){
+		try{
+			return parseFloat(window.getComputedStyle(ele,null)[attr]);
+		}catch(e){
+			if(attr=="opacity"){
+						var reg=/^alpha\(opacity=(\d+)\)$/;//用来匹配IE滤镜样式中不透明度的值
+				if(reg.test(ele.currentStyle.filter)){				 
+					return RegExp.$1/100;//为了让返回值和标准浏览器的值相同（为了保持相同的规范）
+				}else{
+					return 1;
+				}
+			}else{
+				return parseFloat(ele.currentStyle[attr]);
+			}
+		}
+	}else if(arguments.length===3){
+		switch(attr){
+			case "opacity":
+				ele.style.opacity=val;
+				ele.style.filter="alpha(opacity="+val*100+")";
+				break;
+			case "width":
+			case "height":
+			case "top":
+			case "left":
+				ele.style[attr]=val+"px";
+				break;
+			default:
+				ele.style[attr]=val;
+		}
+	}
+}
+var ele=document.getElementById("div1");
+function animate(ele,attr,target,duration,fnCallback){
+	clearInterval(ele.timer);
+	var begin=css(ele,attr);
+	var change=target-begin;
+	
+	var interval=15;
+	var times=0;
+	
+	function step(){		
+		times+=interval;
+		if(times>=duration){//这个判断表示动画已经可以结束了
+			css(ele,attr,target);
+			clearInterval(ele.timer);
+			ele.timer=null;	
+			if(typeof fnCallback=="function"){
+				//fnCallback();
+				fnCallback.call(ele);//这个原则是让回调方法里的this指向当前运动的这个元素				
+			}
+			//div1.style.backgroundColor="black";	
+		}else{
+			var val=times/duration*change+begin;
+			css(ele,attr,val);
+		}
+	}
+	ele.timer=window.setInterval(step,interval);
+	}
+//方法和函数的区别 
+function toRight(){	
+	animate(this,"left",900,1000,toDown);	
+}
+function toDown(){
+	animate(this,"top",660,1000,toLeft);
+}
+function toLeft(){
+	animate(this,"left",100,1000,toUp);
+}
+function toUp(){
+	animate(this,"top",0,1000,toRight);
+}
+div3.onclick=toRight;//div3.onclick();
+div2.onclick=toRight;
+div1.onclick=toRight;
+//低耦合高内聚
+</script>
