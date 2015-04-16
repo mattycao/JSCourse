@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+.tabbedPannel li{ background:green; margin:10px;}
+#li1+li{ background:purple}
+#li1+li~li{ background:red;}
+</style>
+</head>
+
+<body>
+<div class="tabbedPannel">
+	<ul class="tabGroup">
+    <li  class="tab">选项二</li>
+    	<li id="li1" class="tab selectedTab">选项一li1</li>
+        <li></li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+        <li  class="tab">选项二</li>
+        <li></li>
+        <li id="li2" class="tab selectedTab">选项一</li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li></li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+    </ul>
+    <div class="contentGroup">
+    	<div class="content selectedContent">
+        	内容部分1
+            <div >
+            	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+            </div>
+        
+        </div>
+        <div class="content">内容部分2
+        	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+        </div>
+        <div>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </div>
+        <div class="content">内容部分3</div>
+        <div class="content">内容部分4</div>
+        <div class="content">内容部分5</div>        
+    </div>
+	
+</div>
+</body>
+</html>
+<script src="jquery-1.9.1.js"></script>
+<script>
+$("li:first").css({"color":"yellow",fontSize:48});//所有的li中唯一的第一个元素，只能有一个
+$("li:first-child").css({"color":"orange",fontSize:48});//所有的li中，在当前的范围内是首元素的li（长子的），有三个
+</script>

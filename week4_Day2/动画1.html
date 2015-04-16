@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#outer{ width:450px; height:240px; margin:100px auto; position:relative; -overflow:hidden; background:black; overflow:hidden;}
+
+#inner{ width:2700px; height:240px; position:absolute; top:20px; left:0;}
+#inner div{ width:450px; height:240px; background:orange; float:left; font-size:36px; text-align:center; line-height:240px; }
+#btn{ width:210px; height:30px; margin:0; padding:0; position:absolute; bottom:50px; right:50px;}
+#btn li{ list-style:none; padding:0; margin:0; width:30px; height:30px; line-height:30px; margin-right:5px; float:left; border-radius:50%; background:#00C; color:orange; text-align:center; font-size:18px; font-weight:bold; cursor:pointer; -webkit-user-select:none;}
+#btn li.current{ background:white; color:blue;}
+</style>
+</head>
+
+<body>
+<div id="outer">
+	<div id="inner">
+    	<div >金金金金金金金</div>
+        <div style="background:red;" >木木木木木</div>
+        <div style=" background:pink;" >水</div>
+        <div style="background:gray">火</div>
+        <div style="background:purple;">土5</div>
+        <div >金金金金金金金1</div>
+    </div>
+    <ul id="btn"><li class="current">金</li><li>木</li><li>水</li><li>火</li><li>土</li></ul>
+</div>
+</body>
+</html>
+<script src="jquery-1.9.1.js"></script>
+<script>
+//jQuery--javaScript query//查询
+$//CSS选择器格式的字符串
+//$("#btn li")==document.getElementById("btn").getElementsByTagName("li");
+//$("#inner")==document.getElementById("inner");
+//document.querySelectorAll(".current");
+$("#btn li").click(function() {
+    var n=$(this).index();//getIndex;
+	$("#inner").animate({left:-450*n},800,function(){alert("我到家啦！");});
+});
+//$("#btn li").click=function(){};
+var oLis=document.getElementById("btn").getElementsByTagName("li");
+for(var i=0;i<oLis.length;i++){
+	oLis.item(i).onclick=function(){}
+}
+</script>

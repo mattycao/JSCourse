@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>轮播</title>
+    <style type="text/css">
+        #outer {
+            width: 400px;
+            height: 220px;
+            margin: 100px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #inner {
+            width: 2400px;
+            height: 220px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #inner div {
+            width: 400px;
+            height: 220px;
+            float: left;
+            background: orange;
+            font-size: 72px;
+            text-align: center;
+            line-height: 220px;
+        }
+
+        #btn {
+            width: 80px;
+            height: 30px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+        }
+
+        #btn li {
+            margin: 0 5px;
+            border-radius: 50%;
+            background: white;
+            color: blue;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 30px;
+            text-align: center;
+            float: left;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div>第一张</div>
+        <div style=" background:red;">第二张</div>
+        <div style=" background:blue;">第三张</div>
+        <div style=" background:purple;">第四张</div>
+        <div style=" background:green;">第五张</div>
+        <div>第一张</div>
+    </div>
+    <ul id="btn">
+        <li>左</li>
+        <li>右</li>
+    </ul>
+</div>
+<script>
+    function css(ele, attr, val) {
+        if (arguments.length == 2) {
+            try {
+                return parseFloat(window.getComputedStyle(ele, null)[attr]);
+            } catch (e) {
+                if (attr == "opacity") {
+                    var reg = /^alpha\(opacity=(\d+)\)$/;
+                    if (reg.test(ele.currentStyle.filter)) {
+                        return RegExp.$1 / 100;
+                    } else {
+                        return 1;
+                    }
+                } else {
+                    return parseFloat(ele.currentStyle[attr]);
+                }
+            }
+        } else if (arguments.length === 3) {
+            switch (attr) {
+                case "opacity":
+                    ele.style.opacity = val;
+                    ele.style.filter = "alpha(opacity=" + val * 100 + ")";
+                    break;
+                case "width":
+                case "height":
+                case "top":
+                case "left":
+                    ele.style[attr] = val + "px";
+                    break;
+                default:
+                    ele.style[attr] = val;
+            }
+        }
+    }
+    function animate(ele, oTarget, duration, fnCallback) {
+        clearInterval(ele.timer);
+        var oBegin = {};
+        var oChange = {};
+        for (var attr in oTarget) {
+            var target = oTarget[attr];
+            var begin = css(ele, attr);
+            var change = target - begin;
+            if (change) {
+                oBegin[attr] = begin;
+                oChange[attr] = change;
+            }
+        }
+        var interval = 15;
+        var times = 0;
+
+        function step() {
+            times += interval;
+            if (times >= duration) {
+                for (var attr in oTarget) {
+                    css(ele, attr, oTarget[attr]);
+                }
+                clearInterval(ele.timer);
+                ele.timer = null;
+                if (typeof fnCallback == "function") {
+                    fnCallback.call(ele);
+                }
+            } else {
+                for (var attr in oChange) {
+                    var change = oChange[attr];
+                    var begin = oBegin[attr];
+                    var val = times / duration * change + begin;
+                    css(ele, attr, val);
+                }
+            }
+        }
+
+        ele.timer = window.setInterval(step, interval);
+    }
+
+    var oInner = document.getElementById("inner");
+    var step = 0;
+    function autoMove() {
+        step++;
+        if (step == 6) {
+            oInner.style.left = '0px';
+            step = 1;
+        }
+        animate(oInner, {left: -400 * step}, 600);
+    }
+
+    function autoLeft() {
+        clearInterval(interTimer);
+        step--;
+        if (step == -1) {
+            oInner.style.left = "-2000px";
+            step = 4;
+        }
+        animate(oInner, {left: -400 * step}, 600);
+        interTimer = window.setInterval(autoMove, 2000);
+    }
+
+    function autoRight() {
+        clearInterval(interTimer);
+        step++;
+        if (step == 6) {
+            oInner.style.left = 0;
+            step = 1;
+        }
+        animate(oInner, {left: -400 * step}, 600);
+        interTimer = window.setInterval(autoMove, 2000);
+    }
+
+    var interTimer = window.setInterval(autoMove, 2000);
+
+    var oLis = document.getElementById("btn").getElementsByTagName("li");
+    oLis.item(0).onclick = function () {
+        autoLeft();
+    }
+
+    oLis.item(1).onclick = function () {
+        autoRight();
+    }
+</script>
+</body>
+</html>

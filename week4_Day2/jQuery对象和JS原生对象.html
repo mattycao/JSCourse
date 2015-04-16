@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+.tabbedPannel li{ background:green; margin:10px;}
+#li1+li{ background:purple}
+#li1+li~li{ background:red;}
+</style>
+</head>
+
+<body>
+<div class="tabbedPannel">
+	<ul class="tabGroup">
+    <li  class="tab">选项二</li>
+    	<li id="li1" class="tab selectedTab">选项一li1</li>
+        <li></li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+        <li  class="tab">选项二</li>
+        <li></li>
+        <li id="li2" class="tab selectedTab">选项一</li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li></li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+    </ul>
+    <div class="contentGroup">
+    	<div class="content selectedContent">
+        	内容部分1
+            <div >
+            	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+            </div>
+        
+        </div>
+        <div class="content">内容部分2
+        	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+        </div>
+        <div>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </div>
+        <div class="content">内容部分3</div>
+        <div class="content">内容部分4</div>
+        <div class="content">内容部分5</div>        
+    </div>
+	
+</div>
+</body>
+</html>
+<script src="jquery-1.9.1.js"></script>
+<script>
+var oLis=$("li")//这个oLis是js对象，但更准确的说它是一个jQuery类的对象。
+//oLis.style.background="yellow";
+//让它能够使用JS原生的方式来操作，首先要转化为JS的原生DOM对象
+//oLis.get(0).style.background="orange";//使用get方法把jQuery中保存的DOM元素分解出来，这样get方法返回的是一个JS的原生的DOM对象
+//oLis.eq(0);//而eq方法返回的还是一个jQuery对象，
+//oLis.eq(0).css("background","red");
+$("<div><ul><li>我是用jQuery创建的li</li></ul></div>").appendTo(document.body);
+
+$(document.body);//第三种类型的参数
+</script>

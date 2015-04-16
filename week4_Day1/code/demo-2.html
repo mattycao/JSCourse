@@ -34,34 +34,34 @@
         }
     }
     var ele = document.getElementById("div1");
-//    var target=800;
-//    var begin=getCss(ele,"left");
-//    var change=target-begin;
-//
-//
-//    var duration=1000;//完成总的运动路的时间是1000ms
-//    var interval=15;//规定走单步时间是10ms
-//    var times=0;//未走之前的总时间是0
-//
-//    function step(){
-//    	times+=interval;
-//    	if(times>=duration){
-//    		clearInterval(timer);
-//    		ele.style.left=target+"px";
-//    	}else{
-//    		ele.style.left=change*times/duration+begin+"px";
-//    	}
-//    }
-//    var timer=window.setInterval(step,interval);
-    function move(ele, target) {
-        if (getCss(ele, 'left') < target) {
-            ele.style.left = getCss(ele, 'left') + 5 + 'px';
-        }
-    }
+    var target=800;
+    var begin=getCss(ele,"left");
+    var change=target-begin;
 
-    ele.onclick = function () {
-        window.setInterval(function () {
-            move(ele, 600)
-        }, 60);
+
+    var duration=1000;//完成总的运动路的时间是1000ms
+    var interval=10;//规定走单步时间是10ms
+    var times=0;//未走之前的总时间是0
+
+    function step(){
+    	times+=interval;
+    	if(times>=duration){
+    		clearInterval(timer);
+    		ele.style.left=target+"px";
+    	}else{
+    		ele.style.left=change*times/duration+begin+"px";
+    	}
     }
+    var timer=window.setInterval(step,interval);
+//    function move(ele, target) {
+//        if (getCss(ele, 'left') < target) {
+//            ele.style.left = getCss(ele, 'left') + 5 + 'px';
+//        }
+//    }
+//
+//    ele.onclick = function () {
+//        window.setInterval(function () {
+//            move(ele, 600)
+//        }, 60);
+//    }
 </script>

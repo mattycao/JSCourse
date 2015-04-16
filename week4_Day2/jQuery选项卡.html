@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+.tabbedPannel{ width:550px;  overflow:hidden; margin:20px auto;}
+ul.tabGroup{ list-style:none; margin:0; padding:0; width:550px; height:30px; margin-left:10px;}
+.tabbedPannel li.tab{ padding:0; margin:0; height:30px; line-height:30px; font-size:14px; margin:0px 5px; width:80px; background:#CCC; float:left; overflow:hidden; text-align:center;}
+.tabbedPannel li.selectedTab{ background:#63C;font-weight:bold; }
+.tabbedPannel div.content{
+	clear:both; height:300px; display:none;background:#63C; width:550px;}
+.tabbedPannel div.selectedContent{ display:block;}
+.high{ color:red;}
+</style>
+</head>
+
+<body>
+<div class="tabbedPannel">
+	<ul class="tabGroup">
+    	<li class="tab selectedTab">选项一</li>
+        <li  class="tab">选项二</li>
+        <li  class="tab high">选项三</li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+    </ul>
+    <div class="contentGroup">
+    	<div class="content selectedContent">
+        	内容部分1
+            <div >
+            	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li class="high">JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+            </div>
+        
+        </div>
+        <div class="content">内容部分2
+        	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+        </div>
+        <div class="content">内容部分3</div>
+        <div class="content">内容部分4</div>
+        <div class="content">内容部分5</div>        
+    </div>
+	
+</div>
+
+
+<div class="tabbedPannel">
+	<ul class="tabGroup">
+    	<li class="tab selectedTab">选项一</li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+    </ul>
+    <div class="contentGroup">
+    	<div class="content selectedContent">
+        	内容部分1
+            <div >
+            	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+            </div>
+        
+        </div>
+        <div class="content">内容部分2
+        	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+        </div>
+        <div class="content">内容部分3</div>
+        <div class="content">内容部分4</div>
+        <div class="content">内容部分5</div>        
+    </div>
+	
+</div>
+
+<div class="tabbedPannel">
+	<ul class="tabGroup">
+    	<li class="tab selectedTab">选项一</li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+    </ul>
+    <div class="contentGroup">
+    	<div class="content selectedContent">
+        	内容部分1
+            <div >
+            	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+            </div>
+        
+        </div>
+        <div class="content">内容部分2
+        	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+        </div>
+        <div class="content">内容部分3</div>
+        <div class="content">内容部分4</div>
+        <div class="content">内容部分5</div>        
+    </div>
+	
+</div>
+
+<div class="tabbedPannel">
+	<ul class="tabGroup">
+    	<li class="tab selectedTab">选项一</li>
+        <li  class="tab">选项二</li>
+        <li  class="tab">选项三</li>
+        <li  class="tab">选项四</li>
+        <li  class="tab">选项五</li>
+    </ul>
+    <div class="contentGroup">
+    	<div class="content selectedContent">
+        	内容部分1
+            <div >
+            	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+            </div>
+        
+        </div>
+        <div class="content">内容部分2
+        	<ul>
+                	<li>HTML课程 </li>
+                    <li>CSS课程 </li>
+                    <li>JavaScript课程 </li>
+                    <li>Node课程 </li>
+                
+                </ul>
+        </div>
+        <div class="content">内容部分3</div>
+        <div class="content">内容部分4</div>
+        <div class="content">内容部分5</div>        
+    </div>
+	
+</div>
+
+</body>
+</html>
+<script src="jquery-1.9.1.js"></script>
+<script>
+$(".tabbedPannel>ul>li.tab").click(function(e) {
+    $(this).addClass("selectedTab").siblings().removeClass("selectedTab");//链式写法，链式风格
+	var n=$(this).index();
+	$(this).parent().next().children().eq(n).addClass("selectedContent").siblings().removeClass("selectedContent");
+});
+//document.getElementsByTagName("li").item(0).style.color
+</script>

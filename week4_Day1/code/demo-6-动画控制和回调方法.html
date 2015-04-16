@@ -1,11 +1,19 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-<style type="text/css">
-#div1,#div2,#div3{ position:absolute; top:0; left:150px; width:100px; height:100px; background:red;filter:alpha(opacity=50)}
-</style>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        #div1, #div2, #div3 {
+            position: absolute;
+            top: 0;
+            left: 150px;
+            width: 100px;
+            height: 100px;
+            background: red;
+            filter: alpha(opacity=50)
+        }
+    </style>
 </head>
 
 <body>
@@ -16,81 +24,84 @@
 </html>
 <script>
 
-function css(ele,attr,val){//方法重载：一个方法名，由于参数不同而功能不同
-	if(arguments.length==2){
-		try{
-			return parseFloat(window.getComputedStyle(ele,null)[attr]);
-		}catch(e){
-			if(attr=="opacity"){
-						var reg=/^alpha\(opacity=(\d+)\)$/;//用来匹配IE滤镜样式中不透明度的值
-				if(reg.test(ele.currentStyle.filter)){				 
-					return RegExp.$1/100;//为了让返回值和标准浏览器的值相同（为了保持相同的规范）
-				}else{
-					return 1;
-				}
-			}else{
-				return parseFloat(ele.currentStyle[attr]);
-			}
-		}
-	}else if(arguments.length===3){
-		switch(attr){
-			case "opacity":
-				ele.style.opacity=val;
-				ele.style.filter="alpha(opacity="+val*100+")";
-				break;
-			case "width":
-			case "height":
-			case "top":
-			case "left":
-				ele.style[attr]=val+"px";
-				break;
-			default:
-				ele.style[attr]=val;
-		}
-	}
-}
-var ele=document.getElementById("div1");
-function animate(ele,attr,target,duration,fnCallback){
-	clearInterval(ele.timer);
-	var begin=css(ele,attr);
-	var change=target-begin;
-	
-	var interval=15;
-	var times=0;
-	
-	function step(){		
-		times+=interval;
-		if(times>=duration){//这个判断表示动画已经可以结束了
-			css(ele,attr,target);
-			clearInterval(ele.timer);
-			ele.timer=null;	
-			if(typeof fnCallback=="function"){
-				//fnCallback();
-				fnCallback.call(ele);//这个原则是让回调方法里的this指向当前运动的这个元素
-				
-			}
-			//div1.style.backgroundColor="black";	
-		}else{
-			var val=times/duration*change+begin;
-			css(ele,attr,val);
-		}
-	}
-	ele.timer=window.setInterval(step,interval);
-	//由定时器setInterval来驱动的这个函数，被安排在另外一个进程里。
-	//出现了异步执行的问题
-	//坐公交车的时候，可以同时打电话（同时安排了两个进程）
-	//如果说公交车到站之后，再打电话。这时的打电话就成了回调行为
-}
-function fn(){this.style.backgroundColor="black";}
-div3.onclick=function(){
-	if(!div1.timer)
-		animate(div1,"left",844,1500);
-		//div1.style.backgroundColor="black";
-	
-}
-div2.onclick=function(){
-	if(!div1.timer)//定时器属性timer还是一个判断当前元素是否在运动中的一个依据
-		animate(div1,"left",0,1500);
-	
-}
+    function css(ele, attr, val) {//方法重载：一个方法名，由于参数不同而功能不同
+        if (arguments.length == 2) {
+            try {
+                return parseFloat(window.getComputedStyle(ele, null)[attr]);
+            } catch (e) {
+                if (attr == "opacity") {
+                    var reg = /^alpha\(opacity=(\d+)\)$/;//用来匹配IE滤镜样式中不透明度的值
+                    if (reg.test(ele.currentStyle.filter)) {
+                        return RegExp.$1 / 100;//为了让返回值和标准浏览器的值相同（为了保持相同的规范）
+                    } else {
+                        return 1;
+                    }
+                } else {
+                    return parseFloat(ele.currentStyle[attr]);
+                }
+            }
+        } else if (arguments.length === 3) {
+            switch (attr) {
+                case "opacity":
+                    ele.style.opacity = val;
+                    ele.style.filter = "alpha(opacity=" + val * 100 + ")";
+                    break;
+                case "width":
+                case "height":
+                case "top":
+                case "left":
+                    ele.style[attr] = val + "px";
+                    break;
+                default:
+                    ele.style[attr] = val;
+            }
+        }
+    }
+    var ele = document.getElementById("div1");
+    function animate(ele, attr, target, duration, fnCallback) {
+        clearInterval(ele.timer);
+        var begin = css(ele, attr);
+        var change = target - begin;
+
+        var interval = 15;
+        var times = 0;
+
+        function step() {
+            times += interval;
+            if (times >= duration) {//这个判断表示动画已经可以结束了
+                css(ele, attr, target);
+                clearInterval(ele.timer);
+                ele.timer = null;
+                if (typeof fnCallback == "function") {
+                    //fnCallback();
+                    fnCallback.call(ele);//这个原则是让回调方法里的this指向当前运动的这个元素
+
+                }
+                //div1.style.backgroundColor="black";
+            } else {
+                var val = times / duration * change + begin;
+                css(ele, attr, val);
+            }
+        }
+
+        ele.timer = window.setInterval(step, interval);
+        //由定时器setInterval来驱动的这个函数，被安排在另外一个进程里。
+        //出现了异步执行的问题
+        //坐公交车的时候，可以同时打电话（同时安排了两个进程）
+        //如果说公交车到站之后，再打电话。这时的打电话就成了回调行为
+    }
+    function fn() {
+        this.style.backgroundColor = "black";
+    }
+    div3.onclick = function () {
+        if (!div1.timer)
+            animate(div1, "left", 844, 1500, fn);
+        //div1.style.backgroundColor="black";
+
+    }
+    div2.onclick = function () {
+        if (!div1.timer)//定时器属性timer还是一个判断当前元素是否在运动中的一个依据
+            animate(div1, "left", 0, 1500, fn);
+
+    }
 </script>
