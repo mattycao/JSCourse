@@ -1,0 +1,64 @@
+<!doctype html>
+<html id="html1">
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body id="body1">
+<div id="outer" style="background:#ccc;">
+我是outer<br>
+
+	<div style="background:red;  width:330px; background:red; " id="inner">
+    我是inner<br>
+		<p id="p1" style="background-color:lightBlue; height:6em; width:270px; ">
+        我是段落P
+        <a id="a1" style="width:200px; height:3.5em; background:purple; display:block; " href="http://www.zhufengpeixun.cn">我是超链接<br>
+
+        	<span id="span1" style="display:block; width:140px; height:2em; line-height:3em; background:pink;">
+            我是span
+            </span>
+        </a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+ function fn(e){
+	alert(this.id); 
+	e.preventDefault();//用DOM二级事件绑定方法 绑定的事件，需要用这个方法来阻止事件的默认行为
+	return false
+ }
+var eles=document.getElementsByTagName("*");
+/*for(var i=0;i<eles.length;i++){
+	var ele=eles.item(i);
+	ele.addEventListener("click",fn,true);
+	}*/
+	
+for(var i=0;i<eles.length;i++){
+	var ele=eles.item(i);
+	ele.addEventListener("click",fn,false);
+}
+
+for(var i=0;i<eles.length;i++){
+	var ele=eles.item(i);
+	ele.addEventListener("click",fn,false);
+}
+/*
+ele.addEventListener;
+ele.removeEventListener;
+
+//DHTML DOM0
+document.onclick=fn1
+document.onclick=fn2;
+//DOM core，这是DOM的第一个版本
+function fn1(){alert(1)}
+function fn2(){alert(2);}
+var ele=document.getElementById("outer");
+ele.addEventListener("click",fn1,true);
+*/
+
+
+</script>

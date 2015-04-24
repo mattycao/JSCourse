@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>About event Part2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #outer {
+            width: 400px;
+            height: 500px;
+            position: relative;
+            margin: 100px auto;
+            background-color: green;
+        }
+
+        #mask {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="outer"></div>
+</body>
+<script>
+    var div = document.getElementById('outer');
+    div.onmouseenter = fn;
+    function fn(e) {
+        e = e || window.event;
+        var ele = document.createElement('div');
+        ele.id = 'mask';
+        ele.style.top = e.pageY - this.offsetTop + 10 + 'px';
+        ele.style.left = e.pageX - this.offsetLeft + 10 + 'px';
+        this.appendChild(ele);
+//        ele.onmouseenter = function(e){
+//            e.stopPropagation();
+//        }
+    }
+    div.onmousemove = function(e) {
+        e = e || event;
+        var inner = document.getElementById('mask');
+        if(inner) {
+            var x = e.pageX - this.offsetLeft;
+
+            inner.style.left = e.pageX - this.offsetLeft - inner.offsetWidth/2 + 'px';
+            inner.style.top = e.pageY - this.offsetTop - inner.offsetHeight/2 + 'px';
+        }
+    }
+    div.onmouseleave = function(e) {
+        var inner = document.getElementById('mask');
+        if(inner)
+            this.removeChild(inner);
+    }
+
+</script>
+</html>
