@@ -5,14 +5,17 @@
     <title></title>
 </head>
 <body>
-<p>
-    <div id="cartHolder">
-    COlor
+<div id="feng">
+    This is my stuff
 </div>
-    中文空格呢    中文
-</p>
 <script>
-    console.log(new Object());
+    var ele = document.getElementById('feng');
+    ele.onmouseover = function () {
+        this.innerHTML = 'a';
+    }
+    ele.onmouseout = function () {
+        this.innerHTML = 'b';
+    }
 </script>
 </body>
 </html>

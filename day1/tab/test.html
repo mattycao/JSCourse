@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //    var a = 12;l
+    //    function fn() {
+    //        alert(a);
+    //        a = 14;
+    //        alert(a);
+    //    }
+    //    alert(a);
+    //    fn();
+    //    alert(a);
+
+
+    var a = 1;
+    function fn() {
+        var a = 12;
+
+        function c() {
+            d = 15;
+            alert(a);
+        }
+
+        alert(a);
+        return c;
+    }
+    alert(a);
+    var f = fn();
+    alert(a);
+    f();
+    alert(d);
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mtable</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div#nt-layout {
+            width: 920px;
+            background-color: #eee;
+            margin: 20px auto 0;
+        }
+
+        h2#ng-head {
+            text-align: center;
+            padding: 20px 0 0;
+        }
+
+        div#ng-body {
+            margin: 20px auto 0 auto;
+            padding: 0 0 10px;
+        }
+
+        #ng-body > .row {
+            margin: 0 0 10px 20px;
+            padding: 0 0;
+            height: 40px;
+        }
+
+        .row > .cell {
+            border-radius: 20%;
+            display: block;
+            float: left;
+            width: 80px;
+            margin: 0 20px 10px 0;
+
+            background: #eae;
+            height: 100%;
+        }
+
+        .cell > span {
+            display: block;
+            width: 80px;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        .checked {
+            background: #aee;
+        }
+
+        .row > div.null-cell {
+            background: #eea;
+        }
+    </style>
+</head>
+<body>
+<div id="nt-layout">
+    <h2 id="ng-head">The Multiplication Table</h2>
+
+    <div id="ng-body"></div>
+</div>
+<script>
+    var html = '';
+    for (var i = 0; i < 9; i++) {
+        html += '<div class="row">';
+        for (var j = 0; j < 9; j++) {
+            if (i >= j) {
+                html += '<div class="cell"><span class="selected">' + (j + 1) + '*' + (i + 1) + '</span></div>';
+            } else {
+                html += '<div class="cell null-cell"></div>';
+            }
+
+        }
+        html += '</div>';
+    }
+    document.getElementById('ng-body').innerHTML = html;
+    var spanList = document.getElementsByClassName('selected');
+    var info = [];
+    for (var i = 0; i < spanList.length; i++) {
+        info[i] = spanList[i].innerText;
+        spanList[i].onmouseover = function () {
+            this.innerText = '?';
+        }
+
+        ~function (i) {
+            spanList[i].onmouseout = function () {
+                this.innerText = info[i];
+                this.className = this.className.replace('checked', '');
+            }
+            spanList[i].onclick = function () {
+                var val = info[i].split('*');
+                this.innerText = parseInt(val[0]) * parseInt(val[1]);
+                this.className += ' checked';
+            }
+        }(i);
+
+    }
+</script>
+</body>
+</html>
