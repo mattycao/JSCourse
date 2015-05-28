@@ -93,6 +93,8 @@
                 this.className = this.className.replace('checked', '');
             }
             spanList[i].onclick = function () {
+                this.onmouseout = null;
+                this.onmouseover = null;
                 var val = info[i].split('*');
                 this.innerText = parseInt(val[0]) * parseInt(val[1]);
                 this.className += ' checked';
