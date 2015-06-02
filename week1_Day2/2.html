@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="div1">This</div>
+<script>
+    var div = document.getElementById('div1');
+    function sum() {
+        console.log(this);
+    }
+    var obj = {
+        sum : sum
+    }
+    div.onclick = sum;
+    sum();
+    obj.sum();
+</script>
+</body>
+</html>

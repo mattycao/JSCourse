@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    (function() {
+        "use strict";
+        var JQuery = {};
+        function sum() {
+            var total = 0;
+            for(var i = 0; i < arguments.length; i++) {
+                var arg = arguments[i];
+                if(!isNaN(arg)) {
+                    total += Number(arg);
+                }
+            }
+            return total;
+        }
+        JQuery.sum = sum;
+        window.JQuery = JQuery;
+        window.$ = window.JQuery;
+
+    }());
+    console.log($.sum(1, 2, 3));
+    console.log(JQuery.sum(1, 2, 3));
+</script>
+</body>
+</html>
