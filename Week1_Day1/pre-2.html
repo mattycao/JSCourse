@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    console.log(f()); // no
+    var f = 12;
+    console.log(f); // 12
+    function f() {
+        console.log('ok');
+    }
+    console.log(f); // 12
+    var f = 13;
+    function f() {
+        console.log('no');
+    }
+    console.log(f); //13
+
+</script>
+</body>
+</html>
