@@ -86,4 +86,5 @@ console.log(fe.name);
 console.log(fe.height);
 fe.eat();
 fe.writeJS();
+console.log(fe.__proto__ == Person.prototype);
 

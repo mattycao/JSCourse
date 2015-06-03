@@ -6,13 +6,13 @@
 </head>
 <body>
 <script>
-    Array.prototype.random = function(n) {
+    // take n random elements from the this and return it
+    Array.prototype.random = function (n) {
         // random take n data
-        function rand( ) {
-            return Math.floor(Math.random() * (this.length));
-        }
+
         var result = [];
-        for(var j = 0; j < n; j++) {
+        for (var j = 0; j < n; j++) {
+            var rand = Math.floor(Math.random() * (this.length));
             var val = this.splice(rand, 1); // this method will cost a lot, since remove one, will do n( it is an array, not a linkedlist)
             result.push(val[0]);
         }
@@ -20,12 +20,10 @@
 
     } // performance issue
 
-    Array.prototype.random = function(n) {
-        function rand( ) {
-            return Math.floor(Math.random() * (this.length));
-        }
+    Array.prototype.random = function (n) {
         var result = [];
-        for(var j = 0; j < n; j++) {
+        for (var j = 0; j < n; j++) {
+            var rand = Math.floor(Math.random() * (this.length));
             var val = this[rand]; // swap
             this[rand] = this[this.length - 1];
             this.length = this.length - 1;
@@ -33,6 +31,10 @@
         }
         return result;
     }
+
+    var list = [1, 2, 4, 23, 2, 23, 2, 44, 2, 3, 3, 4, 4, 5];
+    console.log(list.random(2).toString());
+    console.log(list + '');
 
 
 </script>

@@ -31,7 +31,7 @@
         this.degree = degree;
     }
     //FE.prototype = new Person; //
-    //FE.prototype.__proto__ = Person.prototype;
+    FE.prototype.__proto__ = Person.prototype;
     FE.prototype.writeCss = function() {
         console.log('Good at CSS.');
     }
