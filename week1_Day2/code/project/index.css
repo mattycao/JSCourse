@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+div#content {
+    margin: 10px auto;
+    width: 380px;
+    border: solid 1px sandybrown;
+    padding: 10px;
+}
+
+div li {
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px dotted #eee;
+}
+
+li span {
+    float: right;
+    margin-right: 10px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: aliceblue;
+}
