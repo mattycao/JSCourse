@@ -49,3 +49,13 @@ console.log(list + '');
 list.push('9', '2');
 list.distinct();
 console.log(list + '');
+
+/**
+ * check a attribute which is a public attribute
+ */
+
+function checkPublicAttribute(obj, attr) {
+    return (attr in obj) && (!obj.hasOwnProperty(attr));
+}
+
+console.log(checkPublicAttribute({}, 'hasOwnProperty'));
