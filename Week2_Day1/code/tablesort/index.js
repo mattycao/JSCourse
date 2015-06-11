@@ -104,13 +104,43 @@
         addSort: function () {
             var heads = document.getElementsByTagName('th');
             for (var i = 1; i < heads.length; i++) {
-                heads[i].onclick = function () {
-                    var attr = this.innerHTML.toLowerCase();
-                    octopus.sortModel(attr);
-                    view.render();
-                }
+                heads[i].onclick = (function (i) {
+                    return function () {
+                        var attr = this.innerHTML.toLowerCase();
+                        // change the model will has some problem like, the checkbox event will be lost if we do the string addition, we better use the Dom manipulation
+                        octopus.sortModel(attr);
+                        view.reRender(i);
+                    }
+                }(i));
             }
-        }
+        },
+
+        reRender: function (i) {
+            var rows = document.getElementsByTagName('tr');
+            var rowArray = toArray(rows);
+
+            rowArray.sort(function (a, b) {
+                return a.cells[i].innerHTML - b.cells[i].innerHTML;
+            });
+
+            for (var j = 0; j < rowArray.length; j++) {
+                this.tbody.appendChild(rowArray[j]);
+            }
+
+
+            //private
+            function toArray(list) {
+                var result = [];
+                try {
+                    result = [].slice.call(list, 0);
+                } catch (e) {
+                    for (var i = 0; i < list.length; i++) {
+                        result.push(list[i]);
+                    }
+                }
+                return result;
+            }
+        },
 
 
     }
