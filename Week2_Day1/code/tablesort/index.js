@@ -117,7 +117,7 @@
 
         reRender: function (i) {
             var rows = document.getElementsByTagName('tr');
-            var rowArray = toArray(rows);
+            var rowArray = this.toArray(rows);
 
             rowArray.sort(function (a, b) {
                 return a.cells[i].innerHTML - b.cells[i].innerHTML;
@@ -129,19 +129,32 @@
 
 
             //private
-            function toArray(list) {
-                var result = [];
-                try {
-                    result = [].slice.call(list, 0);
-                } catch (e) {
-                    for (var i = 0; i < list.length; i++) {
-                        result.push(list[i]);
-                    }
-                }
-                return result;
-            }
+            // if we put hte private function, it will initialize every time if we reRendered, although this is not a big function, but in real world, we better not do this like this way.
+            //function toArray(list) {
+            //    var result = [];
+            //    try {
+            //        result = [].slice.call(list, 0);
+            //    } catch (e) {
+            //        for (var i = 0; i < list.length; i++) {
+            //            result.push(list[i]);
+            //        }
+            //    }
+            //    return result;
+            //}
         },
 
+        // although we put here, it is not private to the reRender function, but we doesn't pollute the global variable, so we can do it like this way.
+        toArray: function (list) {
+            var result = [];
+            try {
+                result = [].slice.call(list, 0);
+            } catch (e) {
+                for (var i = 0; i < list.length; i++) {
+                    result.push(list[i]);
+                }
+            }
+            return result;
+        }
 
     }
 
