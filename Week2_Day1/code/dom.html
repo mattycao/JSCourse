@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Actively add li</title>
+    <style>
+        ul, li {
+            list-style: none;
+        }
+        li {
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        li:nth-child(odd) {
+            background: #CCCC99;
+        }
+        li:nth-child(even) {
+            background: #006eb3;
+        }
+        div#add {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 50px;
+            border: 1px solid red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<ul id="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+<div id="add">+</div>
+<script>
+    var addList = {
+        addHTML: function(ele) {
+            var len = ele.getElementsByTagName('li').length;
+            ele.innerHTML += '<li>' + (len + 1) + '</li>';
+            this.addEvent(ele);
+        },
+
+        addEvent: function(ele) {
+            var oLists = ele.getElementsByTagName('li');
+            for(var i = 0; i < oLists.length; i++) {
+                oLists[i].onclick = (function(i) {
+                    return function() {
+                        alert(i + 1);
+                    }
+                }(i));
+            }
+        },
+
+        addFn: function(btn, ele) {
+            var that =this;
+            btn.onclick = function() {
+                that.addHTML(ele);
+            }
+        },
+
+        init: function(opt) {
+            opt.btn = opt.btn || null;
+            opt.ele = opt.ele || null;
+            this.addFn(opt.btn, opt.ele);
+            this.addEvent(opt.ele);
+        }
+    }
+
+    var btn = document.getElementById('add');
+    var list = document.getElementById('list');
+    addList.init({
+        btn: btn,
+        ele: list
+    })
+</script>
+</body>
+</html>

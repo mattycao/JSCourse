@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Popout</title>
+    <style>
+        body, div, span {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            margin: 10px;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        html, body, #bg {
+            width: 100%;
+            height: 100%;
+            -webkit-user-select: none;
+        }
+
+        #bg {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #0099FF;
+            opacity: 0.5;
+        }
+
+        #layer {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            width: 500px;
+            height: 500px;
+            background: #993300;
+            border-radius: 50%;
+
+        }
+
+        #layer span {
+            display: block;
+            margin: 200px;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            font-size: 80px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<button type="button" id="pop">ClickMe</button>
+<div id="layer">
+    <span id="layerspan">x</span>
+</div>
+<div id="bg"></div>
+<script>
+    var oLayer = document.getElementById('layer');
+    var oBg = document.getElementById('bg');
+    var obt = document.getElementById('pop');
+    var span = document.getElementById('layerspan');
+    var cw = document.documentElement.clientWidth || document.body.clientWidth;
+    var ch = document.documentElement.clientHeight || document.body.clientHeight;
+    oLayer.style.left = (cw - 500) / 2 + 'px';
+    oLayer.style.top = (ch - 500) / 2 + 'px';
+
+    obt.onclick = function () {
+        oBg.style.display = 'block';
+        oLayer.style.display = 'block';
+    }
+
+    span.onclick = function () {
+        oBg.style.display = 'none';
+        oLayer.style.display = 'none';
+    }
+</script>
+</body>
+</html>

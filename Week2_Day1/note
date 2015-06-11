@@ -156,5 +156,26 @@ API:
    3. removeAttribute()
    4. hasAttribute('attr')
 
+### New stuff from other teacher's note
+* Object is the basic prototype of all other class
+* Function is the basic prototype of all of the functions
+* call and apply are used for change the this/context
+* some special condition about first param in the call:
+    * sum.call() // this is window
+    * sum.call(null, 1, 2) // this is window
+    * sum.call(undefined, 1, 2) // this is window
+    * sum.call(1, 2) // this is 1
+* All of functions are an instance of the basic Function class, and in its prototype, it defines the call and apply function, so all of the functions can use these functions
+* Thus:
+    * sum.constructor: Function
+    * Object instanceof Function // true , since Object is a constructor function, that is why
+    * Function instanceof Object // true, from the prototype chaining, it is
+    * Function instanceof Function // true
+    * sum.__proto__.call = Function.prototype.call; // true
+
+* Function.prototype.call.call.call.call.call(sum); // sum.call();
+
+
+
 
 

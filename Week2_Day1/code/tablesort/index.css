@@ -1,0 +1,18 @@
+body, div {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    width: 500px;
+    margin: 30px auto;
+    border: 1px dotted #0000CC;
+}
+
+tr, td, th {
+    border-bottom: 1px solid #0000CC;
+    text-align: center;
+}
+
+
+

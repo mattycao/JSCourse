@@ -49,12 +49,23 @@
         },
         getDataByIndex: function (index) {
             return model[index];
+        },
+        updateData: function (prev, now) {
+            var value = model.splice(prev, 1)
+            model.splice(now, 0, value);
+        },
+
+        // test only
+        showAll: function () {
+            return model;
         }
+
     }
 
     /* ======View======  */
     var view = {
         init: function (options) {
+            this.options = options;
             this.div = document.getElementById('content');
             this.render(options.like);
             this.colorRender(options.colors);
@@ -68,7 +79,7 @@
             var html = '<ol>';
             var segment = like ? '<span>0</span>' : '';
             for (var i = 0; i < octopus.getDataLength(); i++) {
-                html += '<li>' + (i + 1) + '、 ' + octopus.getDataByIndex(i) + segment + '</li>';
+                html += '<li>' + octopus.getDataByIndex(i) + segment + '</li>';
             }
             html += '</ol>';
             this.div.innerHTML = html;
@@ -102,9 +113,37 @@
         addOne: function () {
             var oList = this.div.getElementsByTagName('li');
             for (var i = 0; i < oList.length; i++) {
-                oList[i].onclick = function () {
-                    var spans = this.getElementsByTagName('span');
-                    spans[0].innerHTML = Number(spans[0].innerHTML) + 1;
+                oList[i].onclick = (function (i) {
+                    return function () {
+                        var spans = this.getElementsByTagName('span');
+                        var val = Number(spans[0].innerHTML);
+                        spans[0].innerHTML = val + 1;
+                        view.update(i, val + 1);
+                    }
+
+                })(i);
+            }
+        },
+
+        /**
+         *
+         * @param index
+         * @param value
+         * Problem:
+         * 1. we cannot just store the data in the dom, it is not a good way to do.
+         * 2. since we use the closure to keep the data, although we use the dom replacement, the env of in the closure will not change, which make no sense.
+         *
+         */
+        update: function (index, value) {
+            var oList = this.div.getElementsByTagName('li');
+            console.log('Index prev:' + index);
+            for (var i = 0; i < index; i++) {
+                console.log('Index value:' + value + ', i value:' + Number(oList[i].getElementsByTagName('span')[0].innerHTML));
+                if (Number(oList[i].getElementsByTagName('span')[0].innerHTML) < value) {
+                    console.log('Index:' + index + ', i:' + i);
+                    oList[i].parentNode.insertBefore(oList[index], oList[i]);
+                    this.colorRender(this.options.colors);
+                    return;
                 }
             }
         }
