@@ -1,9 +1,9 @@
 function fn1() {
-    alert(1);
+    console.log(1);
 }
 
 function fn2() {
-    alert(2);
+    console.log(2);
 }
 
 fn3 = fn2.call;
