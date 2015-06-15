@@ -23,4 +23,5 @@ console.log(average(1, 3, 4, 5, 7, 8, 9, 10));
 
 var str1 = 'var m = 77';
 eval(str1);
+console.log(eval(str1));
 console.log(m);

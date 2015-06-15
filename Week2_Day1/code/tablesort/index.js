@@ -107,20 +107,31 @@
                 heads[i].onclick = (function (i) {
                     return function () {
                         var attr = this.innerHTML.toLowerCase();
+                        heads[i].flag = heads[i].flag ? heads[i].flag * (-1) : -1;
                         // change the model will has some problem like, the checkbox event will be lost if we do the string addition, we better use the Dom manipulation
                         octopus.sortModel(attr);
-                        view.reRender(i);
+                        view.reRender(i, heads[i].flag);
                     }
                 }(i));
             }
         },
 
-        reRender: function (i) {
-            var rows = document.getElementsByTagName('tr');
+        reRender: function (i, flag) {
+            var rows = this.tbody.rows;
             var rowArray = this.toArray(rows);
 
             rowArray.sort(function (a, b) {
-                return a.cells[i].innerHTML - b.cells[i].innerHTML;
+                if (Number(a.cells[i].innerHTML)) {
+                    return flag * (a.cells[i].innerHTML - b.cells[i].innerHTML);
+                } else {
+                    if (flag == -1) {
+                        return b.cells[i].innerHTML.localeCompare(a.cells[i].innerHTML);
+                    } else {
+                        return a.cells[i].innerHTML.localeCompare(b.cells[i].innerHTML);
+                    }
+
+                }
+
             });
 
             for (var j = 0; j < rowArray.length; j++) {
