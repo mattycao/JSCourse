@@ -21,6 +21,7 @@
 6. 关于边界
    除了正常的边界，\b, one-two -也是边界
    /\b[q-z]+\b/
+   . get everything except '\n'
 
 7. 为空测试
    reg=/^\s*$/
@@ -49,7 +50,7 @@ String and reg expression 方法：
    // will update for that time
 
 3. str: search, indexOf
-   search不可以做到连续查询，所以加g没有影响。
+   search不可以做到连续查询，所以加g没有影响。返回匹配的index
    indexOf里面的参数不可以有reg object，必须输入string对象，所以要escape 然后加入进去，但是只会依照string进行匹配，和reg无关
 
 4. The method using the RegExp
@@ -134,10 +135,15 @@ String and reg expression 方法：
    console.log(a);
 
 6. str:match, doesn't care about the sub group, only find the match, with the g, will find them all.
-   if no g, then exec is the same with match
+   if no g, then exec is the same with match. 也就是说不加g，match和exec一样，都要考虑到分组，但是如果match加了g，那么就不考虑分组，而是直接输出所有的匹配, 结果为纯属组
+
+   这两个方法都是用来提取正则匹配到的内容，exec处理分组的功能更加强大，match在没有分组的情况下，能够更快捷的把多次匹配到的内容保存到数组里面。exec是正则的方法，而match是str的方法
 
 7. replace
    str function
 
 
     [.\n] not allowed, (.|\n) ok
+
+8. reg=/[.\n]/; 不表示匹配任意字符，指标是匹配.和换行符
+   reg=/[\w\W]/ 表示所有，\d\D, \s\S
