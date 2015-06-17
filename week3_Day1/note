@@ -5,7 +5,7 @@ JavaScript中和盒子模型相关的属性和方法
 1. 盒子模型1：和高、宽相关的JS属性
       1. 没有现成的直接获得内容宽高的JS属性
       2. clientHeight,clientWidth：带padding的内容宽度
-      3. offsetHeight,offsetHeight:带边框的
+      3. offsetHeight,offsetWidth:带边框的
       4. scrollHeight,scrollWidth实际内容的，不带下padding
 
 2. 盒子模型2：用JS获得CSS属性，行内的和内嵌、外链样式
@@ -174,3 +174,21 @@ var oStyle = window.getComputedStyle(oDiv, null) // the collections of style // 
 oStyle.height => css中的height，而且带单位
 oDiv.style.height //行样式， if no, return '', return string
 
+
+Added from XiaoTian:
+* for scrollWidth/ScrollHeight: if the content is not overflow, then it is the same with clientHeight
+* If overflow, and omit the key-value: overflow: hidden, then the scrollWidth/scrollHeight will add the upper padding, not the bottom padding
+* If add the key-value: overflow: hidden, then the behavior will be totally different in different browser, like in the FF, nothing added, for chrome, add both, for ie, it is complicated. Normally, we can think we didn't add it.
+* in default, the body has a 8px margin
+* inner.offsetParent. the offset reference, normally we take it as body element
+* the box layer will change if we use the position attribute
+* the offsetParent will change if we change the position value
+* 元素距离他的offsetParent的偏移量不算边框
+* var ool = outer.offsetLeft; // outer to body offset distance
+  var ocl = outer.clientLeft; // border left width
+  var iol = inner.offsetLeft; // inner to outer offset distance
+  ool + ocl + iol == inner to body offset distance
+* window.navigator.userAgent -> store the browser data in string
+* clientWidth, offsetWidth, scrollWidth, offsetleft, are all read only value
+* scrollTop can be read and write
+* oDiv.onscroll = function() {}, this is a onscroll event, and notice: overflow: scroll

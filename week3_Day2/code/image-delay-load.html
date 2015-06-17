@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Image delay load</title>
+    <style>
+        body, div, img {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            border: none;
+        }
+
+        div {
+            position: relative;
+            margin: 10px;
+            width: 150px;
+            height: 150px;
+            border: 1px dashed #0099CC;
+            background: url('img/default.jpg') no-repeat center;
+        }
+
+        div span {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 150px;
+        }
+
+        div img {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<div><span>Loading...</span></div>
+<script src="utils.js"></script>
+<script>
+    var list = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
+    var oDivs = document.getElementsByTagName('div');
+    function load() {
+        var winBoom = (document.documentElement.clientHeight || document.body.clientHeight) + (document.documentElement.scrollTop || document.body.scrollTop);
+        for (var i = 0; i < oDivs.length; i++) {
+            (function (i) {
+                var div = oDivs[i];
+                var span = div.getElementsByTagName('span')[0];
+                if (!div.load) {
+                    var divBoom = utils.offset(div).top + div.offsetHeight;
+                    if (divBoom < winBoom) {
+                        var oImg = new Image;
+                        oImg.src = 'img/' + list[i % 5];
+                        oImg.onload = function () {
+                            div.appendChild(oImg);
+                            span.style.display = 'none';
+                            div.load = true;
+                        }
+                    }
+                }
+            }(i));
+        }
+    }
+    load();
+    window.onscroll = load;
+</script>
+</body>
+</html>

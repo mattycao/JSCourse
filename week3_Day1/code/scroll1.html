@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1{ width:250px; height:200px; overflow:scroll; background:pink; }
+    </style>
+</head>
+<body>
+<div id="div1">
+    &&&&&&&&&&&&&&&&&&&&&&&&
+    学习咨询QQ:1144709265
+    最新开班信息
+
+    11月15、16号，22、23号和30、31号分别有免费课，欢迎报名。
+    想参加培训的同学：请加入珠峰培训2014年学习管理群，群号：335471513，群共享里有系统学习视频、文字教材、上课大纲和考试大纲。
+    一、课程设置：
+
+    分为免费课，主体课两个阶段。第一阶段先上课，然后考试，考试合格后再交学费，就可以参加第二阶段的学习了。考试成绩优异的还可以奖励学费。第二阶段是专业的JS开发课程，是七到八周。后续还会有高端课程，包括node.js，移动端+HTML5开发，MVC富客端开发等内容，敬请期待！
+    二、第一阶段课程内容：
+
+    免费课包括：基本语句语法，变量类型、面向对象基础，DOM基本及应用，数组及应用，数学方法，算法（冒泡排序、快速排序、插入排序）等。
+    三、免费课学习目标及要求：
+
+    ***************************
+</div>
+<script>
+    var div1 = document.getElementById('div1');
+    var scrollTop = div1.scrollTop;
+    var height = div1.scrollHeight;
+    div1.innerHTML += div1.innerHTML;
+    setInterval(function() {
+        div1.scrollTop++;
+        if(div1.scrollTop == height) {
+            div1.scrollTop = 0;
+        }
+    }, 10);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #div1 {
+            width: 300px;
+            height: 150px;
+            line-height: 150px;
+            text-align: center;
+            font-size: 40px;
+            background: #87c6ff;
+        }
+    </style>
+</head>
+<body>
+<h2>延迟加载的理论基础</h2>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<div id="div1">
+    我是DIV
+</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript">
+    //n-->浏览器底边框距离文档最开始最上边的边框的距离：浏览器的clientHeight+浏览器的scrollTop  here, the clientHeight is content + padding, the scrollTop is padding to padding, so it is right
+    //m-->DIV底边框距离文档最开始最上边的边框的距离：DIV的偏移量offsetTop+DIV的offsetHeight  here, the
+    //如果m<n就代表我们的div已经完全显示了
+    //window.onscroll:监听浏览器的滚动事件
+    //window.onresize:监听浏览器的大小改变事件
+    //window.onload:监听浏览器加载完成的事件
+
+//        window.onscroll = function () {
+//            var oDiv = document.getElementById("div1");
+//            var n = (document.documentElement.clientHeight || document.body.clientHeight) + (document.documentElement.scrollTop || document.body.scrollTop);
+//            var m = utils.offset(oDiv).top + oDiv.offsetHeight;
+//            console.log(m + ': m, ' + n + ': n');
+//            if (m < n) {
+//                oDiv.style.background = "red";
+//            } else {
+//                oDiv.style.background = "#87c6ff";
+//            }
+//        }
+
+    window.onscroll = function () {
+        var oDiv = document.getElementById('div1');
+        var n = (document.documentElement.clientHeight || document.body.clientHeight) + (document.documentElement.scrollTop || document.body.scrollTop);
+        var m = utils.offset(oDiv).top + oDiv.offsetHeight;
+        console.log(m + ': m, ' + n + ': n');
+        if (m < n) {
+            oDiv.style.background = 'green';
+        }
+    }
+</script>
+</body>
+</html>
