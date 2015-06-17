@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="a b c">This a b c</div>
+<div class="    a     b     ">This is a b</div>
+<div class=" a    bb        ">This is a bb</div>
+<div>This is empty</div>
+<script src="DOM.js"></script>
+<script>
+    console.log(DOM.getEleByClass(' a  b  '));
+    var divs = document.getElementsByTagName('div');
+    for(var i = 0; i < divs.length; i++) {
+        console.log(divs[i].className);
+        DOM.removeClass(divs[i], 'a');
+        console.log(divs[i].className);
+    }
+
+</script>
+</body>
+</html>

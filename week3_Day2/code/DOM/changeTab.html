@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Tab Change</title>
+    <style>
+        body, div, ul, li{
+            margin: 0;
+            padding: 0;
+        }
+        div.panel {
+            width: 510px;
+            height: 302px;
+            margin: 20px auto;
+            border: 1px solid red;
+        }
+        ul {
+            list-style: none;
+            height: 32px;
+            margin-left: 5px;
+
+        }
+        li {
+            float: left;
+            height: 30px;
+            line-height: 30px;
+            background: #eee;
+            margin: 0 4px;
+            width: 90px;
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid #663300;
+            border-radius: 10%;
+            cursor: pointer;
+        }
+        div.content div {
+            display: none;
+            height: 268px;
+            width: 100%;
+            border: 1px solid #663300;
+            font-size: 16px;
+            text-align: center;
+            background: #eeeeaa;
+            margin-top: -1px;
+        }
+        div.content div.selected {
+            display: block;
+        }
+        .tabSelected, ul li:hover {
+            background: #eeeeaa;
+            border-bottom: 1px solid #eeeeaa;
+        }
+    </style>
+</head>
+<body>
+<div class="panel" id="div1">
+    <ul>
+        <li class="tabSelected tab">1</li>
+        <li class="tab">2</li>
+        <li class="tab">3</li>
+        <li class="tab">4</li>
+        <li class="tab">5</li>
+    </ul>
+    <div class="content">
+        <div class="selected">
+            content1
+        </div>
+        <div>
+            content2
+        </div>
+        <div>
+            content3
+        </div>
+        <div>
+            content4
+        </div>
+        <div>
+            content5
+        </div>
+
+    </div>
+</div>
+<script src="DOM.js"></script>
+<script>
+    function tabChange() {
+        //console.log('a');
+        var n = DOM.getIndex(this);
+        DOM.addClass(this, 'tabSelected');
+        var siblings = DOM.siblings(this);
+        for(var i = 0; i < siblings.length; i++) {
+            DOM.removeClass(siblings[i], 'tabSelected');
+        }
+        var content = DOM.nextSiblings(this.parentNode)[0];
+        var contentList = DOM.children(content);
+        for(var i = 0; i < contentList.length; i++) {
+            DOM.removeClass(contentList[i], 'selected');
+        }
+        DOM.addClass(contentList[n], 'selected');
+    }
+
+    var tab = DOM.getEleByClass('tab');
+    for(var i = 0; i < tab.length; i++) {
+        tab[i].onmouseenter = tabChange;
+    }
+</script>
+</body>
+</html>
