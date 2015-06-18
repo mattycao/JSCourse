@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Animation 1</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 150px;
+            top: 10px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">Hello</div>
+<script src="utils.js"></script>
+<script>
+// the basic theory: the distance change, and the time, and we we can get how many px we need to go in each interval. After reach the distance then clear the timer
+    (function() {
+        "use strict";
+        var div = document.getElementById('div1');
+        var change = 1000 - utils.getCss(div, 'left');
+        var time = 0;
+        var interval = 10;
+        var period = 1000;
+        var speed = change * interval / period;
+        var timer = null;
+        function move() {
+            time += interval;
+            div.style.left = utils.getCss(div, 'left') + speed + 'px';
+            if(time >= period) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+        timer = setInterval(move, interval);
+
+    }());
+</script>
+</body>
+</html>

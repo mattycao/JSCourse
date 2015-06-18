@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Animation 1</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 150px;
+            top: 10px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">Hello</div>
+<script src="utils.js"></script>
+<script>
+
+    /**
+     *
+     * @param ele  the element which we will do the animation
+     * @param attr  the attribute which we will animate
+     * @param target  the target wwe will reach
+     * @param interval  the whole time we will consume
+     */
+    function animate(ele, attr, target, period) {
+        var change = target - utils.getCss(ele, attr);
+        var time = 0;
+        var speed = change/period;
+        var interval = 10;
+        var timer = null;
+        function move() {
+            time += interval;
+            ele.style[attr] = utils.getCss(ele, attr) + speed * interval + 'px';
+            if(time >= period) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+        timer = setInterval(move, interval);
+    }
+    var div = document.getElementById('div1');
+    animate(div, 'left', 1200, 1000);
+</script>
+</body>
+</html>
