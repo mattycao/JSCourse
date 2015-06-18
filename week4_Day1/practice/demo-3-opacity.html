@@ -2,9 +2,48 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>Animation 3</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 150px;
+            top: 10px;
+            background: red;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
+<div id="div1">Hello</div>
+<script src="utils.js"></script>
+<script>
+    var div = document.getElementById('div1');
+    function fade(ele, target, period) {
+        var begin = utils.getCss(div, 'opacity');
+        // the theory behind is pretty the same
+        var change = target - begin;
+        var interval = 10;
+        var speed = change * interval / period;
+        var timer = null;
+        var time = 0;
+        function move() {
+            time += interval;
+            div.style.opacity = time * speed + begin;
+            div.style.filter = 'alpha(opacity=' + time * speed + begin + ')';
+            if(time >= period) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+        timer = setInterval(move, interval);
+    }
 
+    div.onclick = function() {
+        fade(div, 1, 10000);
+    }
+</script>
 </body>
 </html>
