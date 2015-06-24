@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>The multi-level exmaple</title>
+    <style>
+        #menu li span {
+            cursor: pointer;
+            -webkit-user-select: none;
+        }
+        span {
+            width: 50px;
+            display: block;
+            margin: 2px;
+        }
+
+        #menu .end {
+            background: red;
+        }
+
+        #menu .container {
+            background: green;
+        }
+
+        #menu .close:before {
+            content: "+";
+            font-size: 24px;
+            color: red;
+            width: 35px;
+            text-align: center;
+
+        }
+
+        #menu .open:before {
+            font-size: 24px;
+            color: white;
+            content: "-";
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li><span>1</span>
+        <ul>
+            <li><span>1A</span></li>
+            <li><span>1B</span></li>
+            <li><span>1c</span></li>
+        </ul>
+    </li>
+    <li><span>2</span></li>
+    <li><span>3</span></li>
+    <li><span>4</span>
+        <ul>
+            <li><span>4A</span></li>
+            <li><span>4B</span></li>
+            <li><span>4C</span></li>
+            <li><span>4D</span>
+                <ul>
+                    <li><span>4D1</span></li>
+                    <li><span>4D2</span></li>
+                    <li><span>4D3</span></li>
+                    <li><span>4D4</span></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<script src="../jquery-1.11.3.min.js"></script>
+<script>
+    // the idea: see the menu, see it li child, if is has ul child, then hidden it.
+    // for the one has the ul child, show it can be clicked
+    // for the one doesn't has ul child, show it cannot be clicked
+    // listen the event, if it can be clicked, then show the ul list, but hidden the its child ul
+    $(function() {
+        $("#menu li").has('ul').children('span').addClass('container').end()
+                .children('ul').css('display', 'none');
+        $("#menu li").not('ul').children('span').addClass('end');
+        $('#menu').click(function(e) {
+            e = e || window.target;
+            var target = e.target || e.srcElement;
+            if(target.nodeName === 'SPAN') {
+                if($(target).next().length > 0) {
+                    // since like has ul
+                    var $ul = $(target).next();
+                    if($ul.css('display') === 'none') {
+                        $ul.css('display', 'block');
+                    } else {
+                        $ul.css('display', 'none');
+                        $ul.find('ul').css('display', 'none');
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

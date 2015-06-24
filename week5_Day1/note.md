@@ -35,3 +35,19 @@ if(e.stopPropagation) {
     }
 }
 ```
+
+* event冒泡和捕获是事件的两个阶段
+* dom2 ： addEventListener(type, fn, false), -> indicate the bubble, if true, will capture
+* e.target || e.srcTarget,  indicate the real element which happens the event
+* event.currentTarget: Identifies the current target for the event, as the event traverses the DOM. 
+* 事件委托: 利用了事件传播，如果动态的创建了元素，用事件委托就自动的给据了监听
+* IE兼容的DOM2级事件绑定
+```js
+function bind(ele, type, fn) {
+        if (ele.addEventListener) {
+            ele.addEventListener(type, fn, false);
+        } else {
+            ele.attachEvent("on" + type, fn);
+        }
+    }
+```
