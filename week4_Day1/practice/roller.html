@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Rotate</title>
+    <style>
+        body, div, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        div#outer {
+            width:800px;
+            height: 500px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        div#inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4800px;
+            height: 500px;
+
+        }
+        #inner div {
+            float: left;
+            height: 500px;
+            width: 800px;
+            background: orange;
+            font-size: 50px;
+            text-align: center;
+            line-height: 500px;
+        }
+
+        #btn {
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            width: 100px;
+            height: 50px;
+        }
+
+        #btn li {
+            float: left;
+            width: 47px;
+            height: 50px;
+            border: 1px solid #eeaaee;
+            background: #a3dbff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            margin-left: 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <div id="inner">
+        <div>第一张</div>
+        <div style=" background:red;">第二张</div>
+        <div style=" background:blue;">第三张</div>
+        <div style=" background:purple;">第四张</div>
+        <div style=" background:green;">第五张</div>
+        <div>第一张</div>
+    </div>
+    <ul id="btn">
+        <li id="left">左</li>
+        <li id="right">右</li>
+    </ul>
+</div>
+<script src="utils.js"></script>
+<script>
+    /**
+     *
+     * @param ele  the element which we will do the animation
+     * @param attr  the attribute which we will animate
+     * @param target  the target wwe will reach
+     * @param period  the whole time we will consume
+     */
+    function animate(ele, oTarget, period, cb) {
+        window.clearInterval(ele.timer);
+        ele.timer = null;
+        var oBegin = {};
+        var oChange = {};
+        for(var attr in oTarget) {
+            oBegin[attr] = utils.css(ele, attr);
+            var change = oTarget[attr] - oBegin[attr];
+            if(change) {
+                oChange[attr] = change;
+            }
+        }
+        var time = 0;
+        var interval = 10;
+        function move() {
+            time += interval;
+            for(var attr in oChange) {
+                var value = time * oChange[attr] / period + oBegin[attr];
+                utils.css(ele, attr, value);
+            }
+            if (time >= period) {
+                clearInterval(ele.timer);
+                ele.timer = null;
+                if (typeof cb == "function") {
+                    cb.call(ele);
+
+                }
+            }
+        }
+
+        ele.timer = setInterval(move, interval);
+    }
+
+    var div1 = document.getElementById('inner');
+    var btn1 = document.getElementById('left');
+    var btn2 = document.getElementById('right');
+    var step = 0;
+    function autoMove() {
+        step++;
+        if(step == 6) {
+            step = 1;
+            utils.css(div1, 'left', 0);
+        }
+        animate(div1, {left: -800 * step}, 500);
+    }
+
+    function autoRight() {
+        clearInterval(timer);
+        timer = null;
+        autoMove();
+        timer = setInterval(autoMove, 2000);
+    }
+
+    function autoLeft() {
+        clearInterval(timer);
+        timer = null;
+        step--;
+        if(step == -1) {
+            step = 4;
+            utils.css(div1, 'left', -4000);
+        }
+        animate(div1, {left: -800 * step}, 500);
+        timer = setInterval(autoMove, 2000);
+    }
+
+    var timer  = setInterval(autoMove, 2000);
+    btn2.onclick = autoRight;
+    btn1.onclick = autoLeft;
+
+
+</script>
+</body>
+</html>

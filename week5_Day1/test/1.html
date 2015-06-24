@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Bubble</title>
+
+</head>
+<body>
+<div id="div">
+    <span id="span">
+        <a id="aTag">事件测试</a>
+    </span>
+</div>
+<script>
+    document.getElementById("aTag").addEventListener('click', aTag);
+    document.getElementById("span").addEventListener('click', span);
+    document.getElementById("div").addEventListener('click', div);
+    function aTag(e) {
+        alert("点击的是a标签");
+    }
+    function span(e) {
+        alert("点击的是span标签");
+    }
+    function div(e) {
+        alert("点击的是div标签");
+    }
+</script>
+</body>
+</html>

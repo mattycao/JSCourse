@@ -11,13 +11,15 @@
             left: 150px;
             top: 10px;
             background: red;
-            filter: alpha(opacity=50);
-            opacity: 0.5;
+            filter: alpha(opacity=100);
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 <div id="div1">Hello</div>
+<div id="div2" style="top:100px; left:0; background:green;">向左</div>
+<div id="div3" style="top:100px; left:150px; background:yellow;">向右</div>
 <script src="utils.js"></script>
 <script>
     var div = document.getElementById('div1');
@@ -28,8 +30,8 @@
      * @param target  the target wwe will reach
      * @param period  the whole time we will consume
      */
-    function animate(ele, attr, target, period) {
-        var begin = utils.getCss(ele, attr);
+    function animate(ele, attr, target, period, cb) {
+        var begin = utils.css(ele, attr);
         var change = target - begin;
         var time = 0;
         var speed = change / period;
@@ -38,15 +40,15 @@
 
         function move() {
             time += interval;
-            if (attr === 'opacity') {
-                div.style.opacity = time * speed + begin;
-                div.style.filter = 'alpha(opacity=' + (time * speed + begin) * 100 + ')';
-            } else {
-                ele.style[attr] = utils.getCss(ele, attr) + speed * interval + 'px';
-            }
+            var value = time * speed + begin;
+            utils.css(ele, attr, value);
             if (time >= period) {
                 clearInterval(timer);
                 timer = null;
+                if (typeof cb == "function") {
+                    cb.call(ele);
+
+                }
             }
         }
 
@@ -56,9 +58,9 @@
     // test
     div.onclick = function () {
         //animate(div, 'opacity', 1, 1000);
-        //animate(div, 'left', 1000, 1000);
+        animate(div, 'left', 1000, 1000);
         //animate(div, 'top', 500, 1000);
-        animate(div, 'width', 1000, 1000);
+        //animate(div, 'width', 1000, 1000);
     }
 </script>
 </body>

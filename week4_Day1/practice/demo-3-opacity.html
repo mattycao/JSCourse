@@ -29,19 +29,21 @@
         var speed = change * interval / period;
         var timer = null;
         var time = 0;
+
         function move() {
             time += interval;
             div.style.opacity = time * speed + begin;
-            div.style.filter = 'alpha(opacity=' + time * speed + begin + ')';
-            if(time >= period) {
+            div.style.filter = 'alpha(opacity=' + (time * speed + begin) * 100 + ')';
+            if (time >= period) {
                 clearInterval(timer);
                 timer = null;
             }
         }
+
         timer = setInterval(move, interval);
     }
 
-    div.onclick = function() {
+    div.onclick = function () {
         fade(div, 1, 10000);
     }
 </script>

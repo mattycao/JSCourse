@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        body, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        #outer {
+            width: 400px;
+            height: 400px;
+            background: green;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        #inner {
+            width: 80px;
+            height: 80px;
+            background-color: red;
+            position: absolute;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+<div id="outer">
+</div>
+</body>
+</html>
+<script>
+    var oDiv = document.getElementById('outer');
+    oDiv.onmouseenter = function (e) {
+        e = e || window.event;
+        var ele = document.createElement('div');
+        ele.id = 'inner';
+        this.appendChild(ele);
+        ele.style.left = e.clientX - this.offsetLeft - ele.offsetWidth / 2 + 'px';
+        ele.style.top = e.clientY - this.offsetTop - ele.offsetHeight / 2 + 'px';
+
+    }
+
+    oDiv.onmousemove = function (e) {
+        e = e || window.event;
+        var ele = document.getElementById('inner');
+        if (ele) {
+            var x = e.clientX - this.offsetLeft - ele.offsetWidth / 2;
+            var y = e.clientY - this.offsetTop - ele.offsetHeight / 2;
+            if (x < 0) {
+                ele.style.left = 0;
+            } else if (x > this.offsetWidth - ele.offsetWidth) {
+                ele.style.left = this.offsetWidth - ele.offsetWidth + 'px';
+            } else {
+                ele.style.left = x + 'px';
+            }
+            if (y < 0) {
+                ele.style.top = 0;
+            } else if (y > this.offsetHeight - ele.offsetHeight) {
+                ele.style.top = this.offsetHeight - ele.offsetHeight + 'px';
+            } else {
+                ele.style.top = y + 'px';
+            }
+        }
+    }
+
+    oDiv.onmouseleave = function (e) {
+        e = e || window.event;
+        var ele = document.getElementById('inner');
+        if (ele) {
+            this.removeChild(ele);
+        }
+    }
+</script>

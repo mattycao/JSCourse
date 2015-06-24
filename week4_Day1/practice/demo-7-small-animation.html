@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Animation 4</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 150px;
+            top: 10px;
+            background: red;
+            filter: alpha(opacity=100);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">Hello</div>
+<div id="div2" style="top:110px; left:0; background:green;">向左</div>
+<div id="div3" style="top:110px; left:150px; background:yellow;">向右</div>
+<script src="utils.js"></script>
+<script>
+    var div1 = document.getElementById('div1');
+    /**
+     *
+     * @param ele  the element which we will do the animation
+     * @param attr  the attribute which we will animate
+     * @param target  the target wwe will reach
+     * @param period  the whole time we will consume
+     */
+    function animate(ele, attr, target, period, cb) {
+        var begin = utils.css(ele, attr);
+        var change = target - begin;
+        var time = 0;
+        var speed = change / period;
+        var interval = 10;
+        ele.timer = null;
+
+        function move() {
+            time += interval;
+            var value = time * speed + begin;
+            utils.css(ele, attr, value);
+            if (time >= period) {
+                clearInterval(ele.timer);
+                ele.timer = null;
+                if (typeof cb == "function") {
+                    cb.call(ele);
+
+                }
+            }
+        }
+
+        ele.timer = setInterval(move, interval);
+    }
+
+    // test
+    var div2 = document.getElementById('div2');
+    var div3 = document.getElementById('div3');
+
+    function toRight() {
+        animate(this, 'left', 1000, 1000, toDown);
+    }
+
+    function toDown() {
+        animate(this, 'top', 700, 1000, toLeft);
+    }
+
+    function toLeft() {
+        animate(this, 'left', 150, 1000, toUp);
+    }
+
+    function toUp() {
+        animate(this, 'top', 10, 1000, toRight);
+    }
+
+    div1.onclick = toRight;
+    div2.onclick = toRight;
+    div3.onclick = toRight;
+
+</script>
+</body>
+</html>
