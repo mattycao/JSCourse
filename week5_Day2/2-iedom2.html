@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    This is the dom 1
+</div>
+<script>
+    var oDiv = document.getElementById('div1');
+    function fn1() {
+        alert(1);
+    }
+    function fn2() {
+        alert(2);
+    }
+    function fn3() {
+        alert(3);
+    }
+    var count = 0;
+    function fn4() {
+        count++;
+        if (count == 2) {
+            oDiv.removeEventListener('click', fn2, false);
+        }
+    }
+    oDiv.addEventListener('click', fn1, false);
+    oDiv.addEventListener('click', fn2, false);
+    oDiv.addEventListener('click', fn3, false);
+    oDiv.addEventListener('click', fn4, false);
+
+    function bind(ele, type, fn) {
+        if (ele.addEventListener) {
+            ele.addEventListener(type, fn, false);
+        } else if (ele.attachEvent) {
+            ele.attachEvent('on' + type, fn);
+        } else {
+            // such old browser
+        }
+    }
+
+    function unbind(ele, type, fn) {
+        if (ele.removeEventListener) {
+            ele.removeEventListener(type, fn, false);
+        } else if (ele.detachEvent) {
+            ele.detachEvent('on' + type, fn);
+        } else {
+            // such old browser
+        }
+    }
+
+</script>
+</body>
+</html>
