@@ -53,11 +53,12 @@ isNaN(new Date().toString());     // true
 // This is a false positive and the reason why isNaN is not entirely reliable
 isNaN("blabla")   // true: "blabla" is converted to a number.
                   // Parsing this as a number fails and returns NaN
+ Here it using the Number to transfer all of stuff to number. Like Number(null) -> 0, Number(undefined) -> NaN
 
 STRING:
 1. using the \ to escape some characters like "
 2. typeof '12' string
-   typeof (1+undefined) number
+   typeof (1+undefined) number -> NaN
    typeof [] object
    typeof null object
    typeof undefined undefined
@@ -74,14 +75,14 @@ DATA TRANSFER:
 8. 1 + [1,2,3] = 11,2,3 // both transfer to string
 9. 'a' + null = anull //string
 10. 'a' + undefined = aundefined //string also
-11. {} + [] = 0
+11. {} + [] = [object Object]
 12. {} + null = 0;
 13. {} + undefined = NaN
 14. [] + null = null //string
 
  DATA COMPARISON
  1. ({} == '[object Object]' )//true object compare with string, object transfer to string
- 2. [] == '' true'
+ 2. [] == '' true
  3. ([] == true) // false [] transfer to string then using the Number('') = 0
  4. so compare object and boolean, object transfer to string then using the Number do the strong number transfer
  5. object and digital, transfer the object and then do the comparison
@@ -119,7 +120,7 @@ String 10
 8. charCodeAt()
 
 Dom 8 method:
-1. document.getElementByID()
+1. document.getElementById()
     // 1) if id is replicated, choose the first one
        2) in ie6 and ie7, id is not case senstive
        3) in ie6 and ie7, form element think the name is id
@@ -129,10 +130,10 @@ Dom 8 method:
 3. document.getElementsByName()
    // under ie, only works for form element.
 4. document.body
-   document.documentElement.clientWidth | document.body.clientWidth
+   document.documentElement.clientWidth | document.body.clientWidth, document.documentElement is a read-only.
 5. document.getElementsByClassName() // not work for ie6 to ie8
 6. document.querySelector() // get one
-   document.querySelectorAll() // get multiple
+   document.querySelectorAll() // get multiple for standord browser
    // normally used for mobile devices
 DOM 7 attribute:
 1. childNodes, return an array-like object.
@@ -162,7 +163,7 @@ CREATE ELEMENT
 PUT IN IN THE DOM
 1. document.body.appendChild(odiv);
 2. document.body.insertBefore(newNode, oldNode(insert it before))
-3. oText = document.createTextNode('content') // the content is must under standard bowser.
+3. oText = document.createTextNode('content') // the content is must under standard browser.
 4. oText.nodeValue += 'append';
 This dynamic dom built costs a lot of resource. We better just use the div and give it the innerHTML.
 
@@ -170,14 +171,14 @@ DELETE AND UPDATE:
 1. clone: originalNode.cloneNode(); // the clone id will be same. we better change it.
 2. cloneNode(true/false), default false, will just copy the specific element. True will clone the current and all childNodes insides
 3. odiv1.parentNode.replaceChild(odiv4(newOne), odiv(oldOne));
-4. node.parent.removeChild(node)
+4. node.parentNode.removeChild(node)
 
 SET ATTRIBUTE
 1. div.setAttribute('attribute name', value); // show in the html file
    div.attributeName = value; // cannot change the html
 2. div.getAttribute('attribute name')
 3. div.removeAttribute('attribute name')
-in ie6-8, it cannot use to set the class.
+in ie7, it cannot use to set the class.
 
 
 DATE:
@@ -201,3 +202,12 @@ DATE:
 setTimeOut
    timer = setTimeOut(), timer is index from 1 to indicate the timer.
    when delete the time,first, clearTimeOut(timer), or clearInterval(timer), then timer = null.
+
+Added From the node in the class:
+1. For the combined css attribute, when we access it by dom style attribute, we need omit the dash sign, like this way:
+.style.fontSize.
+2. When define a variable, the name of the variable rule: the first letter must be letter, _, or dollar sign
+3. But the first letter is number can be the attribute name, and access it by using the [].
+4. typeof c, and c is not defined, it will result a undefined. However, alert a undefined c will result in a error.
+5. null == undefined
+6. null, undefined, when compared with any other types using the ==, will result in a false, since null, and undefined don't has toString() method.

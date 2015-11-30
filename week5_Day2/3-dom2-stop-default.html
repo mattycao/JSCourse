@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<a href="http://baidu.com" id="baidu">Baidu</a>
+<body>
+<script>
+    var a = document.getElementById('baidu');
+//    a.onclick = function() {
+//        return false;
+//    }
+    a.addEventListener('click', function() {
+        return false;
+    }, false);
+</script>
+</body>
+</html>

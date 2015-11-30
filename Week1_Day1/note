@@ -40,7 +40,7 @@ THE TOP SCOPE:
 变量与属性的关系：
 1. 全局变量是window的属性
 2. window的属性也可以看做全局变量
-3. 一个对象的属性，也可以看成是以这个对象为作用域下的变量 - with语句(not suggest, in with, if  you define variable with a var keyword, it will be a global var)
+3. 一个对象的属性，也可以看成是以这个对象为作用域下的变量 - with语句(not suggest, in with, if  you define variable without a var keyword, it will be a global var)
 
 active object:
     for the function, the definition and the evoke is totally two different thing.
@@ -58,15 +58,15 @@ SETTIMEOUT:
   setTimeout(fn, time):
   if time is 0, then it will be run after all the current queue is finished. Since it is asynchronous, they are in the totally different queues.
   In a separate queue.
-  If no time, the time will like 3 or 5 mili second.
+  If no time, the time will like 3 or 5 mili-second.
 
 闭包的性能问题：
   Since it maintain the state of the context, so it will not realize the memory of the context.
-  (function(i) {
+  ;(function(i) {
       oList[i].onclick = function() {
         console.log(i);
       }
-  }
+  }(i));
   this context is a must-consuming memory. The onclick will always get the memory.
 
 PRE-DECLARE

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bind</title>
+</head>
+<body>
+<script>
+    var val = 9;
+    function say() {
+        return this.val;
+    }
+
+    var obj1 = {
+        val: 1
+    }
+    var obj2 = {
+        val: 2
+    }
+
+    console.log(say());
+    var sayObj1 = say.apply(obj1);
+    obj2.fn = sayObj1;
+    //attaching a method to an object doesn't change 'this'
+    console.log(sayObj1());
+    console.log(obj2.fn());
+</script>
+</body>
+</html>

@@ -50,4 +50,8 @@
     6. 事件源： 标准浏览器是e.target, IE是event.srcElement; var target = e.target || e.srcElement;
     7. 阻止事件默认行为： 标准浏览器：e.preventDefault(); ie: e.returnValue = false;
     8. 阻止事件传播： 标准浏览器： e.stopPropagation(); ie: e.cancelBubble = true;
-    9. 
+    9. 在所有浏览器中，如果用dom0方式绑定事件，那么return false;将会阻止默认行为。
+    10. 事件对象： e.pageX, e.pageY, not support in ie6~8.
+    11. ie6~8 doesn't support capture phase.
+
+* 解决方法

@@ -35,14 +35,14 @@
 //                }
 //            })(i);
 //            // asynchronous function
-//            (function (i) {
-//                setTimeout(function () {
-//                    oLis[i].style.left = (i + 1) * 100 + 'px';
-//                }, (i + 1) * 1000);
-//            })(i);
-            setTimeout(function () {
-                oLis[i].style.left = (i + 1) * 100 + 'px';
-            }, (i + 1) * 1000);
+            (function (i) {
+                setTimeout(function () {
+                    oLis[i].style.left = (i + 1) * 100 + 'px';
+                }, (i + 1) * 1000);
+            })(i);
+//            setTimeout(function () {
+//                oLis[i].style.left = (i + 1) * 100 + 'px';
+//            }, (i + 1) * 1000);
 
 
         }

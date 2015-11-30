@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //注意：在低版本IE上无法获取具名函数的name，会返回undefined，建议在火狐或是谷歌浏览器上测试
+    // this function can be used to determine whether the function is 命名函数还是匿名函数
+    /**
+     * 获取指定函数的函数名称(用于兼容IE)
+     * @param {Function} fun 任意函数
+     */
+    function getFunctionName(fn) {
+        if(fn.name !== undefined) {
+            return fn.name;
+        }
+        var strFn = fn.toString().substr('function '.length);
+        strFn = strFn.substr(0, strFn.indexOf('('));
+        return strFn;
+    }
+</script>
+</body>
+</html>
