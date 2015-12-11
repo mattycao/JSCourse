@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ul1 {
+            list-style: none;
+            width: 200px;
+        }
+        .ul1 li {
+            line-height: 30px;
+            font-size: 20px;
+            height: 30px;
+            width: 100%;
+            border-bottom: 1px dashed green;
+        }
+    </style>
+</head>
+<body>
+<ul class="ul1">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<script>
+    var oUls = document.getElementsByClassName('ul1');
+    var oli = oUls[0].getElementsByTagName('li');
+
+
+    var ary = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    //requirement:  build a list li with the same length, and the value is the corresponding value
+
+    // 优化法则:1. 拼接字符串,然后通过innerHTML添加, 字符串重新添加会把事件弄没了
+
+//    var str = '';
+//    for(var i = 0; i < ary.length; i++) {
+//        str += '<li>' + ary[i] + '</li>';
+//    }
+//
+//    oUls[0].innerHTML += str;
+    //         2.
+    for(var i = 0; i < oli.length; i++) {
+        oli[i].onmouseover = function() {
+            this.style.backgroundColor = 'pink';
+        };
+        oli[i].onmouseout = function(){
+            this.style.backgroundColor = 'white';
+        }
+    }
+
+//    // 优化方法2: 动态创建元素标签
+//    for(var i = 0; i.ary.length; i++) {
+//        var oLi = document.createElement('li');
+//        oLi.innerHTML = ary[i];
+//        oUls[0].appendChild(oLi);
+//    }
+
+    // 优化3: 文档碎片的方式, 临时容器添加
+    var frg = document.createDocumentFragment();
+    for(var i = 0; i.ary.length; i++) {
+        var oLi = document.createElement('li');
+        oLi.innerHTML = ary[i];
+        frg.appendChild(oLi);
+    }
+
+    oUls[0].appendChild(frg);
+
+
+</script>
+</body>
+</html>

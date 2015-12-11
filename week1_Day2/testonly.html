@@ -2,15 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>墨鱼教育</title>
 </head>
 <body>
 <script>
-    var fn1=function xxcanghai(){
-        console.log("in:fn1typeof fn1,"+ "xxcanghai:" + typeof xxcanghai + ">");
-    };
-    console.log("out:fn1typeof fn1,"+ "xxcanghai:" + typeof xxcanghai + ">");
-    fn1();
+    function createGetNumFn(){
+        var arr=[0,1,2,3,4,5,6,7,8,9];
+        function getNum(){
+            if(arr.length>0){
+                var len = arr.length;
+                var index = parseInt(Math.random()*len);
+                var tempNum = arr[index];
+                arr.splice(index,1);
+                return tempNum;
+            }else{
+                console.log("lalalaal");
+            }
+        }
+        return getNum;
+    }
+    var myGetNum = createGetNumFn();
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
+    console.log(myGetNum());
 </script>
 </body>
 </html>
