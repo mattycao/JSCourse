@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        //预解释：在当前作用域下，代码执行之前，把所有带var function关键字的进行提前的声明或者定义
+        //js中作用域就两种:window(全局作用域 全局变量)  函数执行的时候形成的私有作用域(私有变量)
+
+        //var 只是提前的声明(只声明不定义默认值undefined)
+        //function 声明加定义一起完成
+
+        /*
+        //window预解释：
+            //var a;
+            //function fn(){......}
+        //window下的代码执行：
+        console.log(a);//undefined
+        var a=12;//window下 a=12
+        function fn(){
+            //形成一个私有作用域
+            //私有作用域下的预解释:
+                //var a;
+            //私有作用域下的代码执行:
+                //a=13;
+            var a=13;
+        }
+        fn();//执行函数
+        console.log(a);//12
+        */
+
+        //预解释是一种毫无节操的机制
+
+        /*
+        //1)不管条件是否成立，都进行预解释
+        //in 判断当前a是否是window的一个属性
+
+        //window下的预解释
+            //var a; undefined
+        //window下的代码执行
+            //console.log(a); ==>undefined
+            //"a" in window ==>true
+            //!("a" in window) ==>false
+            //if(false){条件不成立，代码不执行}
+            //console.log(a); ==>undefined
+        console.log(a);
+        if(!("a" in window)){
+            console.log(a);
+            var a=12;
+            console.log(a);
+        }
+        console.log(a);
+        */
+
+
+        /*
+        var a=12;//window下定义了一个变量a 也相当于把a给window当做一个属性名
+        console.log(window.a);
+        */
+
+
+        //2)只对=左边的预解释，=号右边的不预解释
+        //var f=function(){}
+
+        //3)匿名函数闭包方式，不进行预解释
+        //;(function(){
+
+        //})();
+
+        //4)函数中return后面的代码不执行，但是预解释,在但是 return返回的值不预解释的
+        /*
+        function sum(){
+            return function(){
+
+            }//不预解释的
+            var a=12;//预解释
+        }
+        */
+
+        //5)对于重名的，不重复声明，但是重复定义
+
+        /*
+        //window预解释：
+            //var a;  a => function a(){var a=16;}
+        //代码执行:
+            //console.log(a); ==>function a(){var a=16;}
+            //a=12;
+            //console.log(a); ==>12
+            //function a(){var a=13;}因为在预解释的时候定义过了，代码执行到这跳过就好了
+            //console.log(a); ==>12
+            //a=15;
+            //a()  ==> 15() Error:number is not a function
+            //js中如果报错了，后面的代码就不在执行了
+            //console.log(a); 不执行
+        console.log(a);
+        var a=12;
+        console.log(a);
+        function a(){
+            var a=13;
+        }
+        console.log(a);
+        var a=15;
+        function a(){
+            var a=16;
+        }
+        a();
+        console.log(a);
+        */
+
+        //window预解释：
+            //var a; undefined
+            //a==> function a(){console.log("ok");}
+        //window代码执行：
+            //a=12;
+            //a();  ==> 12()  Error:number is not a function
+        /*
+        var a=12;
+        function a(){
+            console.log("ok");
+        }
+        a();
+        */
+
+        //带var的预解释，不带的不预解释
+        //console.log(a);
+        //var a=12;
+        //a=12;
+        //console.log(window.a);
+
+        //6)预解释发生在当前作用域
+        //7)预解释只对当前同一个脚本块起作用
+
+        //console.log(a);//a is not defined
+    </script>
+    <script type="text/javascript">
+        //var a=12;
+    </script>
+</body>
+</html>

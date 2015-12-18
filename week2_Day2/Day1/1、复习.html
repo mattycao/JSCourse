@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        function fun(){
+            this.a=0;
+            this.b=function(){
+                alert(this.a);
+            }
+        }
+        fun.prototype={
+            b:function(){
+                this.a=20;
+                alert(this.a);
+            },
+            c:function(){
+                this.a=30;
+                alert(this.a);
+            }
+        };
+        var myf=new fun();
+        myf.b();
+        myf.c();
+        myf.b();
+
+        var os=document.createElement("script");
+        os.src="";
+        os.type="";
+        document.body.appendChild(os);
+
+
+        //预解释
+        //作用域
+
+        //this
+        //面向对象
+
+
+        function CreatePerson(){
+            this.name=arguments[0];
+            this.age=arguments[1];
+            this.eat=function(){
+                console.log("我会吃饭");
+            }
+        }
+        /*
+        var pro=CreatePerson.prototype;
+        pro.eat=function(){
+            console.log("我会吃饭");
+        }
+        pro.drink=function(){
+            console.log("我会喝水");
+        }
+        */
+
+        CreatePerson.prototype={
+            constructor:CreatePerson,
+            eat:function(){
+                console.log("我会吃饭");
+            },
+            drink:function(){
+                console.log("我会喝水");
+            }
+        };
+
+
+        var p1=new CreatePerson("姜文",28);
+        var p2=new CreatePerson("樊东来",18);
+
+        //console.log(p1.eat==p2.eat);
+        //console.log(p1.__proto__.eat==p2.__proto__.eat);
+        //console.log(p1.__proto__==CreatePerson.prototype);
+
+        //p1.toString(); p1.__proto__.__proto__.toString();
+
+
+        console.log(p1.constructor);
+
+
+
+
+
+        //数组的应用
+
+
+
+
+
+    </script>
+</body>
+</html>

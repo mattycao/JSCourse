@@ -1,0 +1,33 @@
+body,div,table,thead,tbody,tr,th,td{
+    margin:0;
+    padding: 0;
+    font-family:"微软雅黑";
+    font-size: 12px;
+    -webkit-user-select: none;
+}
+.tableDiv{
+    margin: 10px auto;
+    width: 800px;
+    border: 1px solid #ff0000;
+    border-radius: 10px;
+    background: -webkit-linear-gradient(bottom right,#87c6ff,#e1e1e1,#cccccc);
+    box-shadow: 1px 0 10px 5px #ffbc6c;
+}
+tr{
+    height: 30px;
+}
+th{
+    width: 150px;
+    cursor: pointer;
+    font-size: 14px;
+}
+th.firstTh{
+    width: 50px;
+}
+td{
+    width: 150px;
+    text-align: center;
+}
+td.firstTd{
+    width: 50px;
+}

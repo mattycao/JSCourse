@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        ul,li{
+            list-style: none;
+        }
+        li{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        li:nth-child(odd){
+            background-color: #c5dbf2;
+        }
+        li:nth-child(even){
+            background-color:#2687eb;
+        }
+        #div1{
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 50px;
+            border: 1px solid red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="ul1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="div1">+</div>
+
+    <script type="text/javascript">
+        var addList={
+            addHTML:function(ele){
+                var len=ele.getElementsByTagName("li").length;
+                ele.innerHTML+="<li>"+(len+1)+"</li>";
+                this.clickEvent(ele);
+            },
+            clickEvent:function(ele){
+                var oLis=ele.getElementsByTagName("li");
+                for(var i=0;i<oLis.length;i++){
+                    oLis.item(i).onclick=(function(i){
+                        return function(){
+                            console.log("我是第"+(i+1)+"个LI");
+                        }
+                    })(i);
+                }
+            },
+            bindClick:function(btn,ele){
+                var that=this;
+                btn.onclick=function(){
+                    that.addHTML(ele);
+                }
+            },
+            init:function(opt){
+                opt.btn=opt.btn||null;
+                opt.ele=opt.ele||null;
+                this.bindClick(opt.btn,opt.ele);
+                this.clickEvent(opt.ele);
+            }
+        };
+
+        var oDiv=document.getElementById("div1");
+        var oUl=document.getElementById("ul1");
+        addList.init({
+            btn:oDiv,
+            ele:oUl
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //console.log(document.getElementById("div1"));
+        //console.log(div1);
+        //直接的div1使用，页面中有几个就获取几个
+        /*
+        context.getElementsByTagName("");
+        context.getElementsByName("");
+        context.getElementsByClassName("");
+        context.querySelector()
+        context.querySelectorAll()
+        */
+
+        //document.body
+        //document.documentElement
+
+        //获取当前屏幕的宽度、高度(全兼容的)
+        //var cw=document.documentElement.clientWidth || document.body.clientWidth;
+        //var ch=document.documentElement.clientHeight || document.body.clientHeight;
+
+        /*
+        var oUl=document.getElementById("ul1");
+        var oLis=oUl.getElementsByTagName("li");
+        for(var i=0;i<oLis.length;i++){
+//            oLis.item(i).onclick=(function(i){
+//                return function(){
+//                    console.log(i+1);
+//                }
+//            })(i);
+
+//            oLis.item(i).index=i;
+//            oLis.item(i).onclick=function(){
+//                console.log(this.index+1);
+//            }
+
+            ;(function(i){
+                oLis.item(i).onclick=function(){
+                    console.log(i+1);
+                }
+            })(i);
+        }
+        console.log(oLis.length);
+        */
+
+        /*
+        var str="";
+        for(var i=4;i<7;i++){
+            str+="<li>"+(i+1)+"</li>";
+        }
+        oUl.innerHTML+=str;
+        */
+        //innerHTML是可以实现的，但是发现原先绑定的事件消失了
+
+        /*
+        for(var i=4;i<7;i++){
+            var oLi=document.createElement("li");
+            oLi.innerHTML=i+1;
+            oUl.appendChild(oLi);
+        }
+
+        console.log(oLis.length);
+        oLis[6].style.backgroundColor="red";
+        */
+        //DOM提供的那些方法:增加、删除等都存在映射机制
+        //开始我们有四个，当我动态的往里面添加3个，不需要重新的获取
+        //也实现了，但是原有的事件还存在
+
+
+        //重绘：修改样式：影响元素的外观，风格，而不会影响布局的
+        //回流: 重新布局：元素的规模尺寸，布局，隐藏等改变
+        //重渲染：
+
+        //innerHTML:是先将里面的原有东西拿出来，然后在加上新的东西，最后将最终的在重新的放到页面中，浏览器需要从新的渲染一边，原有绑定的事件就会消失了。
+        //DOM方法：不管前面是什么，我只需要站在最后就可以了，而且DOM有映射机制，我只要进这个队伍里面，不需要在重新的获取，就可以得到最新的了。
+        /*
+            var oLis=oUl.getElementsByTagName("li");
+            //oLis.length=7
+            var oLi=document.createElement("li");
+            oLi.innerHTML=8;
+            oUl.appendChild(oLi);
+            //oLis.length=8 不需要在重新的获取了
+        */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

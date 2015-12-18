@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        html,body,div,p,h1,table,thead,tbody,tr,th,td{ margin: 0; padding: 0; font-family: "微软雅黑"; font-size: 12px;}
+        table{ margin: 30px auto; border: 1px solid red; }
+        table th{ width: 100px; height: 30px; cursor: pointer; text-align: center; }
+        table th:nth-child(1){ width: 30px;}
+        table td{width: 100px; height: 30px; text-align: center;}
+        table td:nth-child(1){ width: 30px;}
+    </style>
+</head>
+<body>
+    <table id="tab">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="checkNameAll"/></th>
+                <th>学员编号</th>
+                <th>学员姓名</th>
+                <th id="chinaScore">语文分数</th>
+                <th id="mathScore">数组分数</th>
+                <th id="englishScore">英语分数</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" name="checkName"/></td>
+                <td>1</th>
+                <td>赵一</th>
+                <td>98</th>
+                <td>97</th>
+                <td>66</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkName"/></td>
+                <td>2</th>
+                <td>钱二</th>
+                <td>43</th>
+                <td>54</th>
+                <td>32</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkName"/></td>
+                <td>3</th>
+                <td>孙三</th>
+                <td>21</th>
+                <td>54</th>
+                <td>32</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkName"/></td>
+                <td>4</th>
+                <td>李四</th>
+                <td>98</th>
+                <td>97</th>
+                <td>66</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkName"/></td>
+                <td>5</th>
+                <td>王五</th>
+                <td>76</th>
+                <td>87</th>
+                <td>43</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <script charset="utf-8" type="text/javascript" src="utils.js"></script>
+    <script charset="utf-8" type="text/javascript">
+        //获取元素
+        var oTable=document.getElementById("tab");
+        var oChina=document.getElementById("chinaScore");
+        var oMath=document.getElementById("mathScore");
+        var oEnglish=document.getElementById("englishScore");
+
+        //nodeList-->array
+        //console.log(oTable.tBodies.item(0).rows);//获取tBody中的每一行nodeList集合
+        var oTBody=oTable.tBodies.item(0);
+        var nodeAry=utils.nodeListToArray(oTBody.rows);
+
+        //根据不同的成绩进行排序//根据不同的成绩进行排序
+        function changePostion(n){
+            //排序
+            nodeAry.sort(function(a,b){
+                return a.cells[n].innerHTML- b.cells[n].innerHTML;
+            });
+            //return a.cells[n].innerHTML.localeCompare(b.cells[n].innerHTMLL);
+            if(this.getAttribute("sortType")=="asc"){
+                nodeAry.reverse();
+                this.setAttribute("sortType","desc");
+            }else{
+                this.setAttribute("sortType","asc");
+            }
+            //交换位置
+            for(var i=0;i<nodeAry.length;i++){
+                oTBody.appendChild(nodeAry[i]);
+            }
+        }
+
+        //绑定事件
+        oChina.onclick=function(){
+            changePostion.call(this,3);
+        }
+        oMath.onclick=function(){
+            changePostion.call(this,4);
+        }
+        oEnglish.onclick=function(){
+            changePostion.call(this,5);
+        }
+
+        //全选和反选
+        document.getElementsByName("checkNameAll").item(0).onclick=function(){
+            var oChecks=document.getElementsByName("checkName");
+            for(var i=0;i<oChecks.length;i++){
+                oChecks.item(i).checked=this.checked;
+            }
+        }
+        //欠缺：底下的单独的点击的时候，看一下其他的兄弟的，如果都选中了，那么全选也选中，如果都没有选中的话，全选也没有选中
+        //getElementsByName的拓展
+        //动态创建元素
+        //innerHTML元素
+    </script>
+</body>
+</html>

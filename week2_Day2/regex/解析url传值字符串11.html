@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+9.请编写一个JavaScript函数 parseQueryStr，它的用途是把URL参数解析为一个对象：用法如：var obj = parseQueryString(url);例如： www.zhufengpeixun.cn?course1=js&course=css;  则obj的值为{course1:"js",course:"css"  }
+或生成一个JSON格式的字符串'{"course1":"js","course":"css"  }'
+</body>
+</html>
+<script>
+var reg=/(([^=&?]+)=([^=&?]+))+/g
+regreg=/(([^=&?]+)=([^=&?]+)&?)+/g;
+//对比上面两个正则的不同，第一个只捕获第一部分键值对。而第二个把所以的键值对都给捕获了。问题在于第二个正则有字符&,所以会整体循环第一个大分组的内容。
+var str1="332dkdk333ikdl0987kddo";
+reg2=/(\d+[a-z]+)+/g;//这个正则类似于上边的第二个正则
+reg3=/(\d)+([a-z])+/g;
+alert(reg2.exec(str1));
+alert(reg2.exec(str1));
+var str="www.zhufengpeixun.cn?course1=js&course=css&course3=html5";
+/*alert(reg.exec(str));
+alert(reg.exec(str));
+alert(reg.exec(str));*/
+function URLToObj(str){
+	var reg=/([^=&?]+)=([^=&?]+)/g;
+	var obj={};
+	var temp=null;
+	while(temp=reg.exec(str)){
+		//这会temp是个数组，temp[0]是"course1=js",temp[1]是"course1",temp[2]是"js"
+		obj[temp[1]]=temp[2];
+	}
+	return obj;
+}
+</script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var str="12323124533246732456";
+    var obj={};
+    for(var i=0;i<str.length;i++){
+        var cur=str.charAt(i);
+        if(obj[cur]>0){
+            obj[cur]+=1;
+        }else{
+            obj[cur]=1;
+        }
+    }
+    var max=0;
+    for(var key in obj){
+        if(obj[key]>max){
+            max=obj[key];
+        }
+    }
+    for(var key in obj){
+        if(obj[key]==max){
+            console.log(key);
+        }
+    }
+    console.log(obj);
+    console.log(max);
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>正则</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //js中我们用正则通常是处理字符串的
+        //正则就是一个规则(我们定义的)
+        /*
+        var reg=/\d/;//规则是必须有一个数字
+        var str1="哈哈1";
+        var str2="哈哈";
+        //检测我们的字符串是否符合我们的规则
+        console.log(reg.test(str1));//true
+        console.log(reg.test(str2));//false
+        */
+
+        /*
+        var reg=/\d\d\d/;//连续出现三个数字
+        console.log(reg.test("珠峰20培训15"));
+        console.log(reg.test("珠峰培训2015"));
+        */
+
+        /*
+        var reg=/^\d+$/; 只能是数字，至少出现一个
+        console.log(reg.test("1"));
+        console.log(reg.test("123"));
+        console.log(reg.test("1准高峰3"));
+        */
+
+
+        /*
+        //var reg=/^\d{1,3}$/;
+        //var reg=/^\d{11}$/;
+        //var reg=/^(\d{14}x|\d{18}|\d{17}x)$/;
+        console.log(reg.test("11111111111111x"));
+        console.log(reg.test("111111111111111111"));
+        console.log(reg.test("11111111111111111x"));
+        console.log(reg.test("1111111111111111111"));
+        */
+
+        //var reg=/^\d+\.?\d+$/;
+        //console.log(reg.test("213"));
+
+        /*
+        var reg=/^[-+]?\d+$/;
+        console.log(reg.test("-213"));
+        console.log(reg.test("213"));
+        console.log(reg.test("+213"));
+        */
+
+        //var reg=/^[0-9a-zA-Z_]*$/;//0-9和字母和下划线
+        //console.log(reg.test("123zhou_xiao_tian"));
+        //console.log(reg.test("zhou_xiao_123"));
+
+        // \W  /^[^0-9a-zA-Z_]$/
+        //^放在[]中代表的是取反
+        //[]匹配里面制定范围的任意字符
+
+        /*
+        var reg=/^[1-13]?$/;//1-1 or 3
+        console.log(reg.test("3"));
+        console.log(reg.test("8"));
+        console.log(reg.test("12"));
+        */
+
+        /*
+        var reg=/^\w+@[0-9a-zA-Z]+\.[a-zA-Z]{2,3}$/;
+        console.log(reg.test("zhou_xiao_tian@163.com"));
+        console.log(reg.test("dawdawdaw"));
+        */
+
+
+        //exec就是获取，按照符合正则规则的获取
+        //第一步：先匹配 相当于test,只有符合正则才能获取内容，不符合返回null
+        //第二步：获取匹配的结果
+        //var reg=/^\d+$/;
+        //console.log(reg.exec("123456"));//["123456"(捕获到的内容), index: 0(符合正则条件第一次出现的位置), input: "123456"(原有需要匹配的字符串)]
+
+        //var reg=/\d+/;
+        //console.log(reg.exec("20150326"));
+        //?跟在非量词元字符后面代表连续出现0-1次
+        //?跟在量词元字符后面，代表取消捕获时候的贪婪模式
+        //贪婪模式：把符合正则的都返回回来
+        //一般情况下我们禁止默认贪婪模式 /\d+?/
+
+
+        //var reg=/[\u0000-\u007f]/;//基本上全了的字符  ASCII码表
+        //var chineseReg=/^[^\u4e00-\u9fa5]+$/; 汉字的
+
+
+        //var reg=/^[a-z]+$/i;
+        //console.log(reg.test("aBcd"));
+        //i 是用来忽略大小写
+        //g 全部匹配
+        //m 多行匹配
+
+        //var str="珠峰2015珠峰30珠峰24ZhuZhuzhu";
+        //var s=str.replace(/珠峰/g,"珠峰培训");
+        //s=s.replace(/z/ig,"a");
+        //console.log(s);
+
+
+        //var str="zhufeng2015qihang";
+        //var reg=/([a-z]+)(?:\d+)([a-z]+)/i;
+        //console.log(reg.exec(str));
+        //()分组的意思 将大正则里面在单独的弄出一个小正则
+        //捕获：先把大正则的捕获了,index是大正则的
+        //然后在把小正则也捕获了
+        //["zhufeng2015qihang", "2015", index: 0, input: "zhufeng2015qihang"]
+
+        //在分组中: ?:是控制只匹配不捕获
+        //["zhufeng2015qihang", index: 0, input: "zhufeng2015qihang"]
+
+
+        //分组引用
+        //var str="woww";
+        //var reg=/^(\w)(\w)\1\1$/;
+
+        //出现在第三个位置的要和第二个一样  出现在第四个位置的要和第一个样*/
+
+
+
+
+
+
+
+
+
+        //正则表达是中 .是有特殊含义的，也是一个元字符(除\n外的所有字符) 转义 \. 这样就是.了，没有特殊的含义了
+
+
+
+
+
+
+        //正则有一个test的方法 用来检查字符串是否符合我们的规则
+        //\d是一个元字符：代表一个数字
+        //汉字也是元字符
+        //^以元字符开始
+        //$以元字符结束
+
+        //+一次或者多次  量词元字符
+        //*零次或者多次
+        //?零次或者一次
+        //{n,m}最少出现n次，最多出现m次
+        //{n,}最少出现n次 n-多次
+        //{n}只能出现n次
+
+
+
+
+        //var reg=/^\d$/;//字面量方式
+        //var reg=new RegExp("^\\d$");//实例方式
+
+
+        var str1="2012/4-6 12:30:30";
+        var reg=/^(\d{4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/g;
+        //var result=str1.replace(reg,"$1年$2月$3日 $4时$5分$6秒");
+        var result=str1.replace(reg,function(){
+            return RegExp.$1+"年"+(RegExp.$2<10?"0"+RegExp.$2:RegExp.$2)+"月"+(RegExp.$3<10?"0"+RegExp.$3:RegExp.$3)+"日";
+        });
+
+
+
+        console.log(result);
+
+
+
+    </script>
+</body>
+</html>

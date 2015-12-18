@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*
+        //json是一种数据格式
+        var jsonStr='[{"name":12},{"name":"zxt"},{"name":"wy"},{"name":"lm"}]';
+        //json格式的字符串
+        //将json格式的字符串转换为json格式的对象
+        var jsonObj=stringToJson(jsonStr);//不兼容
+        console.dir(jsonObj);
+
+        //将json格式的字符串转化为json格式的对象需要处理兼容
+        function stringToJson(jsonStr){
+            var jsonObj=null;
+            try{
+                jsonObj=JSON.parse(jsonStr);
+            }catch(e){
+                jsonObj=eval("("+jsonStr+")");
+            }
+            return jsonObj;
+        }
+        */
+
+        /*
+        var ary=[
+            {"name":12},
+            {"name":"zxt"},
+            {"name":"wy"},
+            {"name":"lm"}
+        ];
+        */
+        //json格式的对象(属性名加"")
+        //将json格式的对象转化为json格式的字符串
+        //console.log(JSON.stringify(ary));
+
+        //eval
+        //将字符串当做表达式来执行
+        //console.log(eval("3+2"));
+        //console.log(eval("(function(){console.log('ok'); return '我是返回值';})()"));
+
+        function sum(){
+            eval("var total=0;for(var i=0;i<arguments.length;i++){total+=arguments[i];}console.log(total);");
+        }
+        sum(1,2,3,4);
+        //在项目中减少使用eval
+    </script>
+</body>
+</html>

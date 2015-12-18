@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+var reg=/\d+?/;
+reg=/\d+/;
+reg=/\d+/;
+reg=new RegExp("\\d+");
+var str="ab234cd8839fg93994rhi";
+var a=reg.exec(str);
+console.log(a);
+//返回一个数组，它保存捕获到的内容
+//匹配，捕获
+//会给返回的这个数组增加两个自定义属性，
+//一个是index，指从第index这个索引位置开始捕获内容的
+//另一个是input，叫输入字符串，就是这个正则验证的那个原字符串
+
+//正则实例上有一个属性叫：lastIndex，表示下一次开始找查找的索引位置
+
+//正则的特点：懒惰并且贪婪
+//也可以改变正则的懒惰并且贪婪的特性：加模式修正符g就不懒惰了
+//在量词后边加?，则是非贪婪匹配
+
+//和exec功能相近的方法是字符串类上的match方法
+console.log(str.match(reg));
+alert("\\")
+
+</script>

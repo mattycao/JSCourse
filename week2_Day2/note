@@ -161,3 +161,5 @@ String and reg expression 方法：
 DOM的回流和重绘:
 1. 回流: 当页面中的DOM结构发生改变的时候,不管增加还是减少,或者是改变位置,都会发生结构改变, 那么浏览器都会重新计算一遍DOM的结构, 减少DOM的回流是JS优化的一个非常重要的地方
 2. 重绘:
+
+String.prototype.localCompare

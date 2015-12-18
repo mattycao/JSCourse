@@ -1,0 +1,21 @@
+1、复习DOM和扩展DOM的一些应用
+    1）复习DOM中的方法、节点、属性、创建、添加等方法
+    2）做一个弹出层的效果(带上简单的动画)
+    3）初步处理getElementsByClassName的兼容性(不用正则)
+    4）DOM的回流(重新布局：元素的规模尺寸，布局，隐藏等改变)、重绘(修改样式：影响元素的外观，风格，而不会影响布局的)、重新渲染
+         HTML 元素的集合 HTMLCollection
+         NodeList 对象代表一个有顺序的节点列表。
+         映射关系
+
+2、原型链深入和call和apply
+    1）复习原型链和原型链继承（单例模式的应用 惰性载入函数）
+    2）谈一下instanceof的不足
+    3）call和apply的原理和应用，求数组中的最大数和最小数，任意数arguments排序(去掉一个最大分，去掉一个最小分)
+    4）数组中sort的更多用法
+        var a=[{name:"a",score:77},{name:"b",score:72},{name:"c",score:47},{name:"d",score:67},{name:"e",score:78},{name:"f",score:19},{name:"g",score:45}];
+        a.sort(function(a,b){return a.score-b.score});
+        aLis.sort(function(a,b){
+	return a.innerHTML.localeCompare(b.innerHTML);
+	});
+   5）类数组转化为数组:slice的应用以及try catch异常捕获
+   6）JSON和表格排序

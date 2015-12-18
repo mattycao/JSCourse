@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+.a-b-1{}
+.a-b-2{}
+</style>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+var reg=/[0-9]/
+reg=/^[^0-9]/
+reg=/[^234]/;
+str="My#old-girl&friends*are rose tom jack lily.";
+var a=str.split(/\b/);
+alert(a)
+var regClass=/(^| )[a-z_]+
+
+( |$)/i;
+//-出现在方括号的开始或结束的位置，表示-本身
+reg=/[zA.+*?]?/;//如果在方括号里出现单字符的元字符，则它不再表示元字符的含意，而是这个字符本身的意义
+reg=/[.\n]/;//这个不表示匹配任意字符，只表示匹配.和换行符
+reg=/[\w\W]/;//这个才表示匹配所有的字符
+reg=/[\d\D]/;
+reg=/[\s\S]/;
+reg=/[\u0030-\u007e]/;
+</script>

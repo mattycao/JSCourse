@@ -1,0 +1,38 @@
+body,div,ul,li,span{
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    -webkit-user-select: none;
+}
+ul,li{
+    list-style: none;
+    cursor: pointer;
+}
+
+#div1{
+    margin: 10px auto;
+    padding: 10px;
+    width: 480px;
+    border: 1px solid #ffbc6c;
+}
+#div1 li{
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px dashed #ccc;
+}
+#div1 li:last-child{
+    border-bottom: none;
+}
+#div1 li span{
+    float: right;
+    margin-right: 10px;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+
+
+

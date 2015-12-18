@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        var ary=[];
+        console.log(ary instanceof Array);
+
+        function LikeArray(){
+
+        }
+        LikeArray.prototype=new Array();
+        var p=new LikeArray();
+        console.log(p instanceof Array);
+
+        function isArray(obj){
+            return Object.prototype.toString.call(obj)=="[object Array]";
+        }
+
+    </script>
+</body>
+</html>

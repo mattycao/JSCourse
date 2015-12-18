@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+var str="zhufengpeixun";
+var reg=/(\w)(\w)(\w)/g;
+var a=[];
+/*var temp=reg.exec(str);
+a.push(temp);
+alert(reg.lastIndex);
+temp=reg.exec(str);
+a.push(temp);
+alert(reg.lastIndex);
+temp=reg.exec(str);
+a.push(temp);
+alert(reg.lastIndex);
+temp=reg.exec(str);
+a.push(temp);
+alert(reg.lastIndex);
+temp=reg.exec(str);
+a.push(temp);
+alert(reg.lastIndex);
+temp=reg.exec(str);
+a.push(temp);
+alert(reg.lastIndex);
+*/
+RegExp.prototype.execAll=function(str){
+	var a=[];
+	var temp=null;
+	if(this.global){
+		while(temp=this.exec(str)){//先运行this.exec(str)，再把结果赋给temp，然后再判断temp是否为true
+			a.push(temp);
+		}
+		return a;
+	}else{
+		throw new Error("未正确设置修正饰g");	
+	}
+}
+a=reg.execAll(str);
+//alert(reg.global);
+//alert(a);
+console.log(a);
+
+a=str.match(reg);
+console.log(a);//match是字符串类上的方法。如果正则不加修饰符g，它和exec方法功能一样。加了g，则match方法就忽略分组
+
+var str1="ab9cd";
+var reg=/\d/g;
+reg.test(str1);
+reg.test(str1);
+reg.test(str1);
+//要理解好为什么以上三行代码弹出的结果会不同
+</script>
+
+
+
+
+
+

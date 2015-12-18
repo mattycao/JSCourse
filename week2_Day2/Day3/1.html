@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        //单例模式的作用：
+        //1、给属性名或者方法加一个前置标志(命名空间)，这样相同名字的两个方法在执行的时候也不会冲突了
+        //2、实现模块化开发，相同的功能组件可以很快进行迁移使用，方便扩展、维护、团队协作开发
+        var qtObj={
+            eat:function(){
+                console.log("我会吃饭");
+                zzyObj.eat();
+            }
+        };
+        qtObj.eat();
+
+        var zzyObj={
+            eat:function(){
+                console.log("吃饭，睡觉，打豆豆");
+            }
+        };
+        zzyObj.eat();
+
+
+        var tableSort={
+            show:function(){
+
+            },
+            sort:function(){
+
+            },
+            select:function(){
+
+            },
+            init:function(){
+                this.show();
+                this.sort();
+                this.select();
+            }
+        };
+        tableSort.init();
+
+        /*
+        function eat(){
+            console.log("我会吃饭");
+        }
+        eat();
+        function eat(){
+            console.log("吃饭，睡觉，打豆豆");
+        }
+        //全局变量(函数)相冲突了，后面的把前面的覆盖掉了
+        */
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*
+        var ary=[2,1,3,4,2,3,5,6,7,2,1];
+        //假设当前是第一个是最大的，然后和后面的比，如果后面的比他大，就保留后面的，然后继续
+        var maxNum=ary[0];
+        for(var i=1;i<ary.length;i++){
+            if(ary[i]>maxNum){
+                //如果当前的值比我们假设的还要大，就说明我们假设错了，我们把当前值当成最大的继续比
+                maxNum=ary[i];
+            }
+        }
+        console.log(maxNum);
+
+        var minNum=ary[0];
+        for(var i=1;i<ary.length;i++){
+            if(ary[i]<minNum){
+                minNum=ary[i];
+            }
+        }
+        console.log(minNum);
+        */
+
+        /*
+        var ary=[2,1,3,4,2,3,5,6,7,2,1];
+        console.log(Math.max.apply(null,ary));
+        console.log(Math.min.apply(null,ary));
+
+        var obj={};
+        function sum(){
+
+        }
+        sum(1,2,3);
+        sum.call(obj,1,2,3);
+        sum.apply(obj,[1,2,3]);
+
+        //console.log(Math.max(2,3,1,2,3,4,5,2,3,6,7,8,9,3,0));
+        //console.log(Math.min(2,3,1,2,3,4,5,2,3,6,7,8,9,3,0));
+        */
+
+        /*
+        function judge(){
+            var maxNum=Math.max.apply(null,arguments);
+            var minNum=Math.min.apply(null,arguments);
+            var total=0;
+            for(var i=0;i<arguments.length;i++){
+                total+=arguments[i];
+            }
+            total=total-(maxNum+minNum);
+            console.log(total/(arguments.length-2));
+        }
+        judge(1,2,3,4,5,6);
+        judge(2,3,4,5,6,7,8,9);
+        */
+
+        //只有数组才能用Array提供的方法，类数组是不能使用这些方法的
+        function judge(){
+            //arguments借用数组的方法实现排序
+            //Array.prototype.sort.call(arguments,function(a,b){return a-b;});
+            [].sort.call(arguments,function(a,b){return a-b;});
+            [].shift.call(arguments);
+            [].pop.call(arguments);
+            var total=0;
+            for(var i=0;i<arguments.length;i++){
+                total+=arguments[i];
+            }
+            var evNum=total/arguments.length;
+            console.log(evNum);
+        }
+        judge(23,1,4,6,7,2);
+        judge(2,3,4,5,6,7,8,9);
+
+
+
+
+
+//        Array.prototype.sort=function(){
+//            for(var i=0;i<this.length-1;i++){
+//                for(var j=0;j<this.length-1-i;j++){
+//                    //交换位置
+//                }
+//            }
+//        }
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

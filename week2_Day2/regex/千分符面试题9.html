@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+var str="1736484599";
+"12 345 678"
+//str="83,973,648,459";//加上千分符
+reg=/^(\d{1,3})((\d{3})+)$/;//这个正则的作用是把字符串分隔成两部分，前一部分是一到三位的数字，后边的数字个数是3的倍数。分解完成之后再进行处理。
+var newStr=str.replace(reg,function(){
+	var part1=arguments[1];
+	var part2=arguments[2];
+	//part1是39
+	//part2是736484599，对part2进行二次处理，每三位数字加一个逗号，但最后一组不加（就是正则(?!$)的作用）
+		return part1+","+part2.replace(/\d{3}(?!$)/g,function(){
+			return arguments[0]+",";
+		})
+	});
+	alert(newStr);
+	
+	var reg=/\d(?!$)/g;//这个正则其实也就是起个数数的作用（记数）
+	newStr=str.replace(reg,function(){
+		if((arguments[2].length-arguments[1]-1)%3==0){
+			//if里的条件相当于在倒着数当前这个数是倒数第几个，如果数到的这个数是3的倍数，则加一个逗号
+			return arguments[0]+",";//加上一个逗号返回
+		}else{
+			return arguments[0];//把原来的字符再返回，一定要返回
+		}
+		//arguments[0]是正则捕获到的结果，arguments[1]是此结果在输入字符串中的位置，arguments[2]是指输入字符串
+	})
+	
+	alert(newStr);
+</script>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script type="text/javascript">
+        //闭包：函数在执行的时候会形成一个私有的作用域，来保护里面的变量不受外界的干扰，这种机制叫做闭包
+        //一般一个函数的生命周期？
+        //从window下的预解释开始,声明加定义一个函数(引用数据类型，所以首先开一个堆内存，把函数中的代码当做字符串存储进来)，代码从上到下执行，执行我们的函数，形成了一个私有的作用域；在私有作用域中从新的预解释，然后私有作用域下的代码执行，执行完成代码，当前形成的作用域销毁，以后在重新执行还是同样的步骤.
+        //但是当我们的函数执行完成返回一个地址(返回一个函数 或者 一个对象)，并且在外面被其他的东西占用这个地址(var 变量=地址 或者 元素的绑定事件等于这个地址)，这种情况下，新形成的作用域就不在销毁了
+
+        //栈：用来运行代码的
+        //堆：用来存储引用数据类型内容的
+
+        /*
+        function sum(){
+            var total=null;
+            for(var i=0;i<arguments.length;i++){
+                total+=arguments[i];
+            }
+            console.log(total);
+        }
+        sum(1,2,3,4,5);
+        sum(1,2);
+        */
+
+
+        /*
+        var oLis=document.getElementsByTagName("li");
+        for(var i=0;i<oLis.length;i++){
+            var oLi=oLis.item(i);
+            oLi.onclick=(function(i){
+                return function(){
+                    console.log(i+1);
+                }
+            })(i);
+        }
+        */
+
+
+        /*
+        //全局变量：window下定义变量
+        //私有变量：
+            //1、在私有作用域下预解释的变量就是私有变量
+            //2、函数定义的形参变量也是私有变量
+        var a=12;
+        function sum(a){
+            //a是形参：私有变量
+            var b=13;
+            //b预解释了：私有变量
+            console.log(a+b);
+        }
+        sum(a);//把全局变量的值传到函数中
+        */
+
+
+
+
+
+
+    </script>
+</body>
+</html>

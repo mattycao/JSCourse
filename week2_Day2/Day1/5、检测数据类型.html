@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        var ary=[];
+        //console.log(ary instanceof Array);
+        //console.log(ary instanceof Object);
+
+        function Fn(){
+
+        }
+        Fn.prototype=new Array();
+        var f=new Fn();
+        //console.log(f.constructor==Array);
+
+        //console.log(f instanceof Fn);
+        //console.log(f instanceof Array);
+
+        //Object.prototype.toString严格检测数据类型的
+        function isArray(obj){
+            return Object.prototype.toString.call(obj)==="[object Array]";
+        }
+
+        console.log(isArray([]));//true
+        console.log(isArray(f));//false
+
+
+
+
+
+
+        /*
+        console.log(Object.prototype.toString.call("asd"));
+        //[object String]
+        console.log(Object.prototype.toString.call(1));
+        //[object Number]
+        console.log(Object.prototype.toString.call(true));
+        //[object Boolean]
+        console.log(Object.prototype.toString.call(null));
+        //[object Null]
+        console.log(Object.prototype.toString.call(undefined));
+        //[object Undefined]
+        console.log(Object.prototype.toString.call({}));
+        //[object Object]
+        console.log(Object.prototype.toString.call(function(){}));
+        //[object Function]
+
+        console.log(Object.prototype.toString.call([]));
+        //[object Array]
+
+        console.log(Object.prototype.toString.call(/^\d$/));
+        //[object RegExp]
+        console.log(Object.prototype.toString.call(new Date()));
+        //[object Date]
+
+        console.log(Object.prototype.toString.call(new Date()));
+        */
+
+
+    </script>
+</body>
+</html>

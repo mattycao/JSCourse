@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>弹出层</title>
+    <style type="text/css">
+        body,div,span{
+            margin: 0;
+            padding: 0;
+            font-family: "微软雅黑";
+            font-size: 12px;
+        }
+        input{
+            margin: 10px;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+        }
+        html,body,#bg{
+            width: 100%;
+            height: 100%;
+            -webkit-user-select: none;
+        }
+        #bg{
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #c5dbf2;
+            opacity: 0.5;
+        }
+        #layer{
+            display: none;
+            position: absolute;
+            z-index: 10;
+            width: 500px;
+            height: 500px;
+            background: -webkit-linear-gradient(top left,red,yellow,#2687eb);/*设置背景的渐变颜色*/
+            border-radius: 50%;/*设置圆角的 50%就是圆形*/
+            /*transform: rotate(90deg);设置旋转*/
+            opacity: 0;
+        }
+        #layer span{
+            display: block;
+            margin: 200px 200px;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            font-size: 80px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input id="input1" type="button" value="点击我弹出"/>
+    <div id="layer">
+        <span id="layerSpan">x</span>
+    </div>
+    <div id="bg"></div>
+    <script type="text/javascript">
+        var oLayer=document.getElementById("layer");
+        var oBg=document.getElementById("bg");
+        var oInput=document.getElementById("input1");
+        var oSpan=document.getElementById("layerSpan");
+
+        var cw=document.documentElement.clientWidth || document.body.clientWidth;
+        var ch=document.documentElement.clientHeight || document.body.clientHeight;
+
+        oLayer.style.left=(cw-500)/2+"px";
+        oLayer.style.top=(ch-500)/2+"px";
+
+        oInput.onclick=function(){
+            oBg.style.display="block";
+            oLayer.style.display="block";
+            move(1);
+        }
+        oSpan.onclick=function(){
+            //oBg.style.display="none";
+            //oLayer.style.display="none";
+            move(0);
+        }
+
+        function move(type){
+            var timer=null;
+            if(type==1){
+                var n=0;
+                timer=window.setInterval(function(){
+                    n+=0.1;
+                    if(n>1){
+                        window.clearInterval(timer);
+                        timer=null;
+                    }
+                    oLayer.style.opacity=n;
+                    if(n<=0.5){
+                        oBg.style.opacity=n;
+                    }
+                },50);
+            }else{
+                var n=1;
+                timer=window.setInterval(function(){
+                    n-=0.1;
+                    if(n<0){
+                        window.clearInterval(timer);
+                        timer=null;
+                        oLayer.style.display="none";
+                        oBg.style.display="none";
+                    }
+                    oLayer.style.opacity=n;
+                    if(n<=0.5 && n>=0){
+                        oBg.style.opacity=n;
+                    }
+                },20);
+            }
+        }
+
+
+
+
+
+
+    </script>
+</body>
+</html>

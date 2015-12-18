@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="div1" style="width: 100px; height: 100px; background: #ff0000;"></div>
+    <script type="text/javascript">
+        //1、this经常应用于函数中，this是谁和在那定义的没有关系，和在哪执行的也没有关系，只和函数执行前的主体有关系
+        //2、怎么看主体？
+        // 函数名();  函数名之前有没有"."，没有this就是window(切记和在哪执行没有半毛钱关系)，有的话，"."之前是啥this就是啥
+        //3、匿名函数闭包形式：this就是window
+        //4、给元素绑定事件，在绑定事件的函数体当中this就是当前被绑定的元素
+        //5、在构造函数模式中，this就是当前类创建的实例
+
+        var oDiv=document.getElementById("div1");
+        var obj={
+            sum:sum
+        };
+        oDiv.onclick=function(){
+            console.dir(this);//this -->oDiv
+            sum();//this -->window
+        }
+        function sum(){
+            console.dir(this);
+        }
+        obj.sum();//this -->obj
+    </script>
+</body>
+</html>

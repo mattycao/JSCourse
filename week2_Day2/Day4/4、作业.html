@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*
+            在数组的中间添加一项的方法
+            ary.splice(Math.ceil(ary.length/2),0,"珠峰培训");
+            把第n到第m项提出来，但不影响原来的数组
+            ary.slice(n-1,m-1+1);
+            把第n到第m项截取出来，生成一个新数组
+            ary.splice(n-1,m-n+1)
+        */
+
+        var foo=1;
+        function bar(){
+            /*
+            var foo;
+            if(!undefined){
+                foo=10;
+            }
+            console.log(foo);
+            */
+
+            if(!foo){
+                var foo=10;
+            }
+            console.log(foo);
+        }
+        bar();
+
+
+
+        /*
+         window下预解释:
+            var n;
+            function a(){...}
+            var c;
+         window下代码执行：
+            n=0;
+            c=a(); 先执行a，然后把a的返回结果给c
+            //形成一个私有的作用域a的
+                //预解释：var n; function b(){...}
+                //代码执行：
+                    //n=10;
+                    //b();形成一个私有的作用域
+                        //预解释：
+                        //代码执行：
+                            //n++; n没有找上一级n=10 n++上一级的n变成了11
+                            //alert(11);
+                    return b;//返回一个函数，并且被全局的c接受了，说明a这个作用域就不在销毁了，里面的私有变量n(变成11了)也不在销毁了
+            //c相当于function b(){...}
+            //c();
+                //行成私有作用域
+                    //预解释：
+                    //执行代码：n++往上一级找（找的是没有销毁的a的那个n，上一次已经变成11了），所以11++ ==>12 a下的n变成了12
+                    //alert(12)
+            alert(n) 全局下的0
+
+
+        */
+        var n=0;
+        function a(){
+            var n=10;
+            function b(){
+                n++;
+                alert(n);
+            }
+            b();
+            return b;
+        }
+        var c=a();
+        c();
+        alert(n);
+
+
+        /*
+           预解释：var a; function b;
+           a=4;
+           a=b(1,2,3); 没有return，默认返回undefined
+                //alert(a); 形参3
+                //arguments[2]=10; arguments修改传递参数的值，可以映射到形参上 相当于把第三个参数a改成了10
+                //alert(a); 10
+           a=undefined
+           alert(a);
+
+
+
+
+        */
+        var a=4;
+        function b(x,y,a) {
+            alert(a);
+            arguments[2]=10;
+            alert(a);
+        }
+        a=b(1,2,3);
+        alert(a);
+
+        //var obj={};
+        //obj.name==>undefined
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+var str="839736484599";
+"12 345 678"
+//str="83,973,648,459";//加上千分符
+var reg=/^(\d{1,3})((?:\d{3})+)$/;
+var str1=str.replace(reg,function(ar0,ar1,ar2){
+	return ar1+ar2.replace(/\d\d\d/g,function(rs){
+		return ","+rs;
+		})
+});
+//alert(str1);
+
+//str="83,973,648,459";
+var str="444354321";
+//str.length==4
+//str.length-1-index
+var str2=str.replace(/\d/g,function(r,i){
+	var n=(str.length-1-i)
+	if(n>0&&n%3===0){
+		return r+",";	
+	}else{
+		return r;
+	}
+});
+//alert(str2);
+var strTemp=str.split("").reverse().join("");
+var str3=strTemp.replace(/(\d{3}(?!$))/g,"$1,")
+//(?!$)负向预测：表示连续出现的三个字符的右边不能是边儿（不能是结尾）
+alert(str3);
+//alert(str3.split("").reverse().join(""));
+var age=33;
+var reg=new RegExp("^"+age+"$");
+</script>
+

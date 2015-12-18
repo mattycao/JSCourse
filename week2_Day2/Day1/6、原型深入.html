@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border: 1px solid red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <script type="text/javascript">
+        //Object类是所有对象数据类型的基类
+        //Function是所有函数(也包含我们的类)的基类
+
+        //call和apply:用来改变this指向的
+
+        /*
+        function sum(){
+            var total=0;
+            for(var i=0;i<arguments.length;i++){
+                total+=arguments[i];
+            }
+            this.innerHTML=total;
+        }
+        */
+        //sum(1,2,3,4);//this-->window
+
+        //输出在body里面
+        //sum.call(document.body,1,2,3,4);
+        //1、执行sum方法，把参数传进来 sum(1,2,3,4)
+        //2、再把函数中的this改成document.body
+
+        //方法名.call(想让this是谁我就写谁,方法执行时候传递的参数)
+        //sum.call(); this是window
+        //sum.call(null,12,3); this是window
+        //sum.call(undefined,12,3); this是window
+        //sum.call(1,12,3);//this-->1
+        //sum.call("",12,3);//this-->""
+
+        //apply和call的用法一样，作用也一样，细节点也一样，只有一个不一样：call传参数是一个个传递的，而apply是将参数放在数组中传递的
+
+        var oDiv=document.getElementById("div1");
+        oDiv.onclick=function(){
+            //sum.call(oDiv,1,2,3,4);
+            sum.apply(oDiv,[1,2,3,4]);
+        }
+        function sum(){
+            console.log(this);
+            var total=0;
+            for(var i=0;i<arguments.length;i++){
+                total+=arguments[i];
+            }
+            this.innerHTML=total;
+        }
+
+        //所有函数都是Function这个基类的一个实例,Function的原型链上定义了call和apply的方法，所以函数都可以使用这个方法
+        //console.log(Function.prototype.apply);
+
+
+
+        //Function.prototype.call.call.call.call.call(sum);
+        //sum.call();
+
+        console.log(sum.constructor);//Function
+        console.log(Object instanceof Function);//true
+        console.log(sum.__proto__.call==Function.prototype.call);//true
+
+
+    </script>
+</body>
+</html>

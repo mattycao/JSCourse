@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        //replace exec match
+
+        /*var str="abcda98apa9a";
+        //var result=str.replace(/a/g,"*");
+        //统计出现的次数
+        var i=0;
+        var result=str.replace(/a/g,function(s){
+            i++;
+            return s;//自己替换自己 不写 s不反回就可以了
+        });
+        //自定义替换规则 return的就是替换的那个  比如return ++i
+        //result=1bcd2983p495
+        console.log(i);//5
+        console.log(result);//abcda98apa9a*/
+
+
+       /* var str="8872840";
+        var a=["零","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
+
+        //每当匹配一次就会执行以下匿名函数
+        var result=str.replace(/\d/g,function(){
+            //第一个参数:当前这些正则匹配到的结果
+            //第二个参数:当前str的位置
+            //第三个参数:当前输入的字符串str
+            //前提正则里没有分组 有分组的话是四个参数，第二个变成分组的那个
+            //console.log(str+":"+s1+":"+i+":"+input)
+            return a[arguments[0]];
+        });
+        alert(result);*/
+
+
+        /*var str="My name is{0}.I am{1} years old.I am in class{2} grade{3}.";
+        var reg=/{(\d)}/g;
+        var a=["珠峰培训",38,4,6];
+        var result=str.replace(reg,function(){
+            //console.log(arguments[1]);
+            //console.log(RegExp.$1);
+
+            return " "+a[RegExp.$1];
+        });
+        console.log(result);*/
+
+
+        //9.请编写一个JavaScript函数 parseQueryStr，它的用途是把URL参数解析为一个对象：用法如：var obj = parseQueryString(url);例如： www.zhufengpeixun.cn?course1=js&course2=css;  则obj的值为{course1:js,course:css}
+        /*var str="www.zhufengpeixun.cn?course1=js&course2=css";
+        var reg=/([^?=&]+)=([^?=&]+)/g;
+        var obj={};
+        while(reg.test(str)){
+            obj[RegExp.$1]=RegExp.$2;
+        }
+        console.log(obj);
+*/
+
+        /*var str1="2012-04-06 12:30:30"
+        要求：将其转换为这种格式：
+        2012年04月06日12时30分30秒
+        var str1="2012-04-06 12:30:30";
+        var reg=/^(\d{4})-(\d{2})-(\d{2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/;
+        str=str1.replace(reg,"$1年$2月$3日$4时$5分$6秒")
+*/
+
+        //var reg=/^\s*$/;//空验证正则
+
+        /*function getElesByClass(sClass){
+            if(false){
+                return document.getElementsByClassName(sClass);
+
+            }else{
+                var reg=/\bsClass\b/;
+                var str="\\b"+  sClass+"\\b"
+                var reg=new RegExp(str);//通过参数字符串来构造一个动态的正则表达式对象。
+                //className
+                var eles=document.getElementsByTagName('*');
+                var a=[];
+                for(var i=0,l=eles.length;i<l;i++){
+                    if(reg.test(eles.item(i).className)){
+                        a.push(eles.item(i));
+                    }
+                }
+
+            }
+            return a;
+        }*/
+
+    </script>
+</body>
+</html>

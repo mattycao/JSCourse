@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="c1 c2 c3"></div>
+    <div class="c1 c2"></div>
+    <div class="c2 c3"></div>
+    <div class="c2"></div>
+    <div class="c1 c3"></div>
+    <script type="text/javascript">
+//        var oDivs=document.getElementsByClassName("c2");
+//        console.dir(oDivs);
+
+        //通过元素的样式class属性值获取一组元素
+        //cname:className
+        //context:获取上下文
+        function getElesByClass(cname,context){
+            if(typeof cname=="undefined"){
+                return [];
+            }
+            context=context||document;
+            if(document.getElementsByClassName){
+                //代表兼容我们的getElementsByClassName方法
+                return context.getElementsByClassName(cname);
+            }
+            //以下就是不兼容
+            //思想：找到所有的标签，然后循环，在每次循环中获取当前标签的className值，如果值中包含了我们的cname，代表存在这个样式，我们当前元素扔到数组中
+            var ary=[];
+            var reg=new RegExp("\\b"+cname+"\\b");
+            var allList=context.getElementsByTagName("*");
+            for(var i=0;i<allList.length;i++){
+                var cur=allList.item(i);
+                if(reg.test(cur.className)){
+                    ary.push(cur);
+                }
+            }
+            return ary;
+        }
+        var oList=getElesByClass("c2");
+        console.dir(oList);
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
