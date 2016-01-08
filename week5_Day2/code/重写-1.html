@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:100px; height:100px;}
+</style>
+</head>
+
+<body>
+<div id="div1">我是DIV1</div>
+</body>
+</html>
+<script>
+function fn1(){alert(this.innerHTML)}
+function fn2(){alert(2);
+	off(this,"click",fn1);
+	off(this,"click",fn2);
+	on(this,"click",fn6);
+	on(this,"click",fn7);
+};
+function fn3(){alert(3)};
+function fn4(){alert(4)};
+function fn5(ev){alert(5);};
+function fn6(){alert(6);}
+function fn7(){alert(7);}
+
+var ele=document.getElementById("div1");
+var innerHTML="我是全局的innerHTML";
+function bind(ele,type,fn){
+	if(ele.addEventListener){
+		ele.addEventListener(type,fn,false);
+	}else{
+		
+		//首先要解决是this
+		if(!ele["IE"+type+"ary"]){
+			ele["IE"+type+"ary"]=[];
+		}
+		var a=ele["IE"+type+"ary"]
+		for(var i=0;i<a.length;i++){
+			if(a[i].photo==fn)return;
+		}
+		var tempFn=function(){fn.call(ele)}
+		tempFn.photo=fn;
+		a.push(tempFn);
+		ele.attachEvent("on"+type,tempFn);	
+		
+		
+	}
+}
+function unbind(ele,type,fn){
+	if(ele.removeEventListener){
+		ele.removeEventListener(type,fn,false)	
+	}else{
+		var a=ele["IE"+type+"ary"];
+		for(var i=0;i<a.length;i++){
+			var tempFn=a[i];
+			if(tempFn.photo==fn){
+				ele.detachEvent("on"+type,tempFn);
+				a[i]=null;
+			}
+		}
+		 
+	};
+}
+
+function on(ele,type,fn){
+	if(!ele["aEvent"+type]){
+		ele["aEvent"+type]=[];
+	}
+	var a=ele["aEvent"+type];
+	for(var i=0;i<a.length;i++){
+		if(a[i]==fn)return;	
+	}
+	a.push(fn);
+	bind(ele,type,run);//run方法才是真正由系统事件触发的方法呢
+	//而run本身负责自己组织的，那些方法按顺序执行
+	//run方法去遍历这个方法里定义的那个数组，on里面定义数组，run去循环执行数组（按顺序）
+	
+	
+}
+function run(e){
+	e=e||window.event;
+	var type=e.type;
+	var a1=this["aEvent"+type];
+	
+	if(a1){
+		var a=this["aEventa"]=a1.slice(0); //解决雷美庭同学提出的问题
+	if(!e.stopPropagation){
+		e.stopPropagation=function(){e.cancelBubble=true;}
+	}
+	if(!e.preventDefault){
+		e.preventDefault=function(){e.returnValue=false;};	
+	}
+	if(!e.target){
+		e.target=e.srcElement;	
+	}
+	if(typeof e.pageX=="undefined"){
+		e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft)+e.clientX;
+		e.pageY=(document.documentElement.scrollTop||document.body.scrollTop)+e.clientY;
+	}
+	//if(a){
+	for(var i=0;i<a.length;){
+		if(typeof a[i]=="function"){			
+			a[i].call(this,e);
+			i++;
+		}else{
+			a.splice(i,1);
+		}
+	}
+
+}
+	
+}
+function off(ele,type,fn){
+	var a=ele["aEvent"+type];
+	var tempA=ele["aEventa"];//配合89行
+	if(a){
+		for(var i=0;i<a.length;i++){
+			if(a[i]==fn){
+				a[i]=null;
+				if(tempA){//配合89行
+					tempA[i]=null;
+				}
+			}
+		}
+	}
+}
+on(ele,"click",fn1);
+on(ele,"click",fn2);
+on(ele,"click",fn3);
+on(ele,"click",fn4);
+on(ele,"click",fn5);
+</script>

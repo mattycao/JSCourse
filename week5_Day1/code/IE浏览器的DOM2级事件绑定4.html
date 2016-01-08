@@ -1,0 +1,51 @@
+<!doctype html>
+<html id="html1">
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body id="body1">
+<div id="outer" style="background:#ccc;">
+我是outer<br>
+
+	<div style="background:red;  width:330px; background:red; " id="inner">
+    我是inner<br>
+		<p id="p1" style="background-color:lightBlue; height:6em; width:270px; ">
+        我是段落P
+        <a id="a1" style="width:200px; height:3.5em; background:purple; display:block; " href="http://www.zhufengpeixun.cn">我是超链接<br>
+
+        	<span id="span1" style="display:block; width:140px; height:2em; line-height:3em; background:pink;">
+            我是span
+            </span>
+        </a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+ function fn(e){
+	 e=e||window.event;
+	alert(this.id); 
+	if(e.preventDefalut){
+		e.preventDefault();//用DOM二级事件绑定方法 绑定的事件，需要用这个方法来阻止事件的默认行为
+	}else{
+		e.returnValue=false;	
+	}
+	//return false
+ }
+var eles=document.getElementsByTagName("*");
+
+var ele=document.getElementById("outer");
+ele.attachEvent("onclick",fn);
+function bind(ele,type,fn){
+	if(ele.addEventListener){
+		ele.addEventListener(type,fn,false);
+	}else{
+		ele.attachEvent("on"+type,fn);
+	}
+}
+
+</script>

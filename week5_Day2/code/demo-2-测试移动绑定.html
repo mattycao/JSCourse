@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:300px; height:100px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1">我是DIV1的内容</div>
+</body>
+</html>
+<script>
+var innerHTML="我是全局变量innerHTML";
+function fn1(e){alert(this.innerHTML);}
+var count=0;
+function fn2(e){
+	count++;
+	if(count==2){
+		unbind(ele,"click",fn2)	
+	}
+	alert(2);
+	
+}
+
+
+var ele=document.getElementById("div1");
+function bind(ele,type,fn){
+	if(ele.addEventListener){
+		ele.addEventListener(type,fn,false);
+	}else if(ele.attachEvent){
+		ele.attachEvent("on"+type,fn);
+	}
+}
+function unbind(ele,type,fn){
+	if(ele.removeEventListener){
+		ele.removeEventListener(type,fn,false)
+	}else if(ele.detachEvent){
+		ele.detachEvent("on"+type,fn);
+	}
+}
+//IE的DOM2级的事件绑定方法问题：this关键字的问题，执行顺序问题，重复绑定的问题
+bind(ele,"click",fn1);
+bind(ele,"click",fn2);
+
+</script>

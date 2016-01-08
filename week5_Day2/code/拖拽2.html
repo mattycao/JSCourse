@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{
+	width: 100px;
+	height: 100px;
+	background: red;
+	position: absolute;
+	top: 217px;
+	left: 400px;
+	cursor: move;
+	-webkit-user-select: none;
+}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+function down(e){//准备拖拽
+	e=e||window.event;	
+	this.l=this.offsetLeft;
+	this.t=this.offsetTop;
+	this.x=e.clientX;
+	this.y=e.clientY;
+	if(this.setCapture){
+		this.setCapture();//这个方法本是IE专有的方法，现在FireFox也实现了
+		//用来捕捉鼠标焦点的，mousemove事件专用的
+		this.onmousemove=move;
+		this.onmouseup=up;
+	}else{
+		var _this=this;
+		var MOVE=function(e){move.call(_this,e);}
+		var UP=function(e){up.call(_this,e)}
+		document.onmousemove=MOVE;
+		document.onmouseup=UP;
+	}
+}
+function move(e){//时行拖拽
+	e=e||window.event;
+	this.style.left=this.l+(e.clientX-this.x)+"px";
+	this.style.top=this.t+(e.clientY-this.y)+"px";
+	if(!this.prevT){//第一次
+		this.prevT=new Date;
+		this.prevP=this.offsetLeft;//初始化“上一次的”位置
+	}else{
+		console.log(new Date-this.prevT);
+		this.prevT=new Date;
+		this.speed=this.offsetLeft-this.prevP;
+		this.prevP=this.offsetLeft;
+		
+	}
+	
+}
+function up(e){//结束拖拽
+	e=e||window.event;	
+	if(this.releaseCapture){
+		this.releaseCapture();
+		this.onmousemove=null;
+		this.onmouseup=null;
+	}else{
+		document.onmousemove=null;
+		document.onmouseup=null;	
+	}
+//	fly.call(this);
+//	drop.call(this);
+}
+var ele=document.getElementById('div1');
+ele.onmousedown=down;
+
+function fly(){
+	if(this.speed){
+		this.speed*=.97;
+		var r=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth;
+		
+		if(this.offsetLeft+this.speed>=r){
+			this.style.left=r+"px";
+			this.speed*=-1;
+		}else if(this.offsetLeft+this.speed<=0){
+			this.style.left=0;
+			this.speed*=-1;
+		}else{
+			this.style.left=this.offsetLeft+this.speed+"px";
+		}
+		var _this=this;
+		if(Math.abs(this.speed)>=0.5)
+			window.setTimeout(function(){fly.call(_this);},20);	
+	}
+}
+ 
+ var dropFlag=0;//记数器，记录是否处于正常运动中的记数器。一般情况下是0或1。大于了1表示连续到达了边界，则应该停止运动了
+function drop(){
+	if(!this.dropSpeed){
+		this.dropSpeed=9.8;	
+	}else{
+		this.dropSpeed+=9.8;
+		this.dropSpeed*=.97;
+	}
+	var b=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight;
+	if(this.offsetTop+this.dropSpeed>=b){
+		this.style.top=b+"px";	
+		this.dropSpeed*=-1;
+		dropFlag++;//撞到边界则累加
+	}else{
+		this.style.top=this.offsetTop+this.dropSpeed+"px";
+		dropFlag=0;//正则运动中则归0
+	}
+	var _this=this;
+	if(dropFlag<2){//连续撞到边界的次数不能超过两次
+		window.setTimeout(function(){drop.call(_this);},25);
+	}	
+}
+
+</script>

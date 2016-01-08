@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        #outer {
+            width: 400px;
+            height: 400px;
+            background: green;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        #inner {
+            width: 80px;
+            height: 80px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+<div id="outer">
+</div>
+</body>
+</html>
+<script>
+    function fnEvent(e) {
+        var inner = document.createElement("div");
+        inner.id = "inner";
+        inner.style.left = e.pageX - this.offsetLeft + 10 + "px";
+        inner.style.top = e.pageY - this.offsetTop + 10 + "px";
+        this.appendChild(inner);
+    }
+    var outer = document.getElementById('outer');
+    outer.onmouseenter = fnEvent;
+    outer.onmousemove = function (e) {
+        e = e || event;
+        var inner = document.getElementById("inner");
+        if (inner) {//因为inner动态创建的，所以判断一下
+            inner.style.left = e.pageX - this.offsetLeft + 10 + "px";
+            inner.style.top = e.pageY - this.offsetTop + 10 + "px";
+        }
+
+    }
+    outer.onmouseleave = function (e) {
+        var inner = document.getElementById("inner");
+        if (inner) {//因为inner动态创建的，所以判断一下
+            this.removeChild(inner);
+        }
+    }
+
+    //和onmouseover事件相对应的另一组事件是：onmouseenter
+    //什么时候算是mouseenter:如果是后代元素传播来的事件不算
+    //2、如果此事件发生时，是由后代元素中离开，而触发的当前这些元素的鼠标事件，也不算
+    //e.relatedTarget//标准浏览支持的事件属性，指触发当前事件之后，从那个元素上离开的。
+    //如果它的e.relatedTarget不是它自己，也不是它的后代元素，在这种情况下，则是mouseenter事件
+    //mouseover--mouseout,mouseenter---mouseleave
+
+</script>

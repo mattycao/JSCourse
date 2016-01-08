@@ -28,7 +28,7 @@ function getCss(ele,attr){
 				}else if(val <0.01){//超过了下限则返回0
 					return 0	
 				}else{//否则返回正常值
-					return val;	
+					return val;
 				}
 			}else{//如果根本就没有写filter样式，则返回默认值1
 				return 1;
@@ -57,17 +57,20 @@ function setCss(ele,attr,val){
 
 
 function animate(ele,obj,duration,fnCallback){
+	if(ele.timer) {
+		return;
+	}
 	var oBegin={};//不同方向的起始值begin
 	var oChange={};//保存不同方向的运动的距离change
 	var flag=0;
 	for(var attr in obj){
 		var begin=getCss(ele,attr);
 		var target=obj[attr];
-		var change=target-begin;
+		var change=targevf foaot-begin;
 		if(change){//如果运动的距离不为0，再保存
 			oBegin[attr]=begin;
 			oChange[attr]=change;
-			flag++
+			flag++;
 		}
 	}
 	if(flag===0){

@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:300px; height:100px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1">我是DIV1的内容</div>
+</body>
+</html>
+<script>
+var innerHTML="我是全局变量innerHTML";
+function fn1(e){alert(this.innerHTML);}
+var count=0;
+function fn2(e){
+	count++;
+	if(count==2){
+		off(this,"click",fn2)	;
+		
+		off(this,"click",fn1)
+	}
+	alert(2);	
+	//如果run方法和off同时运行了，则会出现问题：
+	
+	
+}
+function fn3(e){alert(3)}
+function fn4(e){alert(4)}
+function fn5(e){alert(5)}
+function fn6(e){alert(6)}
+function fn7(e){alert(7)}
+function fn8(e){alert(8)}
+function fn9(e){alert(9)}
+function fn10(e){alert(10)}
+function fn11(e){alert(11)}
+function fn12(e){alert(12)}
+
+var ele=document.getElementById("div1");
+function bind(ele,type,fn){
+	if(ele.addEventListener){
+		ele.addEventListener(type,fn,false);
+	}else if(ele.attachEvent){
+		if(!ele["IE"+type+"Ary"]){
+			ele["IE"+type+"Ary"]=[];
+		}
+		var a=ele["IE"+type+"Ary"];
+		for(var i=0;i<a.length;i++){
+			if(a[i].photo==fn){
+				return;
+			}
+		}
+		var fnTemp=function(){fn.call(ele)};
+		fnTemp.photo=fn;//给经过化装的函数加一个识别的标识
+		a.push(fnTemp)
+		ele.attachEvent("on"+type,fnTemp);		
+	}
+}
+function unbind(ele,type,fn){
+	if(ele.removeEventListener){
+		ele.removeEventListener(type,fn,false)
+	}else if(ele.detachEvent){
+		var a=ele["IE"+type+"Ary"];
+		for(var i=0;i<a.length;i++){
+			if(a[i].photo==fn){
+				ele.detachEvent("on"+type,a[i]);
+				a.splice(i,1);
+				 
+			}
+		}
+	}
+}
+function on(ele,type,fn){//约定
+	if(!ele["aEvent"+type]){
+		ele["aEvent"+type]=[];	
+	}
+	
+	var a=ele["aEvent"+type];
+	for(var i=0;i<a.length;i++){
+		if(a[i]==fn){//避免重复绑定
+			return;	
+		}
+	}
+	a.push(fn);
+	bind(ele,type,run);
+}
+
+function run(e){//负责通知。借助浏览器的事件机制，来触发run方法，再run统一调度保存在数组里的方法
+//说白了就是遍历执行事先保存在数据里的那些方法
+	e=e||window.event;
+	var a=this["aEvent"+e.type];
+	if(a&&a.length){
+		for(var i=0;i<a.length;){
+			//a[i].call(this,e);
+			var fn=a[i];
+			if(typeof fn=="function"){
+				fn.call(this,e);
+				i++;
+			}else{
+				a.splice(i,1);
+				//如果把null项删除了，则不累加了
+			}
+			
+		}
+	}	
+}
+function off(ele,type,fn){
+	var a=ele["aEvent"+type];
+	if(a){
+		for(var i=0;i<a.length;i++){
+			if(a[i]==fn){
+				a[i]=null;
+			}
+		}
+	}
+}
+on(ele,"click",fn1);
+on(ele,"click",fn2);
+on(ele,"click",fn3);
+on(ele,"click",fn4);
+on(ele,"click",fn5);
+on(ele,"click",fn6);
+on(ele,"click",fn7);
+on(ele,"click",fn8);
+on(ele,"click",fn9);
+on(ele,"click",fn10);
+</script>

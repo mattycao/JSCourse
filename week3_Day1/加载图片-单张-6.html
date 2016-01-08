@@ -73,6 +73,11 @@ img{display:block;}
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <img realImg="http://pic1.win4000.com/pic/9/8c/0a08466924.jpg" src="default.gif">
 </body>
 </html>
@@ -98,6 +103,7 @@ function offset(ele){
 }
 var ele=document.getElementsByTagName("img").item(0);
 var h=offset(ele).top+ele.offsetHeight;
+console.log('OffsetTop:' + offset(ele).top + ', offsetHeight:' + ele.offsetHeight);
 window.onscroll=function(){
 	var winBottom=(document.documentElement.scrollTop||document.body.scrollTop)+(document.documentElement.clientHeight||document.body.clientHeight);
 	if(!ele.loaded)  // note here

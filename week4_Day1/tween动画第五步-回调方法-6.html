@@ -1,136 +1,143 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-<style type="text/css">
-div{width:100px; height:100px; position:absolute; top:0;left:200px; background:red;}
-</style>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 200px;
+            background: red;
+        }
+    </style>
 </head>
 
 <body>
-<div id="div1" style="background:blue; z-index:10; left:0;"></div>
+<div id="div1" style="background:blue; top: 1px;z-index:10; left:0;"></div>
 <div id="div2" style="top:100px; left:300px; background:black;"></div>
-<div id="div4" style="left:0;"></div>
+<div id="div4" style="left:;"></div>
 <div id="div3" style="left:400px; top:200px"></div>
 </body>
 </html>
 <script>
-function getCss(ele,attr){
-	if(window.getComputedStyle){
-		return parseFloat(getComputedStyle(ele,null)[attr]);
-	}else{
-		if(attr=="opacity"){
-			//var reg=/alpha\(opacity=(\d{1,3})\)/;
-			var reg=/alpha\(opacity=(\d+(?:\.\d+)?)\)/;
-			var opacity=ele.currentStyle.filter;
-			if(reg.test(opacity)){
-				var val=RegExp.$1/100;
-				if(val>=1){//如果在IE中opacity的值超过了上限，则返回1
-					return 1;
-				}else if(val <0.01){//超过了下限则返回0
-					return 0	
-				}else{//否则返回正常值
-					return val;	
-				}
-			}else{//如果根本就没有写filter样式，则返回默认值1
-				return 1;
-			}
-			//return opacity;
-		}
-		return parseFloat(ele.currentStyle[attr]);
-	}
-}
+    function getCss(ele, attr) {
+        if (window.getComputedStyle) {
+            return parseFloat(getComputedStyle(ele, null)[attr]);
+        } else {
+            if (attr == "opacity") {
+                //var reg=/alpha\(opacity=(\d{1,3})\)/;
+                var reg = /alpha\(opacity=(\d+(?:\.\d+)?)\)/;
+                var opacity = ele.currentStyle.filter;
+                if (reg.test(opacity)) {
+                    var val = RegExp.$1 / 100;
+                    if (val >= 1) {//如果在IE中opacity的值超过了上限，则返回1
+                        return 1;
+                    } else if (val < 0.01) {//超过了下限则返回0
+                        return 0
+                    } else {//否则返回正常值
+                        return val;
+                    }
+                } else {//如果根本就没有写filter样式，则返回默认值1
+                    return 1;
+                }
+                //return opacity;
+            }
+            return parseFloat(ele.currentStyle[attr]);
+        }
+    }
 
-function setCss(ele,attr,val){
-	if(attr=="opacity"){
-		ele.style.opacity=val;
-		ele.style.filter="alpha(opacity="+val*100+")"
-	}else if(attr=="float"){
-		ele.style.cssFloat=val;
-		ele.style.styleFloat=val;
-		
-	}else if(/^background/.test(attr)){
-		ele.style[attr]=val;
-	}else{
-		ele.style[attr]=val+"px";	
-	}
-	
-}
-function animate(ele,attr,target,duration,fnCallback){
-	clearInterval(ele.timer);
-	var begin=getCss(ele,attr);
-	var change=target-begin;
-	if(change===0){//解决无效运动：target==begin
-		if(typeof fnCallback=="function"){
-			fnCallback.call(ele);			
-		}
-		return;
-	}
-	var interval=15;
-	var times=0;
-	
-	function step(){
-		times+=interval;
-		if(times>=duration){
-			setCss(ele,attr,target);	
-			clearInterval(ele.timer);
-			ele.timer=null;//动画停止时把ele.timer置为null。这样ele.timer就成为判断ele这个元素是否在运动中的依据了
-			
-			//动画结束
-			if(typeof fnCallback=="function"){
-				fnCallback.call(ele);
-				//fnCallback();
-				//回调方法里的this，一直表示为当前运动的这个元素	
-			}
-		}else{
-			var val=times/duration*change+begin;
-			setCss(ele,attr,val)
-		}
-	}	
-	ele.timer=window.setInterval(step,interval);
-}
+    function setCss(ele, attr, val) {
+        if (attr == "opacity") {
+            ele.style.opacity = val;
+            ele.style.filter = "alpha(opacity=" + val * 100 + ")"
+        } else if (attr == "float") {
+            ele.style.cssFloat = val;
+            ele.style.styleFloat = val;
+
+        } else if (/^background/.test(attr)) {
+            ele.style[attr] = val;
+        } else {
+            ele.style[attr] = val + "px";
+        }
+
+    }
+    function animate(ele, attr, target, duration, fnCallback) {
+        clearInterval(ele.timer);
+        var begin = getCss(ele, attr);
+        var change = target - begin;
+        if (change === 0) {//解决无效运动：target==begin
+            if (typeof fnCallback == "function") {
+                fnCallback.call(ele);
+            }v
+            return;
+        }
+        var interval = 15;
+        var times = 0;
+
+        function step() {
+            times += interval;
+            if (times >= duration) {
+                setCss(ele, attr, target);
+                clearInterval(ele.timer);
+                ele.timer = null;//动画停止时把ele.timer置为null。这样ele.timer就成为判断ele这个元素是否在运动中的依据了
+
+                //动画结束
+                if (typeof fnCallback == "function") {
+                    fnCallback.call(ele);
+                    //fnCallback();
+                    //回调方法里的this，一直表示为当前运动的这个元素
+                }
+            } else {
+                var val = times / duration * change + begin;
+                setCss(ele, attr, val)
+            }
+        }
+
+        ele.timer = window.setInterval(step, interval);
+    }
 
 
- 
-function callback(){
-	this.style.backgroundColor="green";
-}
-var oDivs=document.getElementsByTagName("div");
-for(var i=0;i<oDivs.length;i++){
-	oDivs.item(i).onclick=function(){
-		//animate(this,"top",500,1000,callback);
-	}
-}
-	//同一个队列
-	
-	function fnRight(){
-		animate(this,"left",900,3800,fnDown);
-	}
-	function fnDown(){
-		animate(this,"top",600,2800,fnLeft);
-	}
-	function fnLeft(){
-		animate(this,"left",0,2800,fnUp)
-	}
-	function fnUp(){
-		animate(this,"top",0,2800,fnRight);	
-	}
-	oDivs.item(0).onclick=function(){
-		if(!this.timer)
-			fnRight.call(this);
-	}
-	
-/*
+    function callback() {
+        this.style.backgroundColor = "green";
+    }
+    var oDivs = document.getElementsByTagName("div");
+    for (var i = 0; i < oDivs.length; i++) {
+        oDivs.item(i).onclick = function () {
+            animate(this,"top",500,1000,callback);
+        }
+    }
+    //同一个队列
 
-本视频的课件：tween动画第五步-回调方法-6.html
-主要讲解了以下知识点：
-1、回调方法
-2、为什么在执行回调方法时用call
-3、为什么要把定时器返回值保存到ele.timer上，而不是像原来那样保存在一个变量里
-4、为什么要在animate方法里的第一行先执行clearInterval(ele.timer);
-5、什么叫无效运动，如果遇上无效运动是怎么处理的（第64-68行代码）
-6、为什么在动画停止时，要把ele.timer赋值为null(78行)
-7、注意理解：61行代码是清除上一次（或积累的）的运动；而77行代码是本次的运动。（“上一次”或“这次”运动，是指同一个元素的）
-*/
+    function fnRight() {
+        animate(this, "left", 900, 3800, fnDown);
+    }
+    function fnDown() {
+        animate(this, "top", 600, 2800, fnLeft);
+    }
+    function fnLeft() {
+        animate(this, "left", 0, 2800, fnUp)
+    }
+    function fnUp() {
+        animate(this, "top", 0, 2800, fnRight);
+    }
+    oDivs.item(0).onclick = function () {
+        //if (!this.timer)
+            fnRight.call(this);
+    }
+
+    /*
+
+     本视频的课件：tween动画第五步-回调方法-6.html
+     主要讲解了以下知识点：
+     1、回调方法
+     2、为什么在执行回调方法时用call
+     3、为什么要把定时器返回值保存到ele.timer上，而不是像原来那样保存在一个变量里
+     4、为什么要在animate方法里的第一行先执行clearInterval(ele.timer);
+     5、什么叫无效运动，如果遇上无效运动是怎么处理的（第64-68行代码）
+     6、为什么在动画停止时，要把ele.timer赋值为null(78行)
+     7、注意理解：61行代码是清除上一次（或积累的）的运动；而77行代码是本次的运动。（“上一次”或“这次”运动，是指同一个元素的）
+     */
 </script>

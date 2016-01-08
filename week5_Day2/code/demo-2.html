@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:300px; height:100px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1">我是DIV1的内容</div>
+</body>
+</html>
+<script>
+var innerHTML="我是全局变量innerHTML";
+function fn1(e){alert(this.innerHTML);}
+function fn2(e){alert(2)}
+function fn3(e){alert(3)}
+function fn4(e){alert(4)}
+function fn5(e){alert(5)}
+function fn6(e){alert(6)}
+function fn7(e){alert(7)}
+function fn8(e){alert(8)}
+function fn9(e){alert(9)}
+function fn10(e){alert(10)}
+function fn11(e){alert(11)}
+function fn12(e){alert(12)}
+
+var ele=document.getElementById("div1");
+function bind(ele,type,fn){
+	if(ele.addEventListener){
+		ele.addEventListener(type,fn,false);
+	}else if(ele.attachEvent){
+		ele.attachEvent("on"+type,fn);
+	}
+}
+function unbind(ele,type,fn){
+	if(ele.removeEventListener){
+		ele.removeEventListener(tyep,fn,false)
+	}else if(ele.detachEvent){
+		ele.detachEvent("on"+type,fn);
+	}
+}
+//IE的DOM2级的事件绑定方法问题：this关键字的问题，执行顺序问题，重复绑定的问题
+bind(ele,"click",fn1);
+bind(ele,"click",fn1);
+bind(ele,"click",fn1);
+bind(ele,"click",fn2);
+bind(ele,"click",fn3);
+bind(ele,"click",fn4);
+bind(ele,"click",fn5);
+bind(ele,"click",fn6);
+bind(ele,"click",fn7);
+bind(ele,"click",fn8);
+bind(ele,"click",fn9);
+bind(ele,"click",fn10);
+bind(ele,"click",fn11);
+</script>

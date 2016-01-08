@@ -97,7 +97,7 @@ scrollTop,scrollLeft,scrollHeight：实际内容的高，包括溢出的内容,s
           $("#div1").outerHeight(true);//offsetHeight+margin(上下的)
 
    伪类样式查询：
-    var strColor=window.getComputedStyle(ele,"before").color;
+    var strColor=window.getComputedStyle(ele,":before").color;
     #p1::before{
     	content:"我是用CSS添加在段落前边的";
     	color:red;
@@ -145,7 +145,7 @@ scrollTop,scrollLeft,scrollHeight：实际内容的高，包括溢出的内容,s
 6. scrollTop和文字无缝滚动实例
    scrollTop:
     The Element.scrollTop property gets or sets the number of pixels that the content of an element is scrolled upward.
-    the scrollTop is the distence between the padding-top to the border-top, look the image of scrollTop.
+    the scrollTop is the distense between the padding-top to the border-top, look the image of scrollTop.
 
     This value is read and write.
 

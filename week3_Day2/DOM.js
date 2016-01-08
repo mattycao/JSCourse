@@ -35,7 +35,6 @@ DOM.prevSiblings1=function(ele){
 		p=p.previousSibling;
 	}
 	return a;
-	
 }
 
 DOM.prevSiblings2=function(ele){

@@ -1,0 +1,72 @@
+<!doctype html>
+<html id="html1">
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body id="body1">
+<div id="outer" style="background:#ccc;">
+我是outer<br>
+
+	<div style="background:red;  width:330px; background:red; " id="inner">
+    我是inner<br>
+		<p id="p1" style="background-color:lightBlue; height:6em; width:270px; ">
+        我是段落P
+        <a id="a1" style="width:200px; height:3.5em; background:purple; display:block; " href="http://www.zhufengpeixun.cn">我是超链接<br>
+
+        	<span id="span1" style="display:block; width:140px; height:2em; line-height:3em; background:pink;">
+            我是span
+            </span>
+        </a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+//当点到某个元素时，弹出它们对应的ID名。不能连锁反应
+var eles=document.getElementsByTagName("*");
+/*for(var i=0;i<eles.length;i++){
+	eles.item(i).onclick=function(e){
+		e=e||window.event;
+		if(e.stopPropagation){
+			e.stopPropagation();//标准浏览器的
+		}else{
+			e.cancelBubble=true;
+		}
+		
+		alert(this.id);
+		return false;
+		
+		}	
+}*/
+
+document.documentElement.onclick=function(e){
+	//事件委托
+	e=e||window.event;
+	var target=e.target||e.srcElement;//获得到事件源
+	//就可以得到当前的事件是发生在那个DOM上了
+	alert(target.id);//利用的就是事件传播
+	this==target;
+	if(target.id=="content"){
+		if(target.style.backgroundColor=="red"){
+			target.style.backgroundColor="black"
+		}else{
+			target.style.backgroundColor="red"
+		}
+	}
+	//this和target不是一码事：给那个元素的事件绑定了函数，则这个函数里的this就是谁。而target是指事件源头，就是事件发生的那个具体的元素
+	//事件传播是怎么回事
+	//事件委托是利用事件传播机制的
+	//事件源在委托的实现在起到关键作用
+}
+//事件委托实现“后”绑定
+//需要给一个id叫content的元素，实现点击换背景色的效果。content是动态出现的
+var content=document.createElement("div");
+content.id="content";
+content.style.height="100px";
+content.style.backgroundColor="red";
+document.body.appendChild(content);
+</script>

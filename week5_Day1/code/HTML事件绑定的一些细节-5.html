@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1" style=" height:150px; background:
+red;" onClick="fn1.call(this)"></div>
+</body>
+</html>
+<script>
+    function fn1() {
+        e = event || window.event;
+        alert(this.id);
+        console.log(e.target);
+        console.log(e.target.id);
+        console.log(e.srcElement);
+        this.innerHTML = e.pageX;
+    }
+    //	//写在HTML中的事件，相当于以下的风格
+    //	div1.onclick=new Function("fn1()");
+    //	//上边这行代相当于：
+    //	div1.onclick=function(){fn1()};
+    //	//尤其注意在FireFox中，如果用到了事件对象，必须在HTML中写成onclick="fn1(event)",关键是这个参数event，
+    //	//因为在FireFox里的原理如下：
+    //	div1.onclick=function(event){//这儿是形参
+    //		fn1(event);	//但fn1在这个匿名方法里运行的时候，event已经是实参了
+    //	}
+</script>

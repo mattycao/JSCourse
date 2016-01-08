@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:300px; height:100px; background:red;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+function fn(e){
+	e=e||window.event;
+	//事件源
+	var target=e.target||e.srcElement;
+	//阻止事件传播
+	if(e.stopPropagation){
+		e.stopPropagation();		
+	}else{
+		e.cancelBubble=true;	
+	}
+	//取消事件默认行为
+	if(e.preventDefault){
+		e.preventDefault();
+	}else{
+		e.returnValue=false;
+		//return false;
+	}
+	if(e.pageX===undefined){
+		e.pageX=(document.documentElement.scrollLeft||document.body.scrollLeft)+e.clientX;
+		e.pageY=(document.documentElement.scrollTop||document.body.scrollTop)+e.clientY;
+	}
+	
+}
+//DOM2级事件绑定的兼容性问题：方法本身
+//标准浏览器:addEventListener,removeEventListener
+//IE是：attachEvent,detachEvent
+var ele=document.getElementById("div1");
+function bind(ele,type,fn){
+	if(ele.addEventListener){
+		ele.addEventListener(type,fn,false);
+	}else if(ele.attachEvent){
+		ele.attachEvent("on"+type,fn);
+	}
+}
+function unbind(ele,type,fn){
+	if(ele.removeEventListener){
+		ele.removeEventListener(tyep,fn,false)
+	}else if(ele.detachEvent){
+		ele.detachEvent("on"+type,fn);
+	}
+}
+/*事件类型：那些是DOM2级新增加的事件类型
+ele.addEventListener("DOMContentLoaded",fn,false);
+$(document).ready(function(e) {
+    
+});
+//ele.addEventListener("DOMMouseWheel",fn,fn
+*/
+</script>
