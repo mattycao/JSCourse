@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+    <script>
+        // used for getting the ajax object
+        var getXHR1= (function() {
+            if(window.XMLHttpRequest) {
+                return function() {
+                    return new window.XMLHttpRequest();
+                }
+            } else {
+                return function() {
+                    return new ActiveXObject('Microsoft.XMLHTTP');
+                }
+            }
+        })();
+
+        //step2: open method
+        var XHR = new window.XMLHttpRequest();
+        /**
+         * 建立http请求
+         * 1. 方法: get,post, put, delete, head, options
+         * 2. url: the path
+         * 3. async, default is true-> async
+         * 4. username, default is undefined
+         * 5. password, default is undefined
+         */
+        XHR.open('get', '/');
+
+        // step4: will wait for the response
+        // 2 ways: 1. using the onload method(only working on the XMLHttpRequest object). using the onreadystatechange
+        XHR.onreadystatechange = function() {
+            // onreadystatechange is representing the state of ajax
+            // response status is representing the state of http
+            /**
+             * five kind of state
+             * 0: UNSENT, 实例化ajax的时候默认值就是0
+             * 1: OPENED, 执行open方法后变成1
+             * 2: HEADER-RECEIVED, 接受到服务器响应首部为2
+             * 3. LOADING: 开始接受响应主体为3
+             * 4. DONE: 响应主体完成变为4
+             */
+            // status: the http code,
+            // statusText
+            // responseText:
+            if(XHR.readyState === 4 && /^2\d{2}$/.test(XHR.status + '')) {
+                console.log(XHR.responseText);
+            }
+
+        };
+
+        // since the asycn, we need put the send after the onreadystatechange
+        // step3: send the body, since the get doesn't has body, so just call the function
+        XHR.send();
+        // 1. send will put all the parameters in the body
+        // 2. the get, doesn't have the request body, the post has the request body
+        // 3. the sync process will the block the running
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

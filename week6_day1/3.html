@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+    <script>
+        var getXHR = (function() {
+            if(window.XMLHttpRequest) {
+                return function() {
+                    return new window.XMLHttpRequest();
+                }
+            } else {
+                return function() {
+                    return new ActiveXObject('Microsoft.XMLHTTP');
+                }
+            }
+        })();
+        //var x = getXHR();
+        var x = new window.XMLHttpRequest();
+        x.open('delete', './data.json');
+        x.onreadystatechange = function() {
+            if(x.readyState === 4 && /^2\d{2}$/.test('' + x.status)) {
+                console.log(x.responseText);
+            }
+        };
+        x.send();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

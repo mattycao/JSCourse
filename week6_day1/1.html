@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+    <script>
+        var getXHR = function() {
+            if(window.XMLHttpRequest) {
+                return new window.XMLHttpRequest();
+            } else {
+                return new ActiveXObject('Microsoft.XMLHTTP');
+            }
+        }
+        console.log(getXHR());
+        // or using the lazying function
+        var getXHR1= (function() {
+            if(window.XMLHttpRequest) {
+                return function() {
+                    return new window.XMLHttpRequest();
+                }
+            } else {
+                return function() {
+                    return new ActiveXObject('Microsoft.XMLHTTP');
+                }
+            }
+        })();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
