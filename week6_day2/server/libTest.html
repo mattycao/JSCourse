@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="ajaxHelper.js"></script>
+<script>
+    x.$http({
+        url: 'data.json',
+        type: 'get',
+        data: {},
+        username: 'dong',
+        password: 123,
+        dataType: 'json',
+        success: function (txt) {
+            console.table(txt);
+        },
+        error: function (e) {
+            console.error(e.message);
+        },
+        timeout: 0,
+        context: window
+    });
+</script>
+</html>
