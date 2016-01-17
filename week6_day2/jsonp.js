@@ -30,7 +30,7 @@
         var script = document.createElement('script');
         // url encode the data
         script.src = url + (/\?/.test(url)? '&' : '?') + encode(data) + '&' + jsonpcallback + '=' + cbname;
-        document.appendChild(script);
+        document.body.appendChild(script);
     }
     jsonp.timer = 1;
 }());
